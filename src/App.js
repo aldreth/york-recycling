@@ -1,82 +1,47 @@
 import React, { useState, useEffect } from "react";
 
+import {
+  householdsUrl,
+  collectionsUrl,
+  defaultPostCode,
+  defaultHousehold,
+  defaultHouseholdsData,
+  defaultCollectionInfoData,
+  collectionInfoDataOutOfDate
+} from "./utils";
+
 import CollectionInfos from "./components/CollectionInfo";
 import HouseholdSelect from "./components/HouseholdSelect";
 import PostCodeInput from "./components/PostCodeInput";
 
-const baseUrl = "https://doitonline.york.gov.uk/BinsApi/EXOR";
-const householdsUrl = postCode =>
-  `${baseUrl}/getPropertiesForPostCode?postcode=${postCode}`;
-const collectionsUrl = uprn =>
-  `${baseUrl}/getWasteCollectionDatabyUprn?uprn=${uprn}`;
-
-const defaultPostCode = () => window.localStorage.getItem("postCode") || "";
-const defaultHousehold = () =>
-  JSON.parse(window.localStorage.getItem("household")) || {};
-const defaultHouseholdsData = () =>
-  JSON.parse(window.localStorage.getItem("householdsData")) || {
-    fetched: false,
-    households: []
-  };
-const defaultCollectionInfoData = () =>
-  JSON.parse(window.localStorage.getItem("collectionInfoData")) || {
-    fetched: false,
-    collectionInfo: []
-  };
-
-const collectionInfoDataOutOfDate = collectionInfoData => {
-  if (!collectionInfoData.fetched) {
-    return "no";
-  }
-
-  const sortedCollections = collectionInfoData.collectionInfo
-    .map(e => {
-      return {
-        ...e,
-        timestamp: parseInt(e.NextCollection.match(/\/Date\((\d*)\)\//)[1])
-      };
-    })
-    .sort((a, b) => a.timestamp - b.timestamp);
-
-  const firstCollection = sortedCollections[0];
-  return firstCollection.timestamp > Date.now() ? "no" : "yes";
-};
-
 const App = () => {
+  // State hooks
   const [postCode, setPostCode] = useState(defaultPostCode());
   const [household, setHousehold] = useState(defaultHousehold());
   const [householdsData, setHouseholdsData] = useState(defaultHouseholdsData());
   const [collectionInfoData, setCollectionInfoData] = useState(
     defaultCollectionInfoData()
   );
-  const refreshCollections = collectionInfoDataOutOfDate(collectionInfoData);
-  const onSubmitPostCode = postCode => {
-    setPostCode(postCode);
-    setHouseholdsData({
-      fetched: false,
-      households: []
-    });
-    setHousehold({});
-    setCollectionInfoData({
-      fetched: false,
-      collectionInfo: []
-    });
-  };
-  const onSelectHousehold = household => setHousehold(household);
 
+  // Calculated from state
+  const refreshCollections = collectionInfoDataOutOfDate(collectionInfoData);
+
+  // Effect hooks
+  // Fetch households using postcode
   useEffect(() => {
     if (!postCode || householdsData.fetched) {
       return;
     }
 
     async function fetchData() {
-      const result = await fetch(householdsUrl(postCode.replace(/\s+/g, "")));
+      const result = await fetch(householdsUrl(postCode));
       const households = await result.json();
       setHouseholdsData({ fetched: true, households });
     }
     fetchData();
   }, [postCode, householdsData]);
 
+  // Fetch collection information using household uprn
   useEffect(() => {
     if (!household.Uprn || collectionInfoData.fetched) {
       return;
@@ -89,6 +54,7 @@ const App = () => {
     fetchData();
   }, [collectionInfoData, household, refreshCollections]);
 
+  // Store data in local storage
   useEffect(() => {
     window.localStorage.setItem("postCode", postCode);
     window.localStorage.setItem("household", JSON.stringify(household));
@@ -101,6 +67,22 @@ const App = () => {
       JSON.stringify(collectionInfoData)
     );
   }, [postCode, household, householdsData, collectionInfoData]);
+
+  // Component callbacks
+  const onSubmitPostCode = postCode => {
+    setPostCode(postCode);
+    setHouseholdsData({
+      fetched: false,
+      households: []
+    });
+    setHousehold({});
+    setCollectionInfoData({
+      fetched: false,
+      collectionInfo: []
+    });
+  };
+
+  const onSelectHousehold = household => setHousehold(household);
 
   return (
     <div className="App">
