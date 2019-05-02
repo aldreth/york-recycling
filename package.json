@@ -1,5 +1,7 @@
 {
-  "name": "york-recycling2",
+  "name": "york-recycling",
+  "description": "Display recycling information for York households, remembering the previously input location.",
+  "author": "Edward Andrews-Hodgson",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
