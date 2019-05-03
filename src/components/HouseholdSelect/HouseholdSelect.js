@@ -12,16 +12,20 @@ const HouseholdSelect = ({ selectedHousehold, householdsData, onChange }) => {
   }
 
   return householdsData.fetched && householdsData.households.length === 0 ? (
-    <p>No properties found - have you entered your postcode correctly?</p>
+    <p className="households">
+      No properties found - have you entered your postcode correctly?
+    </p>
   ) : (
-    <select defaultValue={selectedHousehold.Uprn} onChange={handleChange}>
-      <option value="">Choose...</option>
-      {householdsData.households.map((household, idx) => (
-        <option value={household.Uprn} key={idx}>
-          {household.ShortAddress}
-        </option>
-      ))}
-    </select>
+    <div className="households">
+      <select defaultValue={selectedHousehold.Uprn} onChange={handleChange}>
+        <option value="">Choose...</option>
+        {householdsData.households.map((household, idx) => (
+          <option value={household.Uprn} key={idx}>
+            {household.ShortAddress}
+          </option>
+        ))}
+      </select>
+    </div>
   );
 };
 

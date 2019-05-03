@@ -14,6 +14,8 @@ import CollectionInfos from "./components/CollectionInfo";
 import HouseholdSelect from "./components/HouseholdSelect";
 import PostCodeInput from "./components/PostCodeInput";
 
+import { sortedCollections } from "./utils";
+
 const App = () => {
   // State hooks
   const [postCode, setPostCode] = useState(defaultPostCode());
@@ -49,7 +51,10 @@ const App = () => {
     async function fetchData() {
       const result = await fetch(collectionsUrl(household.Uprn));
       const collectionInfo = await result.json();
-      setCollectionInfoData({ fetched: true, collectionInfo });
+      setCollectionInfoData({
+        fetched: true,
+        collectionInfo: sortedCollections(collectionInfo)
+      });
     }
     fetchData();
   }, [collectionInfoData, household, refreshCollections]);
@@ -85,16 +90,21 @@ const App = () => {
   const onSelectHousehold = household => setHousehold(household);
 
   return (
-    <div className="App">
-      <h1>Refuse & Recycling Collection Lookup - City of York</h1>
-      <PostCodeInput value={postCode} onSubmit={onSubmitPostCode} />
-      <HouseholdSelect
-        householdsData={householdsData}
-        households={householdsData.households}
-        selectedHousehold={household}
-        onChange={onSelectHousehold}
-      />
+    <div className="grid-container">
+      <header className="header">
+        <h1>Refuse & Recycling Collection Lookup - City of York</h1>
+      </header>
+      <section className="inputs">
+        <PostCodeInput value={postCode} onSubmit={onSubmitPostCode} />
+        <HouseholdSelect
+          householdsData={householdsData}
+          households={householdsData.households}
+          selectedHousehold={household}
+          onChange={onSelectHousehold}
+        />
+      </section>
       <CollectionInfos collectionInfos={collectionInfoData.collectionInfo} />
+      <footer className="footer">Some footer content here</footer>
     </div>
   );
 };

@@ -12,14 +12,14 @@ const formattedDate = string => {
   return date.toLocaleDateString("en-GB", options);
 };
 
-const CollectionInfo = ({ collectionInfo }) => (
-  <>
+const CollectionInfo = ({ collectionInfo, idx }) => (
+  <div className={`collection${idx + 1}`}>
     <h4>{collectionInfo.WasteTypeDescription}</h4>
     <h5>
       Your next collection will be on{" "}
       {formattedDate(collectionInfo.NextCollection)}
     </h5>
-    <dl>
+    {/* <dl>
       <dt>Waste Type</dt>
       <dd>{collectionInfo.MaterialsCollected}</dd>
     </dl>
@@ -48,13 +48,16 @@ const CollectionInfo = ({ collectionInfo }) => (
       <dd>
         {collectionInfo.NumberOfBins} x {collectionInfo.BinTypeDescription}
       </dd>
-    </dl>
-  </>
+    </dl> */}
+  </div>
 );
 
-const CollectionInfos = ({ collectionInfos }) =>
-  collectionInfos.map((c, idx) => (
-    <CollectionInfo collectionInfo={c} key={idx} />
-  ));
+const CollectionInfos = ({ collectionInfos }) => (
+  <div className="collections">
+    {collectionInfos.map((c, idx) => (
+      <CollectionInfo collectionInfo={c} key={idx} idx={idx} />
+    ))}
+  </div>
+);
 
 export default CollectionInfos;

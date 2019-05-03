@@ -26,12 +26,8 @@ const defaultCollectionInfoData = () =>
     collectionInfo: []
   };
 
-const collectionInfoDataOutOfDate = collectionInfoData => {
-  if (!collectionInfoData.fetched) {
-    return "no";
-  }
-
-  const sortedCollections = collectionInfoData.collectionInfo
+const sortedCollections = collectionInfo =>
+  collectionInfo
     .map(e => {
       const matches = e.NextCollection.match(/\/Date\((\d*)\)\//);
 
@@ -43,7 +39,12 @@ const collectionInfoDataOutOfDate = collectionInfoData => {
     })
     .sort((a, b) => a.timestamp - b.timestamp);
 
-  const firstCollection = sortedCollections[0];
+const collectionInfoDataOutOfDate = collectionInfoData => {
+  if (!collectionInfoData.fetched) {
+    return "no";
+  }
+
+  const firstCollection = collectionInfoData.collectionInfo[0];
   return firstCollection.timestamp > Date.now() ? "no" : "yes";
 };
 
@@ -53,6 +54,7 @@ export {
   defaultPostCode,
   defaultHousehold,
   defaultHouseholdsData,
+  sortedCollections,
   defaultCollectionInfoData,
   collectionInfoDataOutOfDate
 };
