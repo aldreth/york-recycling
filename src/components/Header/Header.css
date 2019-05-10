@@ -1,0 +1,15 @@
+.header {
+  margin: 2rem 2rem 0;
+  line-height: 1.125;
+  text-align: center;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+}

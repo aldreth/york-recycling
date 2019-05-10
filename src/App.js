@@ -6,11 +6,12 @@ import {
   defaultPostCode,
   defaultHousehold,
   defaultHouseholdsData,
-  defaultCollectionInfoData,
-  collectionInfoDataOutOfDate
+  defaultCollectionInfoData
+  // collectionInfoDataOutOfDate
 } from "./utils";
 
 import CollectionInfos from "./components/CollectionInfo";
+import Header from "./components/Header";
 import HouseholdSelect from "./components/HouseholdSelect";
 import PostCodeInput from "./components/PostCodeInput";
 
@@ -26,7 +27,7 @@ const App = () => {
   );
 
   // Calculated from state
-  const refreshCollections = collectionInfoDataOutOfDate(collectionInfoData);
+  // const refreshCollections = collectionInfoDataOutOfDate(collectionInfoData);
 
   // Effect hooks
   // Fetch households using postcode
@@ -45,7 +46,7 @@ const App = () => {
 
   // Fetch collection information using household uprn
   useEffect(() => {
-    if (!household.Uprn || collectionInfoData.fetched) {
+    if (!household.Uprn) {
       return;
     }
     async function fetchData() {
@@ -57,7 +58,7 @@ const App = () => {
       });
     }
     fetchData();
-  }, [collectionInfoData, household, refreshCollections]);
+  }, [household.Uprn]);
 
   // Store data in local storage
   useEffect(() => {
@@ -91,9 +92,7 @@ const App = () => {
 
   return (
     <div className="grid-container">
-      <header className="header">
-        <h1>Refuse & Recycling Collection Lookup - City of York</h1>
-      </header>
+      <Header />
       <section className="inputs">
         <PostCodeInput value={postCode} onSubmit={onSubmitPostCode} />
         <HouseholdSelect

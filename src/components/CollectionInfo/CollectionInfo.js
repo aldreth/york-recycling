@@ -1,4 +1,7 @@
 import React from "react";
+import classnames from "classnames";
+
+import "./card.css";
 
 const formattedDate = string => {
   const options = {
@@ -12,45 +15,63 @@ const formattedDate = string => {
   return date.toLocaleDateString("en-GB", options);
 };
 
-const CollectionInfo = ({ collectionInfo, idx }) => (
-  <div className={`collection${idx + 1}`}>
-    <h4>{collectionInfo.WasteTypeDescription}</h4>
-    <h5>
-      Your next collection will be on{" "}
-      {formattedDate(collectionInfo.NextCollection)}
-    </h5>
-    {/* <dl>
-      <dt>Waste Type</dt>
-      <dd>{collectionInfo.MaterialsCollected}</dd>
-    </dl>
-    <dl>
-      <dt>Collection Available</dt>
-      <dd>{collectionInfo.CollectionAvailable}</dd>
-    </dl>
-    <dl>
-      <dt>Collection Day</dt>
-      <dd>{collectionInfo.CollectionDayFull}</dd>
-    </dl>
-    <dl>
-      <dt>Collection Frequency</dt>
-      <dd>{collectionInfo.CollectionFrequency}</dd>
-    </dl>
-    <dl>
-      <dt>Where we will collect</dt>
-      <dd>{collectionInfo.CollectionPointDescription}</dd>
-    </dl>
-    <dl>
-      <dt>Central collection point (if applicable)</dt>
-      <dd>{collectionInfo.CollectionPointLocation}</dd>
-    </dl>
-    <dl>
-      <dt>Bin description</dt>
-      <dd>
-        {collectionInfo.NumberOfBins} x {collectionInfo.BinTypeDescription}
-      </dd>
-    </dl> */}
-  </div>
+const Card = ({ children, className }) => (
+  <div className={classnames("card", className)}>{children}</div>
 );
+
+const CollectionInfo = ({ collectionInfo }) => {
+  const classnames = {
+    "card--gray": collectionInfo.WasteType === "KERBSIDE",
+    "card--green": collectionInfo.WasteType === "GREEN",
+    "card--black": collectionInfo.WasteType === "GREY BIN/SACK"
+  };
+
+  return (
+    <div className="collection">
+      <Card className={classnames}>
+        <div className="card_title">
+          <h4>{collectionInfo.WasteTypeDescription}</h4>
+          <h5>
+            Next collection: {formattedDate(collectionInfo.NextCollection)}
+          </h5>
+        </div>
+        <div className="card_body">
+          <ul>
+            <li>
+              <span className="strong">Collection day:</span>{" "}
+              <span>{collectionInfo.CollectionDayFull}</span>
+            </li>
+            <li>
+              <span className="strong">Collection frequency:</span>{" "}
+              <span>{collectionInfo.CollectionFrequency}</span>
+            </li>
+            <li>
+              <span className="strong">Where we will collect:</span>{" "}
+              <span>
+                {collectionInfo.CollectionPointLocation ||
+                  collectionInfo.CollectionPointDescription}
+              </span>
+            </li>
+
+            {collectionInfo.CollectionPointLocation && (
+              <li>
+                <span className="strong">Central collection point:</span>{" "}
+                <span>{collectionInfo.CollectionPointLocation}</span>
+              </li>
+            )}
+            <li>
+              <span className="strong">Bin description:</span>{" "}
+              <span>
+                {collectionInfo.NumberOfBins} x{" "}
+                {collectionInfo.BinTypeDescription}
+              </span>
+            </li>
+          </ul>
+        </div>
+      </Card>
+    </div>
+  );
+};
 
 const CollectionInfos = ({ collectionInfos }) => (
   <div className="collections">
