@@ -1,0 +1,26 @@
+.household-select {
+  background-color: #fff;
+  border-radius: 0;
+  color: #000;
+  cursor: pointer;
+  padding: 1rem;
+  width: 100%;
+}
+
+.household-select:disabled {
+  background-color: hsl(220, 20%, 96%);
+  border-color: hsl(220, 20%, 92%);
+  color: hsl(220, 20%, 80%);
+  cursor: default;
+}
+
+@media screen and (min-width: 769px) {
+  .households {
+    width: 100%;
+  }
+
+  .household-select {
+    height: 54px;
+    width: auto;
+  }
+}

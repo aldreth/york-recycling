@@ -16,7 +16,6 @@ body,
   grid-template-rows: auto auto 1fr minmax(50px, auto);
   grid-template-areas: "header" "inputs" "collections" "footer";
   min-height: 100%;
-  grid-gap: 2em;
 }
 
 .header {
@@ -24,29 +23,23 @@ body,
 }
 
 .inputs {
-  display: flex;
   grid-area: inputs;
-  flex-direction: column;
 }
 
 .collections {
+  background-color: #e7ffff;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   grid-area: collections;
+  padding-top: 2rem;
 }
 
 .footer {
   grid-area: footer;
-  background-color: gray;
 }
 
 @media screen and (min-width: 769px) {
-  .inputs {
-    flex-direction: row;
-    justify-content: space-evenly;
-  }
-
   .collections {
     flex-direction: row;
     justify-content: space-evenly;

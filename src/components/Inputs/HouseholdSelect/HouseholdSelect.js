@@ -1,5 +1,7 @@
 import React from "react";
 
+import "./HouseholdSelect.css";
+
 const HouseholdSelect = ({ selectedHousehold, householdsData, onChange }) => {
   const handleChange = e => {
     return onChange(
@@ -7,17 +9,18 @@ const HouseholdSelect = ({ selectedHousehold, householdsData, onChange }) => {
     );
   };
 
-  if (!householdsData.fetched) {
-    return null;
-  }
-
   return householdsData.fetched && householdsData.households.length === 0 ? (
     <p className="households">
       No properties found - have you entered your postcode correctly?
     </p>
   ) : (
     <div className="households">
-      <select defaultValue={selectedHousehold.Uprn} onChange={handleChange}>
+      <select
+        defaultValue={selectedHousehold.Uprn}
+        onChange={handleChange}
+        className="household-select"
+        disabled={!householdsData.fetched}
+      >
         <option value="">Choose...</option>
         {householdsData.households.map((household, idx) => (
           <option value={household.Uprn} key={idx}>

@@ -1,6 +1,7 @@
 .header {
-  margin: 2rem 2rem 0;
+  background-color: #7c3f02;
   line-height: 1.125;
+  padding: 1rem 2rem;
   text-align: center;
 }
 

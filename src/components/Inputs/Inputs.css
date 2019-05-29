@@ -1,0 +1,32 @@
+.inputs {
+  background-color: #02787c;
+  margin-bottom: 2rem;
+  padding: 1rem;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputs_header {
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+@media screen and (min-width: 769px) {
+  .inputs {
+    padding: 2rem;
+  }
+
+  .form-container {
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+
+  .inputs_header {
+    text-align: left;
+  }
+}

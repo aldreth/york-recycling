@@ -1,0 +1,26 @@
+.postcode_input,
+.postcode_submit {
+  padding: 1rem;
+  width: 100%;
+}
+
+.postcode_submit {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+@media screen and (min-width: 769px) {
+  .postcode {
+    width: 26rem;
+  }
+
+  .postcode_input,
+  .postcode_submit {
+    width: auto;
+  }
+
+  .postcode_submit {
+    margin-bottom: 0;
+  }
+}

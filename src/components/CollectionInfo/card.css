@@ -1,6 +1,6 @@
 .card {
   background-color: #f5f5f5;
-  border-radius: 4px;
+  /* border-radius: 4px; */
   font-size: 1rem;
   margin: 0 auto 36px;
   width: 80%;
@@ -8,14 +8,14 @@
 
 .card_title {
   background-color: #4a4a4a;
-  border-radius: 4px 4px 0 0;
+  /* border-radius: 4px 4px 0 0; */
   color: #fff;
   padding: 0.75em 1em;
 }
 
 .card_body {
   border-color: #4a4a4a;
-  border-radius: 0 4px 4px 0;
+  /* border-radius: 0 4px 4px 0; */
   border-style: solid;
   border-width: 0 0 0 4px;
   color: #021310;

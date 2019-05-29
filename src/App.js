@@ -12,8 +12,8 @@ import {
 
 import CollectionInfos from "./components/CollectionInfo";
 import Header from "./components/Header";
-import HouseholdSelect from "./components/HouseholdSelect";
-import PostCodeInput from "./components/PostCodeInput";
+import Inputs from "./components/Inputs";
+import Footer from "./components/Footer";
 
 import { sortedCollections } from "./utils";
 
@@ -93,17 +93,15 @@ const App = () => {
   return (
     <div className="grid-container">
       <Header />
-      <section className="inputs">
-        <PostCodeInput value={postCode} onSubmit={onSubmitPostCode} />
-        <HouseholdSelect
-          householdsData={householdsData}
-          households={householdsData.households}
-          selectedHousehold={household}
-          onChange={onSelectHousehold}
-        />
-      </section>
+      <Inputs
+        postCode={postCode}
+        onSubmitPostCode={onSubmitPostCode}
+        householdsData={householdsData}
+        household={household}
+        onSelectHousehold={onSelectHousehold}
+      />
       <CollectionInfos collectionInfos={collectionInfoData.collectionInfo} />
-      <footer className="footer">Some footer content here</footer>
+      <Footer />
     </div>
   );
 };
