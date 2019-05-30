@@ -94,70 +94,70 @@ describe("utils", () => {
     });
   });
 
-  describe("collectionInfoDataOutOfDate", () => {
-    it("returns no if the data has not been fetched", () => {
-      expect(
-        collectionInfoDataOutOfDate({
-          fetched: false,
-          collectionInfo: []
-        })
-      ).toEqual("no");
-    });
+  // describe("collectionInfoDataOutOfDate", () => {
+  //   it("returns no if the data has not been fetched", () => {
+  //     expect(
+  //       collectionInfoDataOutOfDate({
+  //         fetched: false,
+  //         collectionInfo: []
+  //       })
+  //     ).toEqual("no");
+  //   });
 
-    it("returns no if the data is up to date", () => {
-      const tomorrow = new Date();
-      tomorrow.setTime(tomorrow.getTime() + oneDayInSeconds);
-      const NextCollection = `\/Date(${tomorrow.getTime()})\/`;
+  //   it("returns no if the data is up to date", () => {
+  //     const tomorrow = new Date();
+  //     tomorrow.setTime(tomorrow.getTime() + oneDayInSeconds);
+  //     const NextCollection = `\/Date(${tomorrow.getTime()})\/`;
 
-      expect(
-        collectionInfoDataOutOfDate({
-          fetched: true,
-          collectionInfo: [{ NextCollection }]
-        })
-      ).toEqual("no");
-    });
+  //     expect(
+  //       collectionInfoDataOutOfDate({
+  //         fetched: true,
+  //         collectionInfo: [{ NextCollection }]
+  //       })
+  //     ).toEqual("no");
+  //   });
 
-    it("returns yes if the data is stale", () => {
-      const yesterday = new Date();
-      yesterday.setTime(yesterday.getTime() - oneDayInSeconds);
-      const NextCollection = `\/Date(${yesterday.getTime()})\/`;
+  //   it("returns yes if the data is stale", () => {
+  //     const yesterday = new Date();
+  //     yesterday.setTime(yesterday.getTime() - oneDayInSeconds);
+  //     const NextCollection = `\/Date(${yesterday.getTime()})\/`;
 
-      expect(
-        collectionInfoDataOutOfDate({
-          fetched: true,
-          collectionInfo: [{ NextCollection }]
-        })
-      ).toEqual("yes");
-    });
+  //     expect(
+  //       collectionInfoDataOutOfDate({
+  //         fetched: true,
+  //         collectionInfo: [{ NextCollection }]
+  //       })
+  //     ).toEqual("yes");
+  //   });
 
-    it("returns yes if two components & the second data is stale", () => {
-      const tomorrow = new Date();
-      tomorrow.setTime(tomorrow.getTime() + oneDayInSeconds);
-      const tomorrowNextCollection = `\/Date(${tomorrow.getTime()})\/`;
-      const yesterday = new Date();
-      yesterday.setTime(yesterday.getTime() - oneDayInSeconds);
-      const yesterdayNextCollection = `\/Date(${yesterday.getTime()})\/`;
+  //   it("returns yes if two components & the second data is stale", () => {
+  //     const tomorrow = new Date();
+  //     tomorrow.setTime(tomorrow.getTime() + oneDayInSeconds);
+  //     const tomorrowNextCollection = `\/Date(${tomorrow.getTime()})\/`;
+  //     const yesterday = new Date();
+  //     yesterday.setTime(yesterday.getTime() - oneDayInSeconds);
+  //     const yesterdayNextCollection = `\/Date(${yesterday.getTime()})\/`;
 
-      expect(
-        collectionInfoDataOutOfDate({
-          fetched: true,
-          collectionInfo: [
-            { NextCollection: tomorrowNextCollection },
-            { NextCollection: yesterdayNextCollection }
-          ]
-        })
-      ).toEqual("yes");
-    });
+  //     expect(
+  //       collectionInfoDataOutOfDate({
+  //         fetched: true,
+  //         collectionInfo: [
+  //           { NextCollection: tomorrowNextCollection },
+  //           { NextCollection: yesterdayNextCollection }
+  //         ]
+  //       })
+  //     ).toEqual("yes");
+  //   });
 
-    it("returns no if the data is fetched, but doesn't have dates that match the regex", () => {
-      const NextCollection = "bad-string";
+  //   it("returns no if the data is fetched, but doesn't have dates that match the regex", () => {
+  //     const NextCollection = "bad-string";
 
-      expect(
-        collectionInfoDataOutOfDate({
-          fetched: true,
-          collectionInfo: [{ NextCollection }]
-        })
-      ).toEqual("no");
-    });
-  });
+  //     expect(
+  //       collectionInfoDataOutOfDate({
+  //         fetched: true,
+  //         collectionInfo: [{ NextCollection }]
+  //       })
+  //     ).toEqual("no");
+  //   });
+  // });
 });
