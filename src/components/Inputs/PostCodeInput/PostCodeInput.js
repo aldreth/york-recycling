@@ -1,10 +1,20 @@
 import React, { useState } from "react";
 
+import { postCodeValidator } from "../../../utils";
+
 import "./PostCodeInput.css";
 
 const PostCodeInput = ({ value, onSubmit }) => {
   const [inputValue, setInputValue] = useState("");
-  const handleChange = e => setInputValue(e.target.value);
+
+  const handleChange = e => {
+    const newValue = e.target.value;
+    if (newValue.length < value.length) {
+      onSubmit(newValue);
+    }
+    setInputValue(newValue);
+  };
+
   const handleSubmit = e => {
     e.preventDefault();
     onSubmit(inputValue);
@@ -18,7 +28,7 @@ const PostCodeInput = ({ value, onSubmit }) => {
           className="postcode_input"
           aria-label="Postcode"
           title="Please enter your postcode in the format of YOxy zzz"
-          pattern="[A-Za-z]{1,2}[0-9Rr][0-9A-Za-z]? ?[0-9][ABD-HJLNP-UW-Zabd-hjlnp-uw-z]{2}"
+          pattern={postCodeValidator}
           required
           placeholder="YO31 1AB"
           defaultValue={value}

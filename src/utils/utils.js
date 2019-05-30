@@ -1,4 +1,6 @@
 const baseUrl = "https://doitonline.york.gov.uk/BinsApi/EXOR";
+const postCodeValidator =
+  "(?:Y|y)(?:O|o)[0-9Rr][0-9A-Za-z]? ?[0-9][ABD-HJLNP-UW-Zabd-hjlnp-uw-z]{2}";
 
 const householdsUrl = postCode =>
   `${baseUrl}/getPropertiesForPostCode?postcode=${postCode.replace(
@@ -56,5 +58,6 @@ export {
   defaultHouseholdsData,
   sortedCollections,
   defaultCollectionInfoData,
-  collectionInfoDataOutOfDate
+  collectionInfoDataOutOfDate,
+  postCodeValidator
 };

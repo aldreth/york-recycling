@@ -6,7 +6,8 @@ import {
   defaultPostCode,
   defaultHousehold,
   defaultHouseholdsData,
-  defaultCollectionInfoData
+  defaultCollectionInfoData,
+  postCodeValidator
   // collectionInfoDataOutOfDate
 } from "./utils";
 
@@ -32,7 +33,11 @@ const App = () => {
   // Effect hooks
   // Fetch households using postcode
   useEffect(() => {
-    if (!postCode || householdsData.fetched) {
+    if (
+      !postCode ||
+      !postCode.match(postCodeValidator) ||
+      householdsData.fetched
+    ) {
       return;
     }
 
