@@ -20,6 +20,7 @@ const HouseholdSelect = ({ selectedHousehold, householdsData, onChange }) => {
         onChange={handleChange}
         className="household-select"
         disabled={!householdsData.fetched}
+        aria-label="Select household"
       >
         <option value="">Choose...</option>
         {householdsData.households.map((household, idx) => (
