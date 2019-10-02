@@ -52,13 +52,13 @@ const CollectionInfo = ({ collectionInfo }) => {
                   collectionInfo.CollectionPointDescription}
               </span>
             </li>
-
+            {/*
             {collectionInfo.CollectionPointLocation && (
               <li>
                 <span className="strong">Central collection point:</span>{" "}
                 <span>{collectionInfo.CollectionPointLocation}</span>
               </li>
-            )}
+            )} */}
             <li>
               <span className="strong">Bin description:</span>{" "}
               <span>
