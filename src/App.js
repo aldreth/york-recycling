@@ -96,18 +96,20 @@ const App = () => {
   const onSelectHousehold = household => setHousehold(household);
 
   return (
-    <div className="grid-container">
-      <Header />
-      <Inputs
-        postCode={postCode}
-        onSubmitPostCode={onSubmitPostCode}
-        householdsData={householdsData}
-        household={household}
-        onSelectHousehold={onSelectHousehold}
-      />
-      <CollectionInfos collectionInfos={collectionInfoData.collectionInfo} />
-      <Footer />
-    </div>
+    <React.StrictMode>
+      <div className="grid-container">
+        <Header />
+        <Inputs
+          postCode={postCode}
+          onSubmitPostCode={onSubmitPostCode}
+          householdsData={householdsData}
+          household={household}
+          onSelectHousehold={onSelectHousehold}
+        />
+        <CollectionInfos collectionInfos={collectionInfoData.collectionInfo} />
+        <Footer />
+      </div>
+    </React.StrictMode>
   );
 };
 
