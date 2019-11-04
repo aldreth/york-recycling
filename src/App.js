@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { track } from "insights-js";
 
 import {
   householdsUrl,
@@ -45,6 +46,7 @@ const App = () => {
       const result = await fetch(householdsUrl(postCode));
       const households = await result.json();
       setHouseholdsData({ fetched: true, households });
+      track({ id: "householdsData-fetched" });
     }
     fetchData();
   }, [postCode, householdsData]);
@@ -61,6 +63,7 @@ const App = () => {
         fetched: true,
         collectionInfo: sortedCollections(collectionInfo)
       });
+      track({ id: "collectionInfoData-fetched" });
     }
     fetchData();
   }, [household.Uprn]);
@@ -91,6 +94,7 @@ const App = () => {
       fetched: false,
       collectionInfo: []
     });
+    track({ id: "setPostCode" });
   };
 
   const onSelectHousehold = household => setHousehold(household);
