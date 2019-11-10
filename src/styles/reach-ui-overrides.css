@@ -1,0 +1,34 @@
+[data-reach-dialog-overlay] {
+  background: hsla(0, 0%, 0%, 0.7);
+}
+
+[data-reach-dialog-content] {
+  background-color: #ffc35c;
+  max-width: 300px;
+  width: 80%;
+}
+
+[data-reach-dialog-content] .dialog__header {
+  margin-bottom: 1em;
+  font-size: 1.5em;
+}
+
+[data-reach-dialog-content] .dialog__content {
+  margin-bottom: 1em;
+}
+
+[data-reach-dialog-content] .dialog__button {
+  background-color: #004c50;
+  border: none;
+  color: #ffc35c;
+  font-weight: 600;
+  font-size: 1.2rem;
+  padding: 1rem;
+  width: 100%;
+}
+
+@media screen and (min-width: 769px) {
+  [data-reach-dialog-content] {
+    max-width: none;
+  }
+}
