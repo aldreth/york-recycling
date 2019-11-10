@@ -5,12 +5,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@reach/auto-id": "^0.5.3",
+    "@reach/dialog": "^0.5.4",
     "classnames": "2.2.6",
     "insights-js": "^1.2.8",
     "normalize.css": "8.0.1",
     "react": "16.11.0",
     "react-dom": "16.11.0",
-    "react-scripts": "3.2.0"
+    "react-redux": "^7.1.1",
+    "react-scripts": "3.2.0",
+    "redux-persist": "^6.0.0",
+    "redux-starter-kit": "^1.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

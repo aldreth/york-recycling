@@ -12,6 +12,7 @@ import {
   // collectionInfoDataOutOfDate
 } from "./utils";
 
+import CookieDialog from "./components/CookieDialog";
 import CollectionInfos from "./components/CollectionInfo";
 import Header from "./components/Header";
 import Inputs from "./components/Inputs";
@@ -101,6 +102,7 @@ const App = () => {
 
   return (
     <React.StrictMode>
+      <CookieDialog />
       <div className="grid-container">
         <Header />
         <Inputs

@@ -12,7 +12,8 @@
 
 @media screen and (min-width: 769px) {
   .postcode {
-    width: 26rem;
+    min-width: 350px;
+    width: 27rem;
   }
 
   .postcode_input,
