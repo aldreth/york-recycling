@@ -1,0 +1,11 @@
+pull_request_rules:
+  - name: Automatic merge of Greenkeeper PRs on CI success
+    conditions:
+      # Was sent from Greenkeeper
+      - author=greenkeeper[bot]
+      - status-success=greenkeeper/verify
+      # Passes CI
+      - status-success=ci/circleci: build
+    actions:
+      merge:
+        method: squash
