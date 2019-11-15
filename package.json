@@ -6,7 +6,7 @@
   "private": true,
   "dependencies": {
     "@reach/auto-id": "^0.6.0",
-    "@reach/dialog": "^0.5.4",
+    "@reach/dialog": "^0.6.1",
     "classnames": "2.2.6",
     "insights-js": "^1.2.8",
     "normalize.css": "8.0.1",
