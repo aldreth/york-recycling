@@ -5,7 +5,8 @@ import {
   defaultHousehold,
   defaultHouseholdsData,
   defaultCollectionInfoData,
-  collectionInfoDataOutOfDate
+  defaultHouseHoldObject
+  // collectionInfoDataOutOfDate
 } from "./utils";
 
 const baseUrl = "https://doitonline.york.gov.uk/BinsApi/EXOR";
@@ -19,7 +20,8 @@ const collectionInfoData = {
   fetched: true,
   collectionInfo: [{ collection: "info" }]
 };
-const oneDayInSeconds = 24 * 60 * 60 * 1000;
+
+// const oneDayInSeconds = 24 * 60 * 60 * 1000;
 
 describe("utils", () => {
   beforeEach(() => {
@@ -50,8 +52,8 @@ describe("utils", () => {
   });
 
   describe("defaultHousehold", () => {
-    it("with nothing stored to local storage is an empty object", () => {
-      expect(defaultHousehold()).toEqual({});
+    it("with nothing stored to local storage is defaultHouseHoldObject", () => {
+      expect(defaultHousehold()).toEqual(defaultHouseHoldObject);
     });
 
     it("can be set from local storage", () => {
