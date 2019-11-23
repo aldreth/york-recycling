@@ -6,7 +6,7 @@
   "private": true,
   "dependencies": {
     "@reach/auto-id": "0.6.1",
-    "@reach/dialog": "0.6.1",
+    "@reach/dialog": "0.6.2",
     "@types/jest": "24.0.23",
     "@types/node": "12.12.12",
     "@types/react": "16.9.12",
