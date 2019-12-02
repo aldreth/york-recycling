@@ -1,5 +1,5 @@
 export type Household = {
-  Uprn: number | null;
+  Uprn: number | undefined;
   ShortAddress?: string;
   PropertyNumber?: string;
   PropertyName?: string;

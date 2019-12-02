@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+export const cookieDialogInitialState = { viewed: false, open: false };
 const cookieDialogSlice = createSlice({
   name: "cookieDialog",
-  initialState: { viewed: false, open: false },
+  initialState: cookieDialogInitialState,
   reducers: {
     setViewed(state) {
       state.viewed = true;

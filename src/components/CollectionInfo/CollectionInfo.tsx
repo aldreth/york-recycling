@@ -2,33 +2,46 @@ import React from "react";
 import classnames from "classnames";
 
 import "./card.css";
+import { CollectionInfo } from "../../types";
 
-const formattedDate = string => {
+const formattedDate = (string: string) => {
   const options = {
     weekday: "long",
     year: "numeric",
     month: "long",
     day: "numeric"
   };
-  const timestamp = string.match(/\/Date\((\d*)\)\//)[1];
+  const match = string.match(/\/Date\((\d*)\)\//);
+  if (!match || match.length < 2) {
+    throw new Error("Invalid date format");
+  }
+  const timestamp = match[1];
   const date = new Date(parseInt(timestamp));
   return date.toLocaleDateString("en-GB", options);
 };
 
-const Card = ({ children, className }) => (
-  <div className={classnames("card", className)}>{children}</div>
-);
+const Card = ({
+  children,
+  className
+}: {
+  children: React.ReactChild[];
+  className: string;
+}) => <div className={classnames("card", className)}>{children}</div>;
 
-const CollectionInfo = ({ collectionInfo }) => {
-  const classnames = {
+const CollectionInfoComponent = ({
+  collectionInfo
+}: {
+  collectionInfo: CollectionInfo;
+}) => {
+  const classes = classnames({
     "card--gray": collectionInfo.WasteType === "KERBSIDE",
     "card--green": collectionInfo.WasteType === "GREEN",
     "card--black": collectionInfo.WasteType === "GREY BIN/SACK"
-  };
+  });
 
   return (
     <div className="collection">
-      <Card className={classnames}>
+      <Card className={classes}>
         <div className="card_title">
           <h4>{collectionInfo.WasteTypeDescription}</h4>
           <h5>
@@ -73,10 +86,14 @@ const CollectionInfo = ({ collectionInfo }) => {
   );
 };
 
-const CollectionInfos = ({ collectionInfos }) => (
+const CollectionInfos = ({
+  collectionInfos
+}: {
+  collectionInfos: CollectionInfo[];
+}) => (
   <div className="collections">
-    {collectionInfos.map((c, idx) => (
-      <CollectionInfo collectionInfo={c} key={idx} idx={idx} />
+    {collectionInfos.map(c => (
+      <CollectionInfoComponent collectionInfo={c} key={c.timestamp} />
     ))}
   </div>
 );

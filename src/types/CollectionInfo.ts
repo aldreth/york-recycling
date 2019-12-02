@@ -9,7 +9,7 @@ export type CollectionInfo = {
   WasteType: string | null;
   WasteTypeDescription: string | null;
   CollectionAvailable: string | null;
-  NextCollection: string | null;
+  NextCollection: string;
   LastCollection: string | null;
   CollectionDay: string | null;
   CollectionDayFull: string | null;
@@ -41,5 +41,5 @@ export type CollectionInfo = {
     StartingWeekNumber: number | null;
   };
   CollectionDayOfWeek: number | null;
-  timestamp: number | null;
+  timestamp: number;
 };

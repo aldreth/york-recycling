@@ -1,9 +1,15 @@
 import { combineReducers } from "redux";
 
-import cookieDialogReducer from "./components/CookieDialog/cookieDialogSlice";
+import cookieDialogReducer, {
+  cookieDialogInitialState
+} from "./components/CookieDialog/cookieDialogSlice";
 
 export const rootReducer = combineReducers({
   cookieDialog: cookieDialogReducer
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
+
+export const initialRootState: RootState = {
+  cookieDialog: cookieDialogInitialState
+};

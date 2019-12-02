@@ -1,13 +1,25 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 
 import "./HouseholdSelect.css";
+import { Household, HouseholdsData } from "../../../types";
 
-const HouseholdSelect = ({ selectedHousehold, householdsData, onChange }) => {
-  const handleChange = e => {
-    return onChange(
-      householdsData.households.find(h => h.Uprn.toString() === e.target.value)
+interface HouseholdSelectProps {
+  selectedHousehold: Household;
+  householdsData: HouseholdsData;
+  onChange: (household: Household | undefined) => void;
+}
+
+const HouseholdSelect = ({
+  selectedHousehold,
+  householdsData,
+  onChange
+}: HouseholdSelectProps) => {
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) =>
+    onChange(
+      householdsData.households.find(
+        h => h.Uprn && h.Uprn.toString() === e.target.value
+      )
     );
-  };
 
   return householdsData.fetched && householdsData.households.length === 0 ? (
     <p className="households">
