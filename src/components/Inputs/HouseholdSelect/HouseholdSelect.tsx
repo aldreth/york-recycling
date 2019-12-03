@@ -1,19 +1,23 @@
 import React, { ChangeEvent } from "react";
 
 import "./HouseholdSelect.css";
-import { Household, HouseholdsData } from "../../../types";
+import { Household } from "../../../types";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../reducers";
 
 interface HouseholdSelectProps {
   selectedHousehold: Household;
-  householdsData: HouseholdsData;
   onChange: (household: Household | undefined) => void;
 }
 
 const HouseholdSelect = ({
   selectedHousehold,
-  householdsData,
   onChange
 }: HouseholdSelectProps) => {
+  const { householdData: householdsData } = useSelector(
+    (state: RootState) => state.collectionInfo
+  );
+
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) =>
     onChange(
       householdsData.households.find(

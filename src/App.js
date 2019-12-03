@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { track } from "insights-js";
-
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import {
   householdsUrl,
   collectionsUrl,
   defaultHousehold,
-  defaultHouseholdsData,
   defaultCollectionInfoData,
   postCodeValidator
   // collectionInfoDataOutOfDate
 } from "./utils";
 
+import { setHouseholdData } from "./slices/collectionInfoSlice";
 import CookieDialog from "./components/CookieDialog";
 import CollectionInfos from "./components/CollectionInfo";
 import Header from "./components/Header";
@@ -23,10 +22,12 @@ import { sortedCollections } from "./utils";
 
 const App = () => {
   // State hooks
-
+  const dispatch = useDispatch();
   const { postcode } = useSelector(state => state.collectionInfo);
   const [household, setHousehold] = useState(defaultHousehold());
-  const [householdsData, setHouseholdsData] = useState(defaultHouseholdsData());
+  const { householdData: householdsData } = useSelector(
+    state => state.collectionInfo
+  );
   const [collectionInfoData, setCollectionInfoData] = useState(
     defaultCollectionInfoData()
   );
@@ -48,11 +49,11 @@ const App = () => {
     async function fetchData() {
       const result = await fetch(householdsUrl(postcode));
       const households = await result.json();
-      setHouseholdsData({ fetched: true, households });
+      dispatch(setHouseholdData({ households }));
       track({ id: "householdsData-fetched" });
     }
     fetchData();
-  }, [postcode, householdsData]);
+  }, [postcode, householdsData, dispatch]);
 
   // Fetch collection information using household uprn
   useEffect(() => {
@@ -75,10 +76,6 @@ const App = () => {
   useEffect(() => {
     window.localStorage.setItem("household", JSON.stringify(household));
     window.localStorage.setItem(
-      "householdsData",
-      JSON.stringify(householdsData)
-    );
-    window.localStorage.setItem(
       "collectionInfoData",
       JSON.stringify(collectionInfoData)
     );
@@ -86,10 +83,6 @@ const App = () => {
 
   // Component callbacks
   const onSubmitPostCode = () => {
-    setHouseholdsData({
-      fetched: false,
-      households: []
-    });
     setHousehold({});
     setCollectionInfoData({
       fetched: false,

@@ -8,14 +8,12 @@ import { HouseholdsData, Household } from "../../types";
 
 interface InputsProps {
   onSubmitPostCode: () => null;
-  householdsData: HouseholdsData;
   household: Household;
   onSelectHousehold: () => null;
 }
 
 const Inputs = ({
   onSubmitPostCode,
-  householdsData,
   household,
   onSelectHousehold
 }: InputsProps) => (
@@ -24,7 +22,6 @@ const Inputs = ({
     <div className="form-container">
       <PostCodeInput onSubmit={onSubmitPostCode} />
       <HouseholdSelect
-        householdsData={householdsData}
         selectedHousehold={household}
         onChange={onSelectHousehold}
       />
