@@ -1,20 +1,24 @@
 import React, { useState, ChangeEvent } from "react";
-
+import { useSelector, useDispatch } from "react-redux";
 import { postCodeValidator } from "../../../utils";
 
 import "./PostCodeInput.css";
+import { RootState } from "../../../reducers";
+import { setPostcode } from "../../../slices/collectionInfoSlice";
 
 interface PostCodeInputProps {
-  value: string;
   onSubmit: (s: string) => void;
 }
 
-const PostCodeInput = ({ value, onSubmit }: PostCodeInputProps) => {
-  const [inputValue, setInputValue] = useState("");
+const PostCodeInput = ({ onSubmit }: PostCodeInputProps) => {
+  const dispatch = useDispatch();
+  const { postcode } = useSelector((state: RootState) => state.collectionInfo);
+  const [inputValue, setInputValue] = useState(postcode);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
-    if (newValue.length < value.length) {
+    if (newValue.length < postcode.length) {
+      dispatch(setPostcode({ postcode: newValue }));
       onSubmit(newValue);
     }
     setInputValue(newValue);
@@ -22,6 +26,7 @@ const PostCodeInput = ({ value, onSubmit }: PostCodeInputProps) => {
 
   const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
+    dispatch(setPostcode({ postcode: inputValue }));
     onSubmit(inputValue);
   };
 
@@ -36,7 +41,7 @@ const PostCodeInput = ({ value, onSubmit }: PostCodeInputProps) => {
           pattern={postCodeValidator}
           required
           placeholder="YO31 1AB"
-          defaultValue={value}
+          defaultValue={postcode}
           onChange={handleChange}
         />
         <button type="submit" className="postcode_submit">

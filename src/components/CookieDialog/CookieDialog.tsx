@@ -17,7 +17,7 @@ const CookieDialog = () => {
   const labelId = `label:${useId()}`;
 
   const dispatchSetViewed = () => {
-    dispatch(setViewed());
+    dispatch(setViewed({ viewed: true }));
   };
 
   const dispatchToggleOpen = () => {

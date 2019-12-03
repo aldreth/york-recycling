@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { track } from "insights-js";
 
+import { useSelector } from "react-redux";
+
 import {
   householdsUrl,
   collectionsUrl,
-  defaultPostCode,
   defaultHousehold,
   defaultHouseholdsData,
   defaultCollectionInfoData,
@@ -22,7 +23,8 @@ import { sortedCollections } from "./utils";
 
 const App = () => {
   // State hooks
-  const [postCode, setPostCode] = useState(defaultPostCode());
+
+  const { postcode } = useSelector(state => state.collectionInfo);
   const [household, setHousehold] = useState(defaultHousehold());
   const [householdsData, setHouseholdsData] = useState(defaultHouseholdsData());
   const [collectionInfoData, setCollectionInfoData] = useState(
@@ -36,21 +38,21 @@ const App = () => {
   // Fetch households using postcode
   useEffect(() => {
     if (
-      !postCode ||
-      !postCode.match(postCodeValidator) ||
+      !postcode ||
+      !postcode.match(postCodeValidator) ||
       householdsData.fetched
     ) {
       return;
     }
 
     async function fetchData() {
-      const result = await fetch(householdsUrl(postCode));
+      const result = await fetch(householdsUrl(postcode));
       const households = await result.json();
       setHouseholdsData({ fetched: true, households });
       track({ id: "householdsData-fetched" });
     }
     fetchData();
-  }, [postCode, householdsData]);
+  }, [postcode, householdsData]);
 
   // Fetch collection information using household uprn
   useEffect(() => {
@@ -71,7 +73,6 @@ const App = () => {
 
   // Store data in local storage
   useEffect(() => {
-    window.localStorage.setItem("postCode", postCode);
     window.localStorage.setItem("household", JSON.stringify(household));
     window.localStorage.setItem(
       "householdsData",
@@ -81,11 +82,10 @@ const App = () => {
       "collectionInfoData",
       JSON.stringify(collectionInfoData)
     );
-  }, [postCode, household, householdsData, collectionInfoData]);
+  }, [household, householdsData, collectionInfoData]);
 
   // Component callbacks
-  const onSubmitPostCode = postCode => {
-    setPostCode(postCode);
+  const onSubmitPostCode = () => {
     setHouseholdsData({
       fetched: false,
       households: []
@@ -106,7 +106,6 @@ const App = () => {
       <div className="grid-container">
         <Header />
         <Inputs
-          postCode={postCode}
           onSubmitPostCode={onSubmitPostCode}
           householdsData={householdsData}
           household={household}
