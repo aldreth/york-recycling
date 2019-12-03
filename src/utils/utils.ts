@@ -6,7 +6,7 @@ import {
 } from "../types";
 
 export const defaultHouseHoldObject: Household = {
-  Uprn: null
+  Uprn: undefined
 };
 
 const baseUrl = "https://doitonline.york.gov.uk/BinsApi/EXOR";

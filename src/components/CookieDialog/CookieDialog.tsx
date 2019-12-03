@@ -6,9 +6,12 @@ import { useId } from "@reach/auto-id";
 import { setViewed, toggleOpen } from "./cookieDialogSlice";
 import "@reach/dialog/styles.css";
 import "./CookieDialog.css";
+import { RootState } from "../../reducers";
 
 const CookieDialog = () => {
-  const { viewed, open } = useSelector(state => state.cookieDialog);
+  const { viewed, open } = useSelector(
+    (state: RootState) => state.cookieDialog
+  );
   const dispatch = useDispatch();
 
   const labelId = `label:${useId()}`;

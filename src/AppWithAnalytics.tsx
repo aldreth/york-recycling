@@ -4,7 +4,7 @@ import { init, track, trackPages, parameters } from "insights-js";
 import App from "./App";
 
 const AppWithAnalytics = () => {
-  init(process.env.REACT_APP_SEGMENT_KEY);
+  init(process.env.REACT_APP_SEGMENT_KEY!);
   track({
     id: "initial-render",
     parameters: {

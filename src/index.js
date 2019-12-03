@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { configureStore, getDefaultMiddleware } from "redux-starter-kit";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import {
   persistStore,
@@ -17,7 +17,7 @@ import { PersistGate } from "redux-persist/integration/react";
 
 import * as serviceWorker from "./serviceWorker";
 import App from "./AppWithAnalytics";
-import reducers from "./reducers";
+import { rootReducer } from "./reducers";
 
 import "normalize.css";
 import "./styles/index.css";
@@ -28,7 +28,7 @@ const persistConfig = {
   storage
 };
 
-const persistedReducer = persistReducer(persistConfig, reducers);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
   reducer: persistedReducer,

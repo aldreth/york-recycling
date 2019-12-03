@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent } from "react";
 
 import { postCodeValidator } from "../../../utils";
 
 import "./PostCodeInput.css";
 
-const PostCodeInput = ({ value, onSubmit }) => {
+interface PostCodeInputProps {
+  value: string;
+  onSubmit: (s: string) => void;
+}
+
+const PostCodeInput = ({ value, onSubmit }: PostCodeInputProps) => {
   const [inputValue, setInputValue] = useState("");
 
-  const handleChange = e => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     if (newValue.length < value.length) {
       onSubmit(newValue);
@@ -15,7 +20,7 @@ const PostCodeInput = ({ value, onSubmit }) => {
     setInputValue(newValue);
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSubmit(inputValue);
   };
