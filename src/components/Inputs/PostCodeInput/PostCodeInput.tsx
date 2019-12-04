@@ -1,16 +1,13 @@
 import React, { useState, ChangeEvent } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { postCodeValidator } from "../../../utils";
+import { track } from "insights-js";
 
-import "./PostCodeInput.css";
+import { postCodeValidator } from "../../../utils";
 import { RootState } from "../../../reducers";
 import { setPostcode } from "../../../slices/collectionInfoSlice";
+import "./PostCodeInput.css";
 
-interface PostCodeInputProps {
-  onSubmit: (s: string) => void;
-}
-
-const PostCodeInput = ({ onSubmit }: PostCodeInputProps) => {
+const PostCodeInput = () => {
   const dispatch = useDispatch();
   const { postcode } = useSelector((state: RootState) => state.collectionInfo);
   const [inputValue, setInputValue] = useState(postcode);
@@ -19,7 +16,6 @@ const PostCodeInput = ({ onSubmit }: PostCodeInputProps) => {
     const newValue = e.target.value;
     if (newValue.length < postcode.length) {
       dispatch(setPostcode({ postcode: newValue }));
-      onSubmit(newValue);
     }
     setInputValue(newValue);
   };
@@ -27,7 +23,7 @@ const PostCodeInput = ({ onSubmit }: PostCodeInputProps) => {
   const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(setPostcode({ postcode: inputValue }));
-    onSubmit(inputValue);
+    track({ id: "setPostCode" });
   };
 
   return (

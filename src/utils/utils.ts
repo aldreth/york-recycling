@@ -1,8 +1,8 @@
 import {
   CollectionInfo,
   CollectionInfoData,
-  HouseholdsData,
-  Household
+  Household,
+  HouseholdsData
 } from "../types";
 
 export const defaultHouseHoldObject: Household = {

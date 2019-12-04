@@ -4,7 +4,7 @@ import cookieDialogReducer, {
   cookieDialogInitialState
 } from "./components/CookieDialog/cookieDialogSlice";
 import collectionInfoReducer, {
-  collectionInfoInitialState
+  collectionInfoSliceInitialState
 } from "./slices/collectionInfoSlice";
 
 export const rootReducer = combineReducers({
@@ -16,5 +16,5 @@ export type RootState = ReturnType<typeof rootReducer>;
 
 export const initialRootState: RootState = {
   cookieDialog: cookieDialogInitialState,
-  collectionInfo: collectionInfoInitialState
+  collectionInfo: collectionInfoSliceInitialState
 };

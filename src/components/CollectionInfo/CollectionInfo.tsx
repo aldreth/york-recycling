@@ -3,6 +3,8 @@ import classnames from "classnames";
 
 import "./card.css";
 import { CollectionInfo } from "../../types";
+import { RootState } from "../../reducers";
+import { useSelector } from "react-redux";
 
 const formattedDate = (string: string) => {
   const options = {
@@ -86,16 +88,17 @@ const CollectionInfoComponent = ({
   );
 };
 
-const CollectionInfos = ({
-  collectionInfos
-}: {
-  collectionInfos: CollectionInfo[];
-}) => (
-  <div className="collections">
-    {collectionInfos.map(c => (
-      <CollectionInfoComponent collectionInfo={c} key={c.timestamp} />
-    ))}
-  </div>
-);
+const CollectionInfos = () => {
+  const { collectionInfoData } = useSelector(
+    (state: RootState) => state.collectionInfo
+  );
+  return (
+    <div className="collections">
+      {collectionInfoData.collectionInfo.map(c => (
+        <CollectionInfoComponent collectionInfo={c} key={c.timestamp} />
+      ))}
+    </div>
+  );
+};
 
 export default CollectionInfos;
