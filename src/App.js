@@ -17,6 +17,11 @@ import Footer from "./components/Footer";
 import { sortedCollections } from "./utils";
 
 const App = () => {
+  window.localStorage.removeItem("postCode");
+  window.localStorage.removeItem("household");
+  window.localStorage.removeItem("householdsData");
+  window.localStorage.removeItem("collectionInfoData");
+
   const dispatch = useDispatch();
   const { postcode, household, householdData: householdsData } = useSelector(
     state => state.collectionInfo
