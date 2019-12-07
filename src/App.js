@@ -1,17 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { track } from "insights-js";
+import { useSelector, useDispatch } from "react-redux";
+
+import { householdsUrl, collectionsUrl, postCodeValidator } from "./utils";
 
 import {
-  householdsUrl,
-  collectionsUrl,
-  defaultPostCode,
-  defaultHousehold,
-  defaultHouseholdsData,
-  defaultCollectionInfoData,
-  postCodeValidator
-  // collectionInfoDataOutOfDate
-} from "./utils";
-
+  setHouseholdData,
+  setCollectionInfoData
+} from "./slices/collectionInfoSlice";
 import CookieDialog from "./components/CookieDialog";
 import CollectionInfos from "./components/CollectionInfo";
 import Header from "./components/Header";
@@ -21,36 +17,34 @@ import Footer from "./components/Footer";
 import { sortedCollections } from "./utils";
 
 const App = () => {
-  // State hooks
-  const [postCode, setPostCode] = useState(defaultPostCode());
-  const [household, setHousehold] = useState(defaultHousehold());
-  const [householdsData, setHouseholdsData] = useState(defaultHouseholdsData());
-  const [collectionInfoData, setCollectionInfoData] = useState(
-    defaultCollectionInfoData()
+  window.localStorage.removeItem("postCode");
+  window.localStorage.removeItem("household");
+  window.localStorage.removeItem("householdsData");
+  window.localStorage.removeItem("collectionInfoData");
+
+  const dispatch = useDispatch();
+  const { postcode, household, householdData: householdsData } = useSelector(
+    state => state.collectionInfo
   );
 
-  // Calculated from state
-  // const refreshCollections = collectionInfoDataOutOfDate(collectionInfoData);
-
-  // Effect hooks
   // Fetch households using postcode
   useEffect(() => {
     if (
-      !postCode ||
-      !postCode.match(postCodeValidator) ||
+      !postcode ||
+      !postcode.match(postCodeValidator) ||
       householdsData.fetched
     ) {
       return;
     }
 
     async function fetchData() {
-      const result = await fetch(householdsUrl(postCode));
+      const result = await fetch(householdsUrl(postcode));
       const households = await result.json();
-      setHouseholdsData({ fetched: true, households });
+      dispatch(setHouseholdData({ households }));
       track({ id: "householdsData-fetched" });
     }
     fetchData();
-  }, [postCode, householdsData]);
+  }, [postcode, householdsData, dispatch]);
 
   // Fetch collection information using household uprn
   useEffect(() => {
@@ -59,60 +53,24 @@ const App = () => {
     }
     async function fetchData() {
       const result = await fetch(collectionsUrl(household.Uprn));
-      const collectionInfo = await result.json();
-      setCollectionInfoData({
-        fetched: true,
-        collectionInfo: sortedCollections(collectionInfo)
-      });
+      const collectionInfos = await result.json();
+      dispatch(
+        setCollectionInfoData({
+          collectionInfos: sortedCollections(collectionInfos)
+        })
+      );
       track({ id: "collectionInfoData-fetched" });
     }
     fetchData();
-  }, [household.Uprn]);
-
-  // Store data in local storage
-  useEffect(() => {
-    window.localStorage.setItem("postCode", postCode);
-    window.localStorage.setItem("household", JSON.stringify(household));
-    window.localStorage.setItem(
-      "householdsData",
-      JSON.stringify(householdsData)
-    );
-    window.localStorage.setItem(
-      "collectionInfoData",
-      JSON.stringify(collectionInfoData)
-    );
-  }, [postCode, household, householdsData, collectionInfoData]);
-
-  // Component callbacks
-  const onSubmitPostCode = postCode => {
-    setPostCode(postCode);
-    setHouseholdsData({
-      fetched: false,
-      households: []
-    });
-    setHousehold({});
-    setCollectionInfoData({
-      fetched: false,
-      collectionInfo: []
-    });
-    track({ id: "setPostCode" });
-  };
-
-  const onSelectHousehold = household => setHousehold(household);
+  }, [dispatch, household.Uprn]);
 
   return (
     <React.StrictMode>
       <CookieDialog />
       <div className="grid-container">
         <Header />
-        <Inputs
-          postCode={postCode}
-          onSubmitPostCode={onSubmitPostCode}
-          householdsData={householdsData}
-          household={household}
-          onSelectHousehold={onSelectHousehold}
-        />
-        <CollectionInfos collectionInfos={collectionInfoData.collectionInfo} />
+        <Inputs />
+        <CollectionInfos />
         <Footer />
       </div>
     </React.StrictMode>

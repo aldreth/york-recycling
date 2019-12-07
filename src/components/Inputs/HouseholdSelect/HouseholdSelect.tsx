@@ -1,25 +1,26 @@
 import React, { ChangeEvent } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+import { setHousehold } from "../../../slices/collectionInfoSlice";
+import { RootState } from "../../../reducers";
 
 import "./HouseholdSelect.css";
-import { Household, HouseholdsData } from "../../../types";
 
-interface HouseholdSelectProps {
-  selectedHousehold: Household;
-  householdsData: HouseholdsData;
-  onChange: (household: Household | undefined) => void;
-}
+const HouseholdSelect = () => {
+  const dispatch = useDispatch();
+  const { household: selectedHousehold } = useSelector(
+    (state: RootState) => state.collectionInfo
+  );
+  const { householdData: householdsData } = useSelector(
+    (state: RootState) => state.collectionInfo
+  );
 
-const HouseholdSelect = ({
-  selectedHousehold,
-  householdsData,
-  onChange
-}: HouseholdSelectProps) => {
-  const handleChange = (e: ChangeEvent<HTMLSelectElement>) =>
-    onChange(
-      householdsData.households.find(
-        h => h.Uprn && h.Uprn.toString() === e.target.value
-      )
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const selectedHousehold = householdsData.households.find(
+      h => h.Uprn && h.Uprn.toString() === e.target.value
     );
+    dispatch(setHousehold({ household: selectedHousehold! }));
+  };
 
   return householdsData.fetched && householdsData.households.length === 0 ? (
     <p className="households">

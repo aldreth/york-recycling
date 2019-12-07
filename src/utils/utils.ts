@@ -1,9 +1,4 @@
-import {
-  CollectionInfo,
-  CollectionInfoData,
-  HouseholdsData,
-  Household
-} from "../types";
+import { CollectionInfo, Household } from "../types";
 
 export const defaultHouseHoldObject: Household = {
   Uprn: undefined
@@ -21,24 +16,6 @@ const householdsUrl = (postCode: string) =>
 
 const collectionsUrl = (uprn: string) =>
   `${baseUrl}/getWasteCollectionDatabyUprn?uprn=${uprn}`;
-
-const defaultPostCode = () => window.localStorage.getItem("postCode") || "";
-
-const defaultHousehold = (): Household =>
-  JSON.parse(window.localStorage.getItem("household")!) ||
-  defaultHouseHoldObject;
-
-const defaultHouseholdsData = (): HouseholdsData =>
-  JSON.parse(window.localStorage.getItem("householdsData")!) || {
-    fetched: false,
-    households: []
-  };
-
-const defaultCollectionInfoData = (): CollectionInfoData =>
-  JSON.parse(window.localStorage.getItem("collectionInfoData")!) || {
-    fetched: false,
-    collectionInfo: []
-  };
 
 const sortedCollections = (
   collectionInfo: CollectionInfo[]
@@ -64,14 +41,4 @@ const sortedCollections = (
 //   return firstCollection.timestamp > Date.now() ? "no" : string | null;
 // };
 
-export {
-  householdsUrl,
-  collectionsUrl,
-  defaultPostCode,
-  defaultHousehold,
-  defaultHouseholdsData,
-  sortedCollections,
-  defaultCollectionInfoData,
-  // collectionInfoDataOutOfDate,
-  postCodeValidator
-};
+export { householdsUrl, collectionsUrl, sortedCollections, postCodeValidator };
