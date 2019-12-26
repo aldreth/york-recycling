@@ -7,7 +7,7 @@
   "dependencies": {
     "@reach/auto-id": "0.7.0",
     "@reach/dialog": "0.6.4",
-    "@reduxjs/toolkit": "1.2.0",
+    "@reduxjs/toolkit": "1.2.1",
     "@types/classnames": "2.2.9",
     "@types/jest": "24.0.25",
     "@types/node": "13.1.1",
