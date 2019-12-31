@@ -47,6 +47,7 @@
   },
   "devDependencies": {
     "@testing-library/react": "9.4.0",
-    "@testing-library/jest-dom": "4.2.4"
+    "@testing-library/jest-dom": "4.2.4",
+    "eslint-plugin-import": "2.19.1"
   }
 }
