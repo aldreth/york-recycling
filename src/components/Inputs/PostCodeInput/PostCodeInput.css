@@ -4,6 +4,10 @@
   width: 100%;
 }
 
+.postcode_input {
+  text-transform: uppercase;
+}
+
 .postcode_submit {
   background-color: rgba(0, 0, 0, 0.7);
   color: #fff;

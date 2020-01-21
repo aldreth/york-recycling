@@ -28,7 +28,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint src/**/*.{ts,tsx}",
+    "lint:fix": "npm run lint -- --fix"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -46,8 +48,9 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/react": "9.4.0",
     "@testing-library/jest-dom": "5.0.0",
+    "@testing-library/react": "9.4.0",
+    "@types/webpack-env": "1.15.0",
     "eslint-plugin-import": "2.19.1"
   }
 }

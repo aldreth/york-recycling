@@ -1,25 +1,36 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { setHousehold } from "../../../slices/collectionInfoSlice";
+import {
+  setHousehold,
+  fetchHouseholdData
+} from "../../../slices/collectionInfoSlice";
 import { RootState } from "../../../reducers";
 
 import "./HouseholdSelect.css";
+import { track } from "insights-js";
 
 const HouseholdSelect = () => {
   const dispatch = useDispatch();
-  const { household: selectedHousehold } = useSelector(
-    (state: RootState) => state.collectionInfo
-  );
-  const { householdData: householdsData } = useSelector(
-    (state: RootState) => state.collectionInfo
-  );
+  const {
+    household: selectedHousehold,
+    householdData: householdsData,
+    postcode
+  } = useSelector((state: RootState) => state.collectionInfo);
+
+  // Fetch households using postcode
+  useEffect(() => {
+    dispatch(fetchHouseholdData(postcode, householdsData.fetched));
+    track({ id: "householdsData-fetched" });
+  }, [postcode, dispatch, householdsData.fetched]);
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const selectedHousehold = householdsData.households.find(
       h => h.Uprn && h.Uprn.toString() === e.target.value
     );
-    dispatch(setHousehold({ household: selectedHousehold! }));
+    if (selectedHousehold) {
+      dispatch(setHousehold({ household: selectedHousehold }));
+    }
   };
 
   return householdsData.fetched && householdsData.households.length === 0 ? (
