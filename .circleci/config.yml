@@ -3,11 +3,11 @@ jobs:
   build:
     working_directory: ~/york-recycling
     docker:
-      - image: circleci/node:12
+      - image: circleci/node:13
     steps:
       - checkout
       - restore_cache:
-          key: npm-cache-v1-{{ checksum "package-lock.json" }}
+          key: npm-cache-v2-{{ checksum "package-lock.json" }}
       - run:
           name: Install Dependencies
           command: npm ci
