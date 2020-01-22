@@ -1,5 +1,36 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Household, CollectionInfo } from "../types";
+import {
+  householdsUrl,
+  postCodeValidator,
+  collectionsUrl,
+  sortedCollections
+} from "../utils";
+import { AppThunk } from "../store";
+
+export const fetchHouseholdData = (
+  postcode: string,
+  fetched: boolean
+): AppThunk => async dispatch => {
+  if (!postcode || !postcode.match(postCodeValidator) || fetched) {
+    return null;
+  }
+  const result = await fetch(householdsUrl(postcode));
+  const households = await result.json();
+  dispatch(setHouseholdData({ households }));
+};
+
+export const fetchCollectionsInfo = (
+  householdUprn: string
+): AppThunk => async dispatch => {
+  const result = await fetch(collectionsUrl(householdUprn));
+  const collectionInfos = await result.json();
+  dispatch(
+    setCollectionInfoData({
+      collectionInfos: sortedCollections(collectionInfos)
+    })
+  );
+};
 
 interface PostcodeState {
   postcode: string;
@@ -67,7 +98,7 @@ export const collectionInfoSliceInitialState: CollectionInfoSliceState = {
 
 const collectionInfoSlice = createSlice({
   name: "collectionInfo",
-  initialState: { ...collectionInfoSliceInitialState },
+  initialState: collectionInfoSliceInitialState,
   reducers: {
     setPostcode(state, action: PayloadAction<PostcodePayload>) {
       const { postcode } = action.payload;

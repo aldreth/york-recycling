@@ -2,8 +2,8 @@ import { householdsUrl, collectionsUrl } from "./utils";
 
 const baseUrl = "https://doitonline.york.gov.uk/BinsApi/EXOR";
 const postCode = "YO24 1DD";
-const household = { some: "info" };
 
+// const household = { some: "info" };
 // const oneDayInSeconds = 24 * 60 * 60 * 1000;
 
 describe("utils", () => {

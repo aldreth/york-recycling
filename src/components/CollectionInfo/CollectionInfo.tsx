@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import classnames from "classnames";
 
 import "./card.css";
 import { CollectionInfo } from "../../types";
 import { RootState } from "../../reducers";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { track } from "insights-js";
+import { fetchCollectionsInfo } from "../../slices/collectionInfoSlice";
 
 const formattedDate = (string: string) => {
   const options = {
@@ -89,9 +91,23 @@ const CollectionInfoComponent = ({
 };
 
 const CollectionInfos = () => {
-  const { collectionInfoData } = useSelector(
-    (state: RootState) => state.collectionInfo
-  );
+  const {
+    collectionInfoData,
+    household: { Uprn }
+  } = useSelector((state: RootState) => state.collectionInfo);
+
+  const dispatch = useDispatch();
+
+  // Fetch collection information using household uprn
+  useEffect(() => {
+    if (!Uprn) {
+      return;
+    }
+
+    dispatch(fetchCollectionsInfo(Uprn));
+    track({ id: "collectionInfoData-fetched" });
+  }, [dispatch, Uprn]);
+
   return (
     <div className="collections">
       {collectionInfoData.collectionInfo.map(c => (

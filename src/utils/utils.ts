@@ -22,7 +22,7 @@ const sortedCollections = (
 ): CollectionInfo[] =>
   collectionInfo
     .map(e => {
-      const matches = e.NextCollection!.match(/\/Date\((\d*)\)\//);
+      const matches = e.NextCollection.match(/\/Date\((\d*)\)\//);
 
       const timestamp = Array.isArray(matches) ? parseInt(matches[1]) : 9e20;
       return {
