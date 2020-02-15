@@ -52,7 +52,11 @@ const CookieDialog = () => {
           no personal information is recorded. See their{" "}
           <a href="https://getinsights.io/privacy">privacy policy</a>.
         </p>
-        <button className="dialog__button" onClick={dispatchToggleOpen}>
+        <button
+          className="dialog__button"
+          onClick={dispatchToggleOpen}
+          autoFocus
+        >
           Okay
         </button>
       </Dialog>
