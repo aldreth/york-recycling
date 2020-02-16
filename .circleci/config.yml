@@ -17,4 +17,8 @@ jobs:
             - /home/circleci/.npm
       - run:
           name: Run Tests
-          command: npm test
+          command: npm test:ci
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: "junit/junit.xml"
+          store_artifacts:
+            path: coverage

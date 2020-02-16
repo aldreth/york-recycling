@@ -28,6 +28,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:ci": "JEST_JUNIT_OUTPUT_DIR=junit react-scripts test --coverage --runInBand --env=jsdom --reporters=default --reporters=jest-junit",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.{ts,tsx}",
     "lint:fix": "npm run lint -- --fix"
@@ -52,6 +53,7 @@
     "@testing-library/react": "9.4.0",
     "@types/webpack-env": "1.15.1",
     "eslint-plugin-import": "2.20.1",
-    "jest-date-mock": "^1.0.8"
+    "jest-date-mock": "^1.0.8",
+    "jest-junit": "^10.0.0"
   }
 }
