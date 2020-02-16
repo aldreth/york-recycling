@@ -20,5 +20,7 @@ jobs:
           command: npm run test:ci
           environment:
             JEST_JUNIT_OUTPUT_DIR: "junit/junit.xml"
+          store_test_results:
+            path: junit
           store_artifacts:
             path: coverage
