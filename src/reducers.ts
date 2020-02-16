@@ -2,10 +2,10 @@ import { combineReducers } from "redux";
 
 import cookieDialogReducer, {
   cookieDialogInitialState
-} from "./components/CookieDialog/cookieDialogSlice";
+} from "components/CookieDialog/cookieDialogSlice";
 import collectionInfoReducer, {
   collectionInfoSliceInitialState
-} from "./slices/collectionInfoSlice";
+} from "slices/collectionInfoSlice";
 
 export const rootReducer = combineReducers({
   cookieDialog: cookieDialogReducer,

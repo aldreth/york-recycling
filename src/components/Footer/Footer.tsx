@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { toggleOpen } from "../CookieDialog/cookieDialogSlice";
+import { toggleOpen } from "components/CookieDialog/cookieDialogSlice";
 
 import "./Footer.css";
 

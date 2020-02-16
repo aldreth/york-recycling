@@ -13,8 +13,8 @@ body,
 .grid-container {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: auto auto 1fr minmax(50px, auto);
-  grid-template-areas: "header" "inputs" "collections" "footer";
+  grid-template-rows: auto auto auto 1fr minmax(50px, auto);
+  grid-template-areas: "header" "inputs" "collections" "info-links" "footer";
   min-height: 100%;
 }
 
@@ -35,6 +35,13 @@ body,
   padding-top: 2rem;
 }
 
+.info-links {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  grid-area: info-links;
+}
+
 .footer {
   grid-area: footer;
 }
@@ -47,5 +54,10 @@ body,
 
   .collection {
     min-width: 500px;
+  }
+
+  .info-links {
+    align-content: flex-start;
+    flex-direction: row;
   }
 }
