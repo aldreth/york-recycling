@@ -7,22 +7,7 @@ import { RootState } from "reducers";
 import { useSelector, useDispatch } from "react-redux";
 import { track } from "insights-js";
 import { fetchCollectionsInfo } from "slices/collectionInfoSlice";
-
-const formattedDate = (string: string) => {
-  const options = {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-  };
-  const match = string.match(/\/Date\((\d*)\)\//);
-  if (!match || match.length < 2) {
-    throw new Error("Invalid date format");
-  }
-  const timestamp = match[1];
-  const date = new Date(parseInt(timestamp));
-  return date.toLocaleDateString("en-GB", options);
-};
+import { formattedDate } from "utils";
 
 const Card = ({
   children,

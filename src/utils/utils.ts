@@ -41,4 +41,45 @@ const sortedCollections = (
 //   return firstCollection.timestamp > Date.now() ? "no" : string | null;
 // };
 
-export { householdsUrl, collectionsUrl, sortedCollections, postCodeValidator };
+const isToday = (date: Date) => {
+  const today = new Date();
+  return date.setHours(0, 0, 0, 0) === today.setHours(0, 0, 0, 0);
+};
+
+const isTomorrow = (date: Date) => {
+  const today = new Date();
+  today.setDate(today.getDate() + 1);
+  return date.setHours(0, 0, 0, 0) === today.setHours(0, 0, 0, 0);
+};
+
+const formattedDate = (string: string) => {
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  };
+  const match = string.match(/\/Date\((\d*)\)\//);
+  if (!match || match.length < 2) {
+    throw new Error("Invalid date format");
+  }
+  const timestamp = match[1];
+  const date = new Date(parseInt(timestamp));
+  if (isToday(date)) {
+    return "Today";
+  }
+  if (isTomorrow(date)) {
+    return "Tomorrow";
+  }
+  return date.toLocaleDateString("en-GB", options);
+};
+
+export {
+  formattedDate,
+  householdsUrl,
+  collectionsUrl,
+  sortedCollections,
+  postCodeValidator,
+  isToday,
+  isTomorrow
+};
