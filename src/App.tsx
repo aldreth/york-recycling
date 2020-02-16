@@ -1,10 +1,11 @@
 import React from "react";
 
-import CookieDialog from "./components/CookieDialog";
-import CollectionInfos from "./components/CollectionInfo";
-import Header from "./components/Header";
-import Inputs from "./components/Inputs";
-import Footer from "./components/Footer";
+import CookieDialog from "components/CookieDialog";
+import CollectionInfos from "components/CollectionInfo";
+import Header from "components/Header";
+import Inputs from "components/Inputs";
+import Footer from "components/Footer";
+import InfoLinks from "components/InfoLinks";
 
 const App = () => {
   window.localStorage.removeItem("postCode");
@@ -19,6 +20,7 @@ const App = () => {
         <Header />
         <Inputs />
         <CollectionInfos />
+        <InfoLinks />
         <Footer />
       </div>
     </React.StrictMode>

@@ -9,12 +9,12 @@
 }
 
 [data-reach-dialog-content] .dialog__header {
-  margin-bottom: 1em;
-  font-size: 1.5em;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
 }
 
 [data-reach-dialog-content] .dialog__content {
-  margin-bottom: 1em;
+  margin-bottom: 1rem;
 }
 
 [data-reach-dialog-content] .dialog__button {

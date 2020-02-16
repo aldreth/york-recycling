@@ -1,0 +1,17 @@
+.info-links {
+  background-color: #4ba7ab;
+  text-align: center;
+}
+
+.info-link {
+  width: 80%;
+  background-color: #ffc35c;
+  padding: 1rem;
+  margin: 0 auto 1.5rem;
+}
+
+@media screen and (min-width: 769px) {
+  .info-link {
+    width: auto;
+  }
+}

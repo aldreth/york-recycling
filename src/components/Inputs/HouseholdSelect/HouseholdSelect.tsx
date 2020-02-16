@@ -1,11 +1,8 @@
 import React, { ChangeEvent, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import {
-  setHousehold,
-  fetchHouseholdData
-} from "../../../slices/collectionInfoSlice";
-import { RootState } from "../../../reducers";
+import { setHousehold, fetchHouseholdData } from "slices/collectionInfoSlice";
+import { RootState } from "reducers";
 
 import "./HouseholdSelect.css";
 import { track } from "insights-js";

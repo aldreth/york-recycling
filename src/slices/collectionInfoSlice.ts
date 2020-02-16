@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Household, CollectionInfo } from "../types";
+import { Household, CollectionInfo } from "types";
 import {
   householdsUrl,
   postCodeValidator,
   collectionsUrl,
   sortedCollections
-} from "../utils";
-import { AppThunk } from "../store";
+} from "utils";
+import { AppThunk } from "store";
 
 export const fetchHouseholdData = (
   postcode: string,

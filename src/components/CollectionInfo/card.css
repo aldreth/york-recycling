@@ -9,7 +9,7 @@
 .card_title {
   background-color: #4a4a4a;
   color: #fff;
-  padding: 0.75em 1em;
+  padding: 0.75rem 1rem;
 }
 
 .card_body {
@@ -17,8 +17,8 @@
   border-style: solid;
   border-width: 0 0 0 4px;
   color: #021310;
-  min-height: 8em;
-  padding: 1.25em 1.5em;
+  min-height: 8rem;
+  padding: 1.25rem 1.5rem;
 }
 
 .card_body .strong {

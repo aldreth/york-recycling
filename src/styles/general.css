@@ -1,8 +1,14 @@
+a,
 .link {
   background: transparent;
   border: none;
-  color: rgb(0, 0, 238);
+  color: #0000ee;
   cursor: pointer;
   padding: 0;
   text-decoration: underline;
+}
+
+a:visited,
+.link:visited {
+  color: #0000ee;
 }
