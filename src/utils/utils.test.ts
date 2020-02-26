@@ -80,9 +80,11 @@ describe("utils", () => {
     });
 
     it("parses a correctly formatted date as expected", () => {
+      advanceTo(today);
       expect(formattedDate("/Date(1582675200000)/")).toEqual(
         "Wednesday, 26 February 2020"
       );
+      clear();
     });
 
     it("returns 'Today' for today", () => {
