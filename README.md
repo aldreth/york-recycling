@@ -1,6 +1,6 @@
 # York Recycling
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/aldreth/york-recycling.svg)](https://greenkeeper.io/)
+
 [![CircleCI](https://circleci.com/gh/aldreth/york-recycling.svg?style=svg)](https://circleci.com/gh/aldreth/york-recycling)
 
 Display recycling information for York households, remembering the previously input location.
