@@ -1,8 +1,7 @@
 pull_request_rules:
-  - name: "Automatic merge of Greenkeeper PRs on CI success"
+  - name: "Automatic merge of Synk PRs on CI success"
     conditions:
-      - "author=greenkeeper[bot]"
-      - "status-success=greenkeeper/verify"
+      - author=synk-bot
       - "status-success=ci/circleci: build"
     actions:
       merge:
