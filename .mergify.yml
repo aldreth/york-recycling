@@ -1,7 +1,7 @@
 pull_request_rules:
-  - name: "Automatic merge of Synk PRs on CI success"
+  - name: "Automatic merge of dependabot PRs on CI success"
     conditions:
-      - author=synk-bot
+      - author~=^dependabot(|-preview)\[bot\]$
       - "status-success=ci/circleci: build"
     actions:
       merge:
