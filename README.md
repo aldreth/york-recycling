@@ -14,7 +14,7 @@ Thanks to the city council for leaving the apis open though, so I could use them
 ## Development
 
 ### Requirements:
-* node (version 13)
+* node (version 14)
 
 This is a react project. It uses redux to manage global state.
 
