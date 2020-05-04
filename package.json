@@ -5,14 +5,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@reach/auto-id": "0.10.0",
-    "@reach/dialog": "0.10.0",
-    "@reduxjs/toolkit": "1.3.4",
+    "@reach/auto-id": "0.10.1",
+    "@reach/dialog": "0.10.1",
+    "@reduxjs/toolkit": "1.3.5",
     "@types/classnames": "2.2.10",
     "@types/jest": "25.2.1",
-    "@types/node": "13.13.0",
+    "@types/node": "13.13.4",
     "@types/react": "16.9.34",
-    "@types/react-dom": "16.9.6",
+    "@types/react-dom": "16.9.7",
     "@types/react-redux": "7.1.7",
     "classnames": "2.2.6",
     "insights-js": "1.2.10",
@@ -49,8 +49,8 @@
   },
   "devDependencies": {
     "@testing-library/jest-dom": "5.5.0",
-    "@testing-library/react": "10.0.3",
-    "@types/webpack-env": "1.15.1",
+    "@testing-library/react": "10.0.4",
+    "@types/webpack-env": "1.15.2",
     "eslint-plugin-import": "2.20.2",
     "jest-date-mock": "1.0.8"
   }
