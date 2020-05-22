@@ -73,9 +73,9 @@ describe("utils", () => {
   });
 
   describe("formattedDate", () => {
-    it("throws an error if the date isn't formatted correctly", () => {
-      expect(() => formattedDate("bad date")).toThrowError(
-        new Error("Invalid date format")
+    it("returns a string if date isn't formatted correctly", () => {
+      expect(formattedDate("bad date")).toEqual(
+        "Invalid date format"
       );
     });
 

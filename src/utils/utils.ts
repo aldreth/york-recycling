@@ -61,7 +61,7 @@ const formattedDate = (string: string) => {
   };
   const match = string.match(/\/Date\((\d*)\)\//);
   if (!match || match.length < 2) {
-    throw new Error("Invalid date format");
+    return ("Invalid date format");
   }
   const timestamp = match[1];
   const date = new Date(parseInt(timestamp));

@@ -11,14 +11,19 @@ const Footer = () => {
     <footer className="footer">
       <div>
         <p>
-          Made by <a href="https://aldreth.com">Edward Andrews-Hodgson</a>
+          <button className="link" onClick={() => dispatch(toggleOpen())}>
+            Find out about cookies
+          </button>
         </p>
-        <a className="mr-lg-2" href="https://github.com/aldreth/york-recycling">
-          See code and raise bugs
-        </a>
-        <button className="link" onClick={() => dispatch(toggleOpen())}>
-          Find out about cookies
-        </button>
+        <p>
+          Made by <a href="https://aldreth.com">Edward Andrews-Hodgson</a>{" "}
+          <a
+            className="mr-lg-2"
+            href="https://github.com/aldreth/york-recycling"
+          >
+            See code and raise bugs
+          </a>
+        </p>
       </div>
       <div className="thanks">
         Thanks to the City of York for leaving the apis used by their{" "}
