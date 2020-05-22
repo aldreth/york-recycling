@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Dialog } from "@reach/dialog";
-import { useId } from "@reach/auto-id";
 
 import { setViewed, toggleOpen } from "./cookieDialogSlice";
 import "@reach/dialog/styles.css";
@@ -13,8 +12,6 @@ const CookieDialog = () => {
     (state: RootState) => state.cookieDialog
   );
   const dispatch = useDispatch();
-
-  const labelId = `label:${useId()}`;
 
   const dispatchSetViewed = () => {
     dispatch(setViewed({ viewed: true }));
@@ -35,7 +32,6 @@ const CookieDialog = () => {
         </div>
       )}
       <Dialog
-        aria-labelledby={labelId}
         isOpen={open}
         onDismiss={dispatchToggleOpen}
         className="cookie-dialog"

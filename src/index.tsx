@@ -4,7 +4,6 @@ import { Provider } from "react-redux";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 
-import * as serviceWorker from "serviceWorker";
 import App from "AppWithAnalytics";
 import store from "store";
 
@@ -21,5 +20,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root")
 );
-
-serviceWorker.register();
