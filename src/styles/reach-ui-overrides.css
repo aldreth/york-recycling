@@ -11,6 +11,7 @@
 [data-reach-dialog-content] .dialog__header {
   margin-bottom: 1rem;
   font-size: 1.5rem;
+  text-align: center;
 }
 
 [data-reach-dialog-content] .dialog__content {
@@ -29,6 +30,6 @@
 
 @media screen and (min-width: 769px) {
   [data-reach-dialog-content] {
-    max-width: none;
+    max-width: 700px;
   }
 }
