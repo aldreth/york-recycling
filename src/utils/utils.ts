@@ -1,5 +1,3 @@
-import { CollectionInfoDto, Household, CollectionInfo } from "types";
-
 export const defaultHouseHoldObject: Household = {
   Uprn: undefined,
 };

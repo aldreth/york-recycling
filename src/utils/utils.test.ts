@@ -2,12 +2,11 @@ import { advanceTo, clear } from "jest-date-mock";
 import {
   householdsUrl,
   collectionsUrl,
-  formattedDate,
   isToday,
   isTomorrow,
+  formattedDate,
   sortedCollections,
 } from "./utils";
-import { CollectionInfoDto } from "types";
 
 const baseUrl = "https://doitonline.york.gov.uk/BinsApi/EXOR";
 const postCode = "YO24 1DD";

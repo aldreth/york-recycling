@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import classnames from "classnames";
 
 import "./card.css";
-import { CollectionInfo } from "types";
 import { RootState } from "reducers";
 import { useSelector, useDispatch } from "react-redux";
 import { track } from "insights-js";
