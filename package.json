@@ -22,7 +22,7 @@
     "react-redux": "7.2.0",
     "react-scripts": "3.4.1",
     "redux-persist": "6.0.0",
-    "serve": "^11.3.1",
+    "serve": "11.3.1",
     "typescript": "3.9.3"
   },
   "scripts": {
@@ -32,7 +32,9 @@
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.{ts,tsx}",
     "lint:fix": "npm run lint -- --fix",
-    "serve": "npm run build && serve -s build"
+    "serve": "npm run build && serve -s build",
+    "update-caniuse": "browserslist --update-db",
+    "browsers": "NODE_ENV=production browserslist"
   },
   "eslintConfig": {
     "extends": "react-app"
