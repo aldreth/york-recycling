@@ -4,14 +4,14 @@ import {
   householdsUrl,
   postCodeValidator,
   collectionsUrl,
-  sortedCollections
+  sortedCollections,
 } from "utils";
 import { AppThunk } from "store";
 
 export const fetchHouseholdData = (
   postcode: string,
   fetched: boolean
-): AppThunk => async dispatch => {
+): AppThunk => async (dispatch) => {
   if (!postcode || !postcode.match(postCodeValidator) || fetched) {
     return null;
   }
@@ -20,14 +20,14 @@ export const fetchHouseholdData = (
   dispatch(setHouseholdData({ households }));
 };
 
-export const fetchCollectionsInfo = (
-  householdUprn: string
-): AppThunk => async dispatch => {
+export const fetchCollectionsInfo = (householdUprn: string): AppThunk => async (
+  dispatch
+) => {
   const result = await fetch(collectionsUrl(householdUprn));
   const collectionInfos = await result.json();
   dispatch(
     setCollectionInfoData({
-      collectionInfos: sortedCollections(collectionInfos)
+      collectionInfos: sortedCollections(collectionInfos),
     })
   );
 };
@@ -73,27 +73,27 @@ type CollectionInfoSliceState = PostcodeState &
 
 const postcodeInitialState: PostcodeState = { postcode: "" };
 const householdInitialState: Household = {
-  Uprn: undefined
+  Uprn: undefined,
 };
 const householdsDataInitialState: HouseholdsDataState = {
   householdData: {
     fetched: false,
-    households: []
-  }
+    households: [],
+  },
 };
 
 const collectionInfoDataInitialState: CollectionInfoDataState = {
   collectionInfoData: {
     fetched: false,
-    collectionInfo: []
-  }
+    collectionInfo: [],
+  },
 };
 
 export const collectionInfoSliceInitialState: CollectionInfoSliceState = {
   ...postcodeInitialState,
   ...householdsDataInitialState,
   household: householdInitialState,
-  ...collectionInfoDataInitialState
+  ...collectionInfoDataInitialState,
 };
 
 const collectionInfoSlice = createSlice({
@@ -124,15 +124,15 @@ const collectionInfoSlice = createSlice({
       const { collectionInfos } = action.payload;
       state.collectionInfoData.fetched = true;
       state.collectionInfoData.collectionInfo = collectionInfos;
-    }
-  }
+    },
+  },
 });
 
 export const {
   setPostcode,
   setHousehold,
   setHouseholdData,
-  setCollectionInfoData
+  setCollectionInfoData,
 } = collectionInfoSlice.actions;
 
 export default collectionInfoSlice.reducer;

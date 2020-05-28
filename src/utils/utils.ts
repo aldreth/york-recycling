@@ -1,8 +1,7 @@
 import { CollectionInfoDto, Household, CollectionInfo } from "types";
 
-
 export const defaultHouseHoldObject: Household = {
-  Uprn: undefined
+  Uprn: undefined,
 };
 
 const baseUrl = "https://doitonline.york.gov.uk/BinsApi/EXOR";
@@ -22,30 +21,24 @@ const sortedCollections = (
   collectionInfo: CollectionInfoDto[]
 ): CollectionInfo[] =>
   collectionInfo
-    .map(e => {
+    .map((e) => {
       const matches = e.NextCollection.match(/\/Date\((\d*)\)\//);
-
-      const timestamp = Array.isArray(matches) ? parseInt(matches[1]) : 9e20;
+      const timestamp = Array.isArray(matches) ? parseInt(matches[1]) : -1;
       return {
-        ...e,
-        timestamp
+        wasteTypeDescription: `${e.WasteTypeDescription}`,
+        nextCollectionDate: formattedDate(timestamp),
+        collectionDay: `${e.CollectionDayFull}`,
+        collectionFrequency: `${e.CollectionFrequency}`,
+        collectionPoint: `${
+          e.CollectionPointLocation || e.CollectionPointDescription
+        }`,
+        binDescription: `${e.NumberOfBins} x ${e.BinTypeDescription}`,
+        wasteType: `${e.WasteType}`,
+        timestamp,
       };
     })
-    .sort((a, b) => a.timestamp - b.timestamp).map(e => ({
-      wasteTypeDescription: `${e.WasteTypeDescription}`,
-      nextCollectionDate: formattedDate(e.NextCollection),
-      // TODO: this should take the timestamp as it's already parsed
-      // nextCollectionDate: formattedDate(e.NextCollection),
-      collectionDay: `${e.CollectionDayFull}`,
-      collectionFrequency: `${e.CollectionFrequency}`,
-      collectionPoint: `${e.CollectionPointLocation || e.CollectionPointDescription}`,
-      binDescription: `${e.NumberOfBins} x ${e.BinTypeDescription}`,
-      wasteType: `${e.WasteType}`
-    }))
-
-
-
-
+    .filter((e) => e.timestamp === -1 || e.timestamp > new Date().getTime())
+    .sort((a, b) => a.timestamp - b.timestamp);
 
 // const collectionInfoDataOutOfDate = collectionInfoData => {
 //   if (!collectionInfoData.fetched) {
@@ -67,19 +60,19 @@ const isTomorrow = (date: Date) => {
   return date.setHours(0, 0, 0, 0) === today.setHours(0, 0, 0, 0);
 };
 
-const formattedDate = (string: string) => {
+const formattedDate = (timestamp: number) => {
   const options = {
     weekday: "long",
     year: "numeric",
     month: "long",
-    day: "numeric"
+    day: "numeric",
   };
-  const match = string.match(/\/Date\((\d*)\)\//);
-  if (!match || match.length < 2) {
-    return ("Invalid date format");
+
+  if (timestamp === -1) {
+    return "Invalid date format";
   }
-  const timestamp = match[1];
-  const date = new Date(parseInt(timestamp));
+
+  const date = new Date(timestamp);
   if (isToday(date)) {
     return "Today";
   }
@@ -96,5 +89,5 @@ export {
   sortedCollections,
   postCodeValidator,
   isToday,
-  isTomorrow
+  isTomorrow,
 };

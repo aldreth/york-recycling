@@ -41,7 +41,6 @@ export type CollectionInfoDto = {
     StartingWeekNumber: number | null;
   };
   CollectionDayOfWeek: number | null;
-  timestamp: number;
 };
 
 export type CollectionInfo = {
@@ -52,4 +51,5 @@ export type CollectionInfo = {
   collectionFrequency: string;
   collectionPoint: string;
   binDescription: string;
-}
+  timestamp: number;
+};

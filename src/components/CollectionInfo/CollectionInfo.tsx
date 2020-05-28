@@ -80,10 +80,7 @@ const CollectionInfos = () => {
   return (
     <div className="collections">
       {collectionInfoData.collectionInfo.map((c) => (
-        <CollectionInfoComponent
-          collectionInfo={c}
-          key={c.nextCollectionDate}
-        />
+        <CollectionInfoComponent collectionInfo={c} key={c.timestamp} />
       ))}
     </div>
   );
