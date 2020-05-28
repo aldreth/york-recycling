@@ -4,7 +4,8 @@ import {
   collectionsUrl,
   formattedDate,
   isToday,
-  isTomorrow
+  isTomorrow,
+  sortedCollections
 } from "./utils";
 
 const baseUrl = "https://doitonline.york.gov.uk/BinsApi/EXOR";

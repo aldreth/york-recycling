@@ -1,6 +1,6 @@
-import { CollectionInfo } from "./CollectionInfo";
+import { CollectionInfoDto } from "./CollectionInfo";
 
 export type CollectionInfoData = {
   fetched: boolean;
-  collectionInfo: CollectionInfo[];
+  collectionInfo: CollectionInfoDto[];
 };

@@ -1,4 +1,5 @@
-import { CollectionInfo, Household } from "types";
+import { CollectionInfoDto, Household, CollectionInfo } from "types";
+
 
 export const defaultHouseHoldObject: Household = {
   Uprn: undefined
@@ -18,7 +19,7 @@ const collectionsUrl = (uprn: string) =>
   `${baseUrl}/getWasteCollectionDatabyUprn?uprn=${uprn}`;
 
 const sortedCollections = (
-  collectionInfo: CollectionInfo[]
+  collectionInfo: CollectionInfoDto[]
 ): CollectionInfo[] =>
   collectionInfo
     .map(e => {
@@ -30,7 +31,21 @@ const sortedCollections = (
         timestamp
       };
     })
-    .sort((a, b) => a.timestamp - b.timestamp);
+    .sort((a, b) => a.timestamp - b.timestamp).map(e => ({
+      wasteTypeDescription: `${e.WasteTypeDescription}`,
+      nextCollectionDate: formattedDate(e.NextCollection),
+      // TODO: this should take the timestamp as it's already parsed
+      // nextCollectionDate: formattedDate(e.NextCollection),
+      collectionDay: `${e.CollectionDayFull}`,
+      collectionFrequency: `${e.CollectionFrequency}`,
+      collectionPoint: `${e.CollectionPointLocation || e.CollectionPointDescription}`,
+      binDescription: `${e.NumberOfBins} x ${e.BinTypeDescription}`,
+      wasteType: `${e.WasteType}`
+    }))
+
+
+
+
 
 // const collectionInfoDataOutOfDate = collectionInfoData => {
 //   if (!collectionInfoData.fetched) {

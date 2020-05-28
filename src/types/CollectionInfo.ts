@@ -1,4 +1,4 @@
-export type CollectionInfo = {
+export type CollectionInfoDto = {
   UPRN: number | null;
   ShortAddress: string | null;
   PropertyNumber: string | null;
@@ -43,3 +43,13 @@ export type CollectionInfo = {
   CollectionDayOfWeek: number | null;
   timestamp: number;
 };
+
+export type CollectionInfo = {
+  wasteTypeDescription: string;
+  wasteType: string;
+  nextCollectionDate: string;
+  collectionDay: string;
+  collectionFrequency: string;
+  collectionPoint: string;
+  binDescription: string;
+}
