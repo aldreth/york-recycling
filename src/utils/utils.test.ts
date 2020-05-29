@@ -14,7 +14,7 @@ const today = new Date(2020, 1, 16, 0, 0, 0);
 const laterToday = new Date(2020, 1, 16, 12, 30, 0);
 const tomorrow = new Date(2020, 1, 17, 12, 30, 0);
 const yesterday = new Date(2020, 1, 15, 12, 30, 0);
-const may28 = new Date(2020, 4, 28, 0, 0, 0);
+const may28 = new Date(2020, 4, 28, 12, 0, 0);
 
 const collectionInfos: CollectionInfoDto[] = [
   {
