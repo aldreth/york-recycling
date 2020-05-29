@@ -25,7 +25,12 @@ const ServiceWorkerWrapper: FC = () => {
   };
 
   return (
-    <Dialog isOpen={open} onDismiss={reloadPage} className="cookie-dialog">
+    <Dialog
+      isOpen={open}
+      onDismiss={reloadPage}
+      className="cookie-dialog"
+      aria-label="App update"
+    >
       <h4 className="dialog__header">App update</h4>
       <p className="dialog__content">
         A new version of this app is available. Clicking the button below will

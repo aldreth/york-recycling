@@ -1,4 +1,4 @@
-export type Household = {
+type Household = {
   Uprn: string | undefined;
   ShortAddress?: string;
   PropertyNumber?: string;

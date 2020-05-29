@@ -2,71 +2,54 @@ import React, { useEffect } from "react";
 import classnames from "classnames";
 
 import "./card.css";
-import { CollectionInfo } from "types";
 import { RootState } from "reducers";
 import { useSelector, useDispatch } from "react-redux";
 import { track } from "insights-js";
 import { fetchCollectionsInfo } from "slices/collectionInfoSlice";
-import { formattedDate } from "utils";
 
 const Card = ({
   children,
-  className
+  className,
 }: {
   children: React.ReactChild[];
   className: string;
 }) => <div className={classnames("card", className)}>{children}</div>;
 
 const CollectionInfoComponent = ({
-  collectionInfo
+  collectionInfo,
 }: {
   collectionInfo: CollectionInfo;
 }) => {
   const classes = classnames({
-    "card--gray": collectionInfo.WasteType === "KERBSIDE",
-    "card--green": collectionInfo.WasteType === "GREEN",
-    "card--black": collectionInfo.WasteType === "GREY BIN/SACK"
+    "card--gray": collectionInfo.wasteType === "KERBSIDE",
+    "card--green": collectionInfo.wasteType === "GREEN",
+    "card--black": collectionInfo.wasteType === "GREY BIN/SACK",
   });
 
   return (
     <div className="collection">
       <Card className={classes}>
         <div className="card_title">
-          <h4>{collectionInfo.WasteTypeDescription}</h4>
-          <h5>
-            Next collection: {formattedDate(collectionInfo.NextCollection)}
-          </h5>
+          <h4>{collectionInfo.wasteTypeDescription}</h4>
+          <h5>Next collection: {collectionInfo.nextCollectionDate}</h5>
         </div>
         <div className="card_body">
           <ul>
             <li>
               <span className="strong">Collection day:</span>{" "}
-              <span>{collectionInfo.CollectionDayFull}</span>
+              <span>{collectionInfo.collectionDay}</span>
             </li>
             <li>
               <span className="strong">Collection frequency:</span>{" "}
-              <span>{collectionInfo.CollectionFrequency}</span>
+              <span>{collectionInfo.collectionFrequency}</span>
             </li>
             <li>
               <span className="strong">Where we will collect:</span>{" "}
-              <span>
-                {collectionInfo.CollectionPointLocation ||
-                  collectionInfo.CollectionPointDescription}
-              </span>
+              <span>{collectionInfo.collectionPoint}</span>
             </li>
-            {/*
-            {collectionInfo.CollectionPointLocation && (
-              <li>
-                <span className="strong">Central collection point:</span>{" "}
-                <span>{collectionInfo.CollectionPointLocation}</span>
-              </li>
-            )} */}
             <li>
               <span className="strong">Bin description:</span>{" "}
-              <span>
-                {collectionInfo.NumberOfBins} x{" "}
-                {collectionInfo.BinTypeDescription}
-              </span>
+              <span>{collectionInfo.binDescription}</span>
             </li>
           </ul>
         </div>
@@ -78,7 +61,7 @@ const CollectionInfoComponent = ({
 const CollectionInfos = () => {
   const {
     collectionInfoData,
-    household: { Uprn }
+    household: { Uprn },
   } = useSelector((state: RootState) => state.collectionInfo);
 
   const dispatch = useDispatch();
@@ -95,7 +78,7 @@ const CollectionInfos = () => {
 
   return (
     <div className="collections">
-      {collectionInfoData.collectionInfo.map(c => (
+      {collectionInfoData.collectionInfo.map((c) => (
         <CollectionInfoComponent collectionInfo={c} key={c.timestamp} />
       ))}
     </div>

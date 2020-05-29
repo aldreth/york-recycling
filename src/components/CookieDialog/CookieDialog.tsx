@@ -18,6 +18,7 @@ const CookieDialog = () => {
       isOpen={open}
       onDismiss={dispatchToggleOpen}
       className="cookie-dialog"
+      aria-label="Cookie information"
     >
       <h4 className="dialog__header">Cookies</h4>
       <p className="dialog__content">
