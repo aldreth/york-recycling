@@ -5,6 +5,7 @@ export const defaultHouseHoldObject: Household = {
 const baseUrl = "https://doitonline.york.gov.uk/BinsApi/EXOR";
 const postCodeValidator =
   "(?:Y|y)(?:O|o)[0-9Rr][0-9A-Za-z]? ?[0-9][ABD-HJLNP-UW-Zabd-hjlnp-uw-z]{2}";
+const postCodeValidatorRegEx = new RegExp(postCodeValidator);
 
 const householdsUrl = (postCode: string) =>
   `${baseUrl}/getPropertiesForPostCode?postcode=${postCode.replace(
@@ -20,18 +21,20 @@ const sortedCollections = (
 ): CollectionInfo[] =>
   collectionInfo
     .map((e) => {
-      const matches = e.NextCollection.match(/\/Date\((\d*)\)\//);
+      const matches = /\/Date\((\d*)\)\//.exec(e.NextCollection);
       const timestamp = Array.isArray(matches) ? parseInt(matches[1]) : -1;
       return {
-        wasteTypeDescription: `${e.WasteTypeDescription}`,
+        wasteTypeDescription: `${e.WasteTypeDescription || ""}`,
         nextCollectionDate: formattedDate(timestamp),
-        collectionDay: `${e.CollectionDayFull}`,
-        collectionFrequency: `${e.CollectionFrequency}`,
+        collectionDay: `${e.CollectionDayFull || ""}`,
+        collectionFrequency: `${e.CollectionFrequency || ""}`,
         collectionPoint: `${
-          e.CollectionPointLocation || e.CollectionPointDescription
+          e.CollectionPointLocation || e.CollectionPointDescription || ""
         }`,
-        binDescription: `${e.NumberOfBins} x ${e.BinTypeDescription}`,
-        wasteType: `${e.WasteType}`,
+        binDescription: `${e.NumberOfBins || ""} x ${
+          e.BinTypeDescription || ""
+        }`,
+        wasteType: `${e.WasteType || ""}`,
         timestamp,
       };
     })
@@ -86,6 +89,7 @@ export {
   collectionsUrl,
   sortedCollections,
   postCodeValidator,
+  postCodeValidatorRegEx,
   isToday,
   isTomorrow,
 };

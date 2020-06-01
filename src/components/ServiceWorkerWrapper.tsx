@@ -1,5 +1,6 @@
-import React, { FC, useEffect } from "react";
 import { Dialog } from "@reach/dialog";
+import React, { FC, useEffect } from "react";
+
 import * as serviceWorker from "../serviceWorker";
 
 const ServiceWorkerWrapper: FC = () => {
@@ -36,7 +37,12 @@ const ServiceWorkerWrapper: FC = () => {
         A new version of this app is available. Clicking the button below will
         update and reload the app.
       </p>
-      <button className="dialog__button" onClick={reloadPage} autoFocus>
+      <button
+        className="dialog__button"
+        onClick={reloadPage}
+        // eslint-disable-next-line jsx-a11y/no-autofocus
+        autoFocus
+      >
         Reload
       </button>
     </Dialog>
