@@ -1,4 +1,7 @@
+/* eslint-disable jest/no-commented-out-tests */
+/* eslint-disable jest/no-disabled-tests */
 import { advanceTo, clear } from "jest-date-mock";
+
 import {
   householdsUrl,
   collectionsUrl,
@@ -255,7 +258,7 @@ describe("utils", () => {
       clear();
     });
 
-    xit("sorts and munges", () => {
+    it.skip("sorts and munges", () => {
       expect(sortedCollections(collectionInfos)).toEqual([
         {
           binDescription: "1 x Grey Bin 180L",
@@ -309,7 +312,7 @@ describe("utils", () => {
       ]);
     });
 
-    xit("ignores dates in the past", () => {
+    it.skip("ignores dates in the past", () => {
       expect(
         sortedCollections([
           ...collectionInfos,

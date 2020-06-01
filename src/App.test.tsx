@@ -1,28 +1,31 @@
+import { getDefaultMiddleware, configureStore } from "@reduxjs/toolkit";
+import { render } from "@testing-library/react";
 import React from "react";
 import { Provider } from "react-redux";
-import { render } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import { rootReducer } from "./reducers";
-import { getDefaultMiddleware } from "@reduxjs/toolkit";
 
-import App from "./App";
+import App from "App";
+import { stub } from "testUtils/stub";
 
-import { configureStore } from "@reduxjs/toolkit";
+import { rootReducer, RootState } from "./reducers";
 
-const storeCreator = preloadedState =>
+const storeCreator = (preloadedState: RootState) =>
   configureStore({
     reducer: rootReducer,
     middleware: getDefaultMiddleware(),
-    preloadedState
+    preloadedState,
   });
 
 function renderWithRedux(
-  ui,
-  { initialState, store = storeCreator(initialState) } = {}
+  ui: JSX.Element,
+  {
+    initialState = stub<RootState>({}),
+    store = storeCreator(initialState),
+  } = {}
 ) {
   return {
     ...render(<Provider store={store}>{ui}</Provider>),
-    store
+    store,
   };
 }
 

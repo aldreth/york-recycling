@@ -30,14 +30,12 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint src/**/*.{ts,tsx}",
+    "lint": "npm run tsc && eslint src/**/*.{ts,tsx}",
     "lint:fix": "npm run lint -- --fix",
     "serve": "npm run build && serve -s build",
     "update-caniuse": "browserslist --update-db",
-    "browsers": "NODE_ENV=production browserslist"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "browsers": "NODE_ENV=production browserslist",
+    "tsc": "tsc"
   },
   "browserslist": {
     "production": [
@@ -55,7 +53,16 @@
     "@testing-library/jest-dom": "5.9.0",
     "@testing-library/react": "10.0.4",
     "@types/webpack-env": "1.15.2",
+    "@typescript-eslint/eslint-plugin": "3.0.2",
+    "@typescript-eslint/parser": "3.0.2",
+    "eslint-config-prettier": "6.11.0",
+    "eslint-import-resolver-typescript": "2.0.0",
     "eslint-plugin-import": "2.20.2",
-    "jest-date-mock": "1.0.8"
+    "eslint-plugin-jest": "23.13.2",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-prettier": "3.1.3",
+    "eslint-plugin-testing-library": "3.1.4",
+    "jest-date-mock": "1.0.8",
+    "prettier": "2.0.5"
   }
 }

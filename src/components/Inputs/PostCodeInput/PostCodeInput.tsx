@@ -1,10 +1,10 @@
+import { track } from "insights-js";
 import React, { useState, ChangeEvent } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { track } from "insights-js";
 
-import { postCodeValidator } from "utils";
 import { RootState } from "reducers";
 import { setPostcode } from "slices/collectionInfoSlice";
+import { postCodeValidator } from "utils";
 import "./PostCodeInput.css";
 
 const PostCodeInput = () => {

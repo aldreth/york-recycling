@@ -1,29 +1,30 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction, Dispatch } from "@reduxjs/toolkit";
+
+import { AppThunk } from "store";
 import {
   householdsUrl,
-  postCodeValidator,
+  postCodeValidatorRegEx,
   collectionsUrl,
   sortedCollections,
 } from "utils";
-import { AppThunk } from "store";
 
 export const fetchHouseholdData = (
   postcode: string,
   fetched: boolean
-): AppThunk => async (dispatch) => {
-  if (!postcode || !postcode.match(postCodeValidator) || fetched) {
-    return null;
+): AppThunk => async (dispatch: Dispatch): Promise<void> => {
+  if (!postcode || !postCodeValidatorRegEx.exec(postcode) || fetched) {
+    return;
   }
   const result = await fetch(householdsUrl(postcode));
-  const households = await result.json();
+  const households = (await result.json()) as Household[];
   dispatch(setHouseholdData({ households }));
 };
 
 export const fetchCollectionsInfo = (householdUprn: string): AppThunk => async (
-  dispatch
-) => {
+  dispatch: Dispatch
+): Promise<void> => {
   const result = await fetch(collectionsUrl(householdUprn));
-  const collectionInfos = await result.json();
+  const collectionInfos = (await result.json()) as CollectionInfoDto[];
   dispatch(
     setCollectionInfoData({
       collectionInfos: sortedCollections(collectionInfos),
