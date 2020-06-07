@@ -5,7 +5,7 @@ import App from "./App";
 
 const AppWithAnalytics = (): JSX.Element => {
   if (!process.env.REACT_APP_GET_INSIGHTS_KEY) {
-    throw new Error("No insights api key provided");
+    return <App />;
   }
 
   init(process.env.REACT_APP_GET_INSIGHTS_KEY);
