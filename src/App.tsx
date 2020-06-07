@@ -8,7 +8,7 @@ import InfoLinks from "components/InfoLinks";
 import Inputs from "components/Inputs";
 import ServiceWorkerWrapper from "components/ServiceWorkerWrapper";
 
-const App = () => (
+const App = (): JSX.Element => (
   <React.StrictMode>
     <ServiceWorkerWrapper />
     <CookieDialog />

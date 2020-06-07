@@ -7,13 +7,13 @@ const postCodeValidator =
   "(?:Y|y)(?:O|o)[0-9Rr][0-9A-Za-z]? ?[0-9][ABD-HJLNP-UW-Zabd-hjlnp-uw-z]{2}";
 const postCodeValidatorRegEx = new RegExp(postCodeValidator);
 
-const householdsUrl = (postCode: string) =>
+const householdsUrl = (postCode: string): string =>
   `${baseUrl}/getPropertiesForPostCode?postcode=${postCode.replace(
     /\s+/g,
     ""
   )}`;
 
-const collectionsUrl = (uprn: string) =>
+const collectionsUrl = (uprn: string): string =>
   `${baseUrl}/getWasteCollectionDatabyUprn?uprn=${uprn}`;
 
 const sortedCollections = (
@@ -50,18 +50,18 @@ const sortedCollections = (
 //   return firstCollection.timestamp > Date.now() ? "no" : string | null;
 // };
 
-const isToday = (date: Date) => {
+const isToday = (date: Date): boolean => {
   const today = new Date();
   return date.setHours(0, 0, 0, 0) === today.setHours(0, 0, 0, 0);
 };
 
-const isTomorrow = (date: Date) => {
+const isTomorrow = (date: Date): boolean => {
   const today = new Date();
   today.setDate(today.getDate() + 1);
   return date.setHours(0, 0, 0, 0) === today.setHours(0, 0, 0, 0);
 };
 
-const formattedDate = (timestamp: number) => {
+const formattedDate = (timestamp: number): string => {
   const options = {
     weekday: "long",
     year: "numeric",

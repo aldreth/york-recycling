@@ -5,7 +5,7 @@ import PostCodeInput from "./PostCodeInput";
 
 import "./Inputs.css";
 
-const Inputs = () => (
+const Inputs = (): JSX.Element => (
   <section className="inputs">
     <p className="inputs_header">Find your household</p>
     <div className="form-container">
