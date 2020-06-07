@@ -28,7 +28,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "npm run lint && react-scripts test",
     "eject": "react-scripts eject",
     "lint": "npm run tsc && eslint src/**/*.{ts,tsx}",
     "lint:fix": "npm run lint -- --fix",

@@ -7,7 +7,7 @@ import { setPostcode } from "slices/collectionInfoSlice";
 import { postCodeValidator } from "utils";
 import "./PostCodeInput.css";
 
-const PostCodeInput = () => {
+const PostCodeInput = (): JSX.Element => {
   const dispatch = useDispatch();
   const { postcode } = useSelector((state: RootState) => state.collectionInfo);
   const [inputValue, setInputValue] = useState(postcode);

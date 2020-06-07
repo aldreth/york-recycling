@@ -4,9 +4,8 @@ interface CookieDialogState {
   open: boolean;
 }
 
-
 export const cookieDialogInitialState: CookieDialogState = {
-  open: false
+  open: false,
 };
 
 const cookieDialogSlice = createSlice({
@@ -15,8 +14,8 @@ const cookieDialogSlice = createSlice({
   reducers: {
     toggleOpen(state) {
       state.open = !state.open;
-    }
-  }
+    },
+  },
 });
 
 export const { toggleOpen } = cookieDialogSlice.actions;

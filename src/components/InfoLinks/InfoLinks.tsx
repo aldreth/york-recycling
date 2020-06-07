@@ -2,7 +2,7 @@ import React from "react";
 
 import "./InfoLinks.css";
 
-const InfoLinks = () => (
+const InfoLinks = (): JSX.Element => (
   <div className="info-links">
     <a className="info-link" href="https://www.york.gov.uk/HouseholdRecycling">
       What can be recycled

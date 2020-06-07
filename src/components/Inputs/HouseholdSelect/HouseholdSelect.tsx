@@ -1,18 +1,18 @@
+import { track } from "insights-js";
 import React, { ChangeEvent, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { setHousehold, fetchHouseholdData } from "slices/collectionInfoSlice";
 import { RootState } from "reducers";
+import { setHousehold, fetchHouseholdData } from "slices/collectionInfoSlice";
 
 import "./HouseholdSelect.css";
-import { track } from "insights-js";
 
-const HouseholdSelect = () => {
+const HouseholdSelect = (): JSX.Element => {
   const dispatch = useDispatch();
   const {
     household: selectedHousehold,
     householdData: householdsData,
-    postcode
+    postcode,
   } = useSelector((state: RootState) => state.collectionInfo);
 
   // Fetch households using postcode
@@ -23,7 +23,7 @@ const HouseholdSelect = () => {
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const selectedHousehold = householdsData.households.find(
-      h => h.Uprn && h.Uprn.toString() === e.target.value
+      (h) => h.Uprn && h.Uprn.toString() === e.target.value
     );
     if (selectedHousehold) {
       dispatch(setHousehold({ household: selectedHousehold }));
@@ -38,7 +38,7 @@ const HouseholdSelect = () => {
     <div className="households">
       <select
         defaultValue={selectedHousehold.Uprn}
-        onChange={handleChange}
+        onBlur={handleChange}
         className="household-select"
         disabled={!householdsData.fetched}
         aria-label="Select household"

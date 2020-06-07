@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
 import classnames from "classnames";
+import { track } from "insights-js";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+import { RootState } from "reducers";
+import { fetchCollectionsInfo } from "slices/collectionInfoSlice";
 
 import "./card.css";
-import { RootState } from "reducers";
-import { useSelector, useDispatch } from "react-redux";
-import { track } from "insights-js";
-import { fetchCollectionsInfo } from "slices/collectionInfoSlice";
 
 const Card = ({
   children,
@@ -58,7 +59,7 @@ const CollectionInfoComponent = ({
   );
 };
 
-const CollectionInfos = () => {
+const CollectionInfos = (): JSX.Element => {
   const {
     collectionInfoData,
     household: { Uprn },

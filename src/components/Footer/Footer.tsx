@@ -5,7 +5,7 @@ import { toggleOpen } from "components/CookieDialog/cookieDialogSlice";
 
 import "./Footer.css";
 
-const Footer = () => {
+const Footer = (): JSX.Element => {
   const dispatch = useDispatch();
   return (
     <footer className="footer">

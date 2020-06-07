@@ -1,11 +1,12 @@
+import { Dialog } from "@reach/dialog";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Dialog } from "@reach/dialog";
 
-import { toggleOpen } from "./cookieDialogSlice";
 import { RootState } from "reducers";
 
-const CookieDialog = () => {
+import { toggleOpen } from "./cookieDialogSlice";
+
+const CookieDialog = (): JSX.Element => {
   const { open } = useSelector((state: RootState) => state.cookieDialog);
   const dispatch = useDispatch();
 
@@ -27,7 +28,12 @@ const CookieDialog = () => {
         to anyone other than you.
       </p>
       <p className="dialog__content">No cookies are used.</p>
-      <button className="dialog__button" onClick={dispatchToggleOpen} autoFocus>
+      <button
+        className="dialog__button"
+        onClick={dispatchToggleOpen}
+        // eslint-disable-next-line jsx-a11y/no-autofocus
+        autoFocus
+      >
         Okay
       </button>
     </Dialog>

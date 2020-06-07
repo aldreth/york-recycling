@@ -1,5 +1,4 @@
 import { Action, configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
-import { ThunkAction } from "redux-thunk";
 import {
   FLUSH,
   PAUSE,
@@ -7,16 +6,18 @@ import {
   PURGE,
   REGISTER,
   REHYDRATE,
-  persistReducer
+  persistReducer,
 } from "redux-persist";
+// eslint-disable-next-line import/no-unresolved
 import storage from "redux-persist/lib/storage";
+import { ThunkAction } from "redux-thunk";
 
 import { RootState, rootReducer } from "reducers";
 
 const persistConfig = {
   key: "root",
   version: 2,
-  storage
+  storage,
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -25,17 +26,10 @@ const store = configureStore({
   reducer: persistedReducer,
   middleware: getDefaultMiddleware({
     serializableCheck: {
-      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
-    }
-  })
+      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+    },
+  }),
 });
-
-if (process.env.NODE_ENV === "development" && module.hot) {
-  module.hot.accept("./reducers", () => {
-    const newRootReducer = require("./reducers").rootReducer;
-    store.replaceReducer(newRootReducer);
-  });
-}
 
 export type AppDispatch = typeof store.dispatch;
 
