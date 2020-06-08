@@ -6,6 +6,10 @@
   padding: 1rem;
   width: 100%;
 }
+              
+.household-select:focus {
+  border: 2px solid #ffc35c;
+}
 
 .household-select:disabled {
   background-color: hsl(220, 20%, 96%);
