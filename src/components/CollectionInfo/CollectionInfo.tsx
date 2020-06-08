@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { RootState } from "reducers";
-import { fetchCollectionsInfo } from "slices/collectionInfoSlice";
+import { fetchCollectionsInfo } from "slices/collectionInfoThunks";
 
 import "./card.css";
 
