@@ -1,36 +1,9 @@
-import { createSlice, PayloadAction, Dispatch } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { AppThunk } from "store";
 import {
-  householdsUrl,
-  postCodeValidatorRegEx,
-  collectionsUrl,
-  sortedCollections,
-} from "utils";
-
-export const fetchHouseholdData = (
-  postcode: string,
-  fetched: boolean
-): AppThunk => async (dispatch: Dispatch): Promise<void> => {
-  if (!postcode || !postCodeValidatorRegEx.exec(postcode) || fetched) {
-    return;
-  }
-  const result = await fetch(householdsUrl(postcode));
-  const households = (await result.json()) as Household[];
-  dispatch(setHouseholdData({ households }));
-};
-
-export const fetchCollectionsInfo = (householdUprn: string): AppThunk => async (
-  dispatch: Dispatch
-): Promise<void> => {
-  const result = await fetch(collectionsUrl(householdUprn));
-  const collectionInfos = (await result.json()) as CollectionInfoDto[];
-  dispatch(
-    setCollectionInfoData({
-      collectionInfos: sortedCollections(collectionInfos),
-    })
-  );
-};
+  fetchHouseholdData,
+  fetchCollectionsInfo,
+} from "./collectionInfoThunks";
 
 interface PostcodeState {
   postcode: string;
@@ -112,27 +85,38 @@ const collectionInfoSlice = createSlice({
       const { household } = action.payload;
       state.household = household;
     },
-    setHouseholdData(state, action: PayloadAction<HouseholdDataPayload>) {
-      const { households } = action.payload;
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchHouseholdData.pending, (state) => {
+      state.householdData.fetched = false;
+      state.householdData.households = [];
+    });
+    builder.addCase(fetchHouseholdData.fulfilled, (state, { payload }) => {
       state.householdData.fetched = true;
-      state.householdData.households = households;
-    },
-    setCollectionInfoData(
-      state,
-      action: PayloadAction<CollectionInfoDataPayload>
-    ) {
-      const { collectionInfos } = action.payload;
+      if (payload) {
+        state.householdData.households = payload;
+      }
+    });
+    builder.addCase(fetchHouseholdData.rejected, (state) => {
+      state.householdData.fetched = true;
+      // TODO: Add error handling
+    });
+
+    builder.addCase(fetchCollectionsInfo.pending, (state) => {
+      state.collectionInfoData.fetched = false;
+      state.collectionInfoData.collectionInfo = [];
+    });
+    builder.addCase(fetchCollectionsInfo.fulfilled, (state, { payload }) => {
       state.collectionInfoData.fetched = true;
-      state.collectionInfoData.collectionInfo = collectionInfos;
-    },
+      state.collectionInfoData.collectionInfo = payload;
+    });
+    builder.addCase(fetchCollectionsInfo.rejected, (state) => {
+      state.collectionInfoData.fetched = true;
+      // TODO: Add error handling
+    });
   },
 });
 
-export const {
-  setPostcode,
-  setHousehold,
-  setHouseholdData,
-  setCollectionInfoData,
-} = collectionInfoSlice.actions;
+export const { setPostcode, setHousehold } = collectionInfoSlice.actions;
 
 export default collectionInfoSlice.reducer;

@@ -3,7 +3,8 @@ import React, { ChangeEvent, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { RootState } from "reducers";
-import { setHousehold, fetchHouseholdData } from "slices/collectionInfoSlice";
+import { setHousehold } from "slices/collectionInfoSlice";
+import { fetchHouseholdData } from "slices/collectionInfoThunks";
 
 import "./HouseholdSelect.css";
 
@@ -17,9 +18,9 @@ const HouseholdSelect = (): JSX.Element => {
 
   // Fetch households using postcode
   useEffect(() => {
-    dispatch(fetchHouseholdData(postcode, householdsData.fetched));
+    dispatch(fetchHouseholdData(postcode));
     track({ id: "householdsData-fetched" });
-  }, [postcode, dispatch, householdsData.fetched]);
+  }, [postcode, dispatch]);
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const selectedHousehold = householdsData.households.find(
@@ -36,9 +37,11 @@ const HouseholdSelect = (): JSX.Element => {
     </p>
   ) : (
     <div className="households">
-      <select
+      {
+        // eslint-disable-next-line
+      }<select
         defaultValue={selectedHousehold.Uprn}
-        onBlur={handleChange}
+        onChange={handleChange}
         className="household-select"
         disabled={!householdsData.fetched}
         aria-label="Select household"
