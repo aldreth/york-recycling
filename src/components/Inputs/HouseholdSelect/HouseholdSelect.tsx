@@ -40,7 +40,7 @@ const HouseholdSelect = (): JSX.Element => {
       {
         // eslint-disable-next-line
       }<select
-        defaultValue={selectedHousehold.Uprn}
+        value={selectedHousehold.Uprn}
         onChange={handleChange}
         className="household-select"
         disabled={!householdsData.fetched}
