@@ -1,0 +1,11 @@
+{
+  "ignores":[
+     "@types/jest",
+     "@types/node",
+     "depcheck",
+     "react-scripts",
+     "serve",
+     "typescript"
+  ],
+  "specials": ["eslint", "jest"]
+}
