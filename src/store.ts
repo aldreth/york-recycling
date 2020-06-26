@@ -1,4 +1,9 @@
-import { Action, configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import {
+  Action,
+  configureStore,
+  getDefaultMiddleware,
+  ThunkAction,
+} from "@reduxjs/toolkit";
 import {
   FLUSH,
   PAUSE,
@@ -10,7 +15,6 @@ import {
 } from "redux-persist";
 // eslint-disable-next-line import/no-unresolved
 import storage from "redux-persist/lib/storage";
-import { ThunkAction } from "redux-thunk";
 
 import { RootState, rootReducer } from "reducers";
 
