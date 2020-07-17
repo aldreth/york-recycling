@@ -22,7 +22,7 @@
     "react-scripts": "3.4.1",
     "redux-persist": "6.0.0",
     "serve": "11.3.2",
-    "typescript": "3.9.6"
+    "typescript": "3.9.7"
   },
   "scripts": {
     "start": "react-scripts start",
