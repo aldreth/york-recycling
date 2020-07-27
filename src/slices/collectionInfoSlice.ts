@@ -1,5 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+import { mergeCollectionInfos } from "utils";
+
 import {
   fetchHouseholdData,
   fetchCollectionsInfo,
@@ -12,17 +14,10 @@ interface PostcodePayload {
   postcode: string;
 }
 
-interface CollectionInfoDataPayload {
-  collectionInfos: CollectionInfo[];
-}
-
 interface HouseholdPayload {
   household: Household;
 }
 
-interface HouseholdDataPayload {
-  households: Household[];
-}
 interface HouseholdsDataState {
   householdData: {
     fetched: boolean;
@@ -47,6 +42,7 @@ type CollectionInfoSliceState = PostcodeState &
 const postcodeInitialState: PostcodeState = { postcode: "" };
 const householdInitialState: Household = {
   Uprn: undefined,
+  ShortAddress: "",
 };
 const householdsDataInitialState: HouseholdsDataState = {
   householdData: {
@@ -89,7 +85,6 @@ const collectionInfoSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchHouseholdData.pending, (state) => {
       state.householdData.fetched = false;
-      state.householdData.households = [];
     });
     builder.addCase(fetchHouseholdData.fulfilled, (state, { payload }) => {
       state.householdData.fetched = true;
@@ -104,11 +99,14 @@ const collectionInfoSlice = createSlice({
 
     builder.addCase(fetchCollectionsInfo.pending, (state) => {
       state.collectionInfoData.fetched = false;
-      state.collectionInfoData.collectionInfo = [];
     });
     builder.addCase(fetchCollectionsInfo.fulfilled, (state, { payload }) => {
       state.collectionInfoData.fetched = true;
-      state.collectionInfoData.collectionInfo = payload;
+      const updatedCollectionInfo = mergeCollectionInfos(
+        state.collectionInfoData.collectionInfo,
+        payload
+      );
+      state.collectionInfoData.collectionInfo = updatedCollectionInfo;
     });
     builder.addCase(fetchCollectionsInfo.rejected, (state) => {
       state.collectionInfoData.fetched = true;

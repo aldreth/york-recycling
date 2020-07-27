@@ -52,4 +52,5 @@ type CollectionInfo = {
   collectionPoint: string;
   binDescription: string;
   timestamp: number;
+  key: string;
 };
