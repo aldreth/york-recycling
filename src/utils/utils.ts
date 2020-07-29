@@ -1,7 +1,3 @@
-export const defaultHouseHoldObject: Household = {
-  Uprn: undefined,
-};
-
 const baseUrl = "https://doitonline.york.gov.uk/BinsApi/EXOR";
 const postCodeValidator =
   "(?:Y|y)(?:O|o)[0-9Rr][0-9A-Za-z]? ?[0-9][ABD-HJLNP-UW-Zabd-hjlnp-uw-z]{2}";
@@ -16,49 +12,56 @@ const householdsUrl = (postCode: string): string =>
 const collectionsUrl = (uprn: string): string =>
   `${baseUrl}/getWasteCollectionDatabyUprn?uprn=${uprn}`;
 
-const sortedCollections = (
+const setTimestampToMidnight = (timestamp: number) => {
+  const date = new Date(timestamp);
+  date.setHours(0, 0, 0, 0);
+  return date.getTime();
+};
+
+const parseCollectionDtos = (
   collectionInfo: CollectionInfoDto[]
 ): CollectionInfo[] =>
-  collectionInfo
-    .map((e) => {
-      const matches = /\/Date\((\d*)\)\//.exec(e.NextCollection);
-      const timestamp = Array.isArray(matches) ? parseInt(matches[1]) : -1;
-      return {
-        wasteTypeDescription: `${e.WasteTypeDescription || ""}`,
-        nextCollectionDate: formattedDate(timestamp),
-        collectionDay: `${e.CollectionDayFull || ""}`,
-        collectionFrequency: `${e.CollectionFrequency || ""}`,
-        collectionPoint: `${
-          e.CollectionPointLocation || e.CollectionPointDescription || ""
-        }`,
-        binDescription: `${e.NumberOfBins || ""} x ${
-          e.BinTypeDescription || ""
-        }`,
-        wasteType: `${e.WasteType || ""}`,
-        timestamp,
-      };
-    })
-    .filter((e) => e.timestamp === -1 || e.timestamp > new Date().getTime())
-    .sort((a, b) => a.timestamp - b.timestamp);
+  collectionInfo.map((e, idx) => {
+    const matches = /\/Date\((\d*)\)\//.exec(e.NextCollection);
+    let timestamp = Array.isArray(matches) ? parseInt(matches[1]) : -1;
+    if (timestamp !== -1) {
+      timestamp = setTimestampToMidnight(timestamp);
+    }
+    return {
+      wasteTypeDescription: `${e.WasteTypeDescription || ""}`,
+      nextCollectionDate: formattedDate(timestamp),
+      collectionDay: `${e.CollectionDayFull || ""}`,
+      collectionFrequency: `${e.CollectionFrequency || ""}`,
+      collectionPoint: `${
+        e.CollectionPointLocation || e.CollectionPointDescription || ""
+      }`,
+      binDescription: `${e.NumberOfBins || ""} x ${e.BinTypeDescription || ""}`,
+      wasteType: `${e.WasteType || ""}`,
+      timestamp,
+      key: `${timestamp}-${e.WasteType?.replace(/\s+/g, "-") || idx}`,
+    };
+  });
 
-// const collectionInfoDataOutOfDate = collectionInfoData => {
-//   if (!collectionInfoData.fetched) {
-//     return "no";
-//   }
-
-//   const firstCollection = collectionInfoData.collectionInfo[0];
-//   return firstCollection.timestamp > Date.now() ? "no" : string | null;
-// };
+const getToday = () => {
+  const day = new Date();
+  day.setHours(0, 0, 0, 0);
+  return day;
+};
 
 const isToday = (date: Date): boolean => {
-  const today = new Date();
-  return date.setHours(0, 0, 0, 0) === today.setHours(0, 0, 0, 0);
+  date.setHours(0, 0, 0, 0);
+  return date.getTime() === getToday().getTime();
+};
+
+const getTomorrow = () => {
+  const day = getToday();
+  day.setDate(day.getDate() + 1);
+  return day;
 };
 
 const isTomorrow = (date: Date): boolean => {
-  const today = new Date();
-  today.setDate(today.getDate() + 1);
-  return date.setHours(0, 0, 0, 0) === today.setHours(0, 0, 0, 0);
+  date.setHours(0, 0, 0, 0);
+  return date.getTime() === getTomorrow().getTime();
 };
 
 const formattedDate = (timestamp: number): string => {
@@ -83,13 +86,44 @@ const formattedDate = (timestamp: number): string => {
   return date.toLocaleDateString("en-GB", options);
 };
 
+const compareHouseholds = (a: Household, b: Household): 0 | 1 | -1 => {
+  const addressA = a.ShortAddress.toUpperCase();
+  const addressB = b.ShortAddress.toUpperCase();
+
+  if (addressA > addressB) {
+    return 1;
+  }
+  if (addressA < addressB) {
+    return -1;
+  }
+  return 0;
+};
+
+const collectionInfoReducer = (
+  result: CollectionInfo[],
+  current: CollectionInfo
+) =>
+  result.find((r) => r.key === current.key) ? result : [...result, current];
+
+const mergeCollectionInfos = (
+  currentCollectionInfos: CollectionInfo[],
+  newCollectionInfo: CollectionInfo[]
+): CollectionInfo[] => {
+  return [...currentCollectionInfos, ...newCollectionInfo]
+    .reduce(collectionInfoReducer, [])
+    .filter((e) => e.timestamp === -1 || e.timestamp >= getToday().getTime())
+    .sort((a, b) => a.timestamp - b.timestamp);
+};
+
 export {
-  formattedDate,
   householdsUrl,
   collectionsUrl,
-  sortedCollections,
+  parseCollectionDtos,
   postCodeValidator,
   postCodeValidatorRegEx,
+  compareHouseholds,
+  mergeCollectionInfos,
+  formattedDate,
   isToday,
   isTomorrow,
 };

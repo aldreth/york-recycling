@@ -5,7 +5,8 @@ import {
   postCodeValidatorRegEx,
   householdsUrl,
   collectionsUrl,
-  sortedCollections,
+  parseCollectionDtos,
+  compareHouseholds,
 } from "utils";
 
 const fetchHouseholdData = createAsyncThunk(
@@ -19,7 +20,7 @@ const fetchHouseholdData = createAsyncThunk(
     }
     const result = await fetch(householdsUrl(postcode));
     const households = (await result.json()) as Household[];
-    return households;
+    return households.sort(compareHouseholds);
   }
 );
 
@@ -28,7 +29,7 @@ const fetchCollectionsInfo = createAsyncThunk(
   async (householdUprn: string) => {
     const result = await fetch(collectionsUrl(householdUprn));
     const collectionInfos = (await result.json()) as CollectionInfoDto[];
-    return sortedCollections(collectionInfos);
+    return parseCollectionDtos(collectionInfos);
   }
 );
 

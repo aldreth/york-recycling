@@ -1,6 +1,6 @@
 type Household = {
   Uprn: string | undefined;
-  ShortAddress?: string;
+  ShortAddress: string;
   PropertyNumber?: string;
   PropertyName?: string;
   SaonName?: string;

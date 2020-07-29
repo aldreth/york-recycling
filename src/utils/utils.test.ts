@@ -1,5 +1,3 @@
-/* eslint-disable jest/no-commented-out-tests */
-/* eslint-disable jest/no-disabled-tests */
 import { advanceTo, clear } from "jest-date-mock";
 
 import {
@@ -8,7 +6,8 @@ import {
   isToday,
   isTomorrow,
   formattedDate,
-  sortedCollections,
+  parseCollectionDtos,
+  mergeCollectionInfos,
 } from "./utils";
 
 const baseUrl = "https://doitonline.york.gov.uk/BinsApi/EXOR";
@@ -17,9 +16,10 @@ const today = new Date(2020, 1, 16, 0, 0, 0);
 const laterToday = new Date(2020, 1, 16, 12, 30, 0);
 const tomorrow = new Date(2020, 1, 17, 12, 30, 0);
 const yesterday = new Date(2020, 1, 15, 12, 30, 0);
+const may27 = new Date(2020, 4, 27, 12, 0, 0);
 const may28 = new Date(2020, 4, 28, 12, 0, 0);
 
-const collectionInfos: CollectionInfoDto[] = [
+const collectionInfoDtos: CollectionInfoDto[] = [
   {
     UPRN: 100050583299,
     ShortAddress: "84 SCARCROFT ROAD",
@@ -154,19 +154,100 @@ const collectionInfos: CollectionInfoDto[] = [
   },
 ];
 
-const badDateCollection = {
-  ...collectionInfos[0],
-  NextCollection: "/Date(-1591743600000)/",
-  WasteTypeDescription: "bad date",
+const cI27May = {
+  wasteTypeDescription: "in the past",
+  nextCollectionDate: "Wednesday, 27 May 2020",
+  collectionDay: "Wednesday",
+  collectionFrequency: "Alternate Weeks",
+  collectionPoint: "Edge of Property at Front",
+  binDescription: "3 x Box 55L",
+  wasteType: "KERBSIDE",
+  timestamp: 1590534000000,
+  key: "1590534000000-KERBSIDE",
 };
 
-const inThePastCollection = {
-  ...collectionInfos[0],
-  NextCollection: "/Date(1590534000000)/",
-  WasteTypeDescription: "in the past",
+const cI3June = {
+  wasteTypeDescription: "Grey Bin/Black Sack Collection",
+  nextCollectionDate: "Wednesday, 3 June 2020",
+  collectionDay: "Wednesday",
+  collectionFrequency: "Alternate Weeks",
+  collectionPoint: "Edge of Property at Front",
+  binDescription: "1 x Grey Bin 180L",
+  wasteType: "GREY BIN/SACK",
+  timestamp: 1591138800000,
+  key: "1591138800000-GREY-BIN/SACK",
 };
-// const household = { some: "info" };
-// const oneDayInSeconds = 24 * 60 * 60 * 1000;
+const cI5June = {
+  wasteTypeDescription: "Green Collection",
+  nextCollectionDate: "Friday, 5 June 2020",
+  collectionDay: "Friday",
+  collectionFrequency: "Alternate Weeks",
+  collectionPoint: "Edge of Property at Front",
+  binDescription: "1 x Green Bin 180L",
+  wasteType: "GREEN",
+  timestamp: 1591311600000,
+  key: "1591311600000-GREEN",
+};
+const cI10June = {
+  wasteTypeDescription: "Kerbside Collection",
+  nextCollectionDate: "Wednesday, 10 June 2020",
+  collectionDay: "Wednesday",
+  collectionFrequency: "Alternate Weeks",
+  collectionPoint: "Edge of Property at Front",
+  binDescription: "3 x Box 55L",
+  wasteType: "KERBSIDE",
+  timestamp: 1591743600000,
+  key: "1591743600000-KERBSIDE",
+};
+const cIbadDate = {
+  wasteTypeDescription: "bad date",
+  nextCollectionDate: "Invalid date format",
+  collectionDay: "Wednesday",
+  collectionFrequency: "Alternate Weeks",
+  collectionPoint: "Edge of Property at Front",
+  binDescription: "3 x Box 55L",
+  wasteType: "KERBSIDE",
+  timestamp: -1,
+  key: "-1-KERBSIDE",
+};
+
+const collectionInfos = [cI10June, cI3June, cI5June];
+
+const collectionInfos2 = [
+  {
+    wasteTypeDescription: "Kerbside Collection",
+    nextCollectionDate: "Wednesday, 10 June 2020",
+    collectionDay: "Wednesday",
+    collectionFrequency: "Alternate Weeks",
+    collectionPoint: "Edge of Property at Front",
+    binDescription: "3 x Box 55L",
+    wasteType: "KERBSIDE",
+    timestamp: 1591743600000,
+    key: "1591743600000-KERBSIDE",
+  },
+  {
+    wasteTypeDescription: "Grey Bin/Black Sack Collection",
+    nextCollectionDate: "Wednesday, 3 June 2020",
+    collectionDay: "Wednesday",
+    collectionFrequency: "Alternate Weeks",
+    collectionPoint: "Edge of Property at Front",
+    binDescription: "1 x Grey Bin 180L",
+    wasteType: "GREY BIN/SACK",
+    timestamp: 1591138800000,
+    key: "1591138800000-GREY-BIN/SACK",
+  },
+  {
+    wasteTypeDescription: "Green Collection",
+    nextCollectionDate: "Friday, 5 June 2020",
+    collectionDay: "Friday",
+    collectionFrequency: "Alternate Weeks",
+    collectionPoint: "Edge of Property at Front",
+    binDescription: "1 x Green Bin 180L",
+    wasteType: "GREEN",
+    timestamp: 1591311600000,
+    key: "1591311600000-GREEN",
+  },
+];
 
 describe("utils", () => {
   beforeEach(() => {
@@ -249,7 +330,33 @@ describe("utils", () => {
     });
   });
 
-  describe("sortedCollections", () => {
+  describe("parseCollectionDtos", () => {
+    it("parses data", () => {
+      expect(parseCollectionDtos(collectionInfoDtos)).toEqual(collectionInfos);
+    });
+
+    it("copes with bad dates", () => {
+      const badDateCollection = {
+        ...collectionInfoDtos[0],
+        NextCollection: "/Date(-1591743600000)/",
+      };
+      expect(parseCollectionDtos([badDateCollection])).toEqual([
+        {
+          binDescription: "3 x Box 55L",
+          collectionDay: "Wednesday",
+          collectionFrequency: "Alternate Weeks",
+          collectionPoint: "Edge of Property at Front",
+          nextCollectionDate: "Invalid date format",
+          wasteType: "KERBSIDE",
+          wasteTypeDescription: "Kerbside Collection",
+          timestamp: -1,
+          key: "-1-KERBSIDE",
+        },
+      ]);
+    });
+  });
+
+  describe("mergeCollectionInfos", () => {
     beforeEach(() => {
       advanceTo(may28);
     });
@@ -258,176 +365,52 @@ describe("utils", () => {
       clear();
     });
 
-    it.skip("sorts and munges", () => {
-      expect(sortedCollections(collectionInfos)).toEqual([
-        {
-          binDescription: "1 x Grey Bin 180L",
-          collectionDay: "Wednesday",
-          collectionFrequency: "Alternate Weeks",
-          collectionPoint: "Edge of Property at Front",
-          nextCollectionDate: "Wednesday, 3 June 2020",
-          wasteType: "GREY BIN/SACK",
-          wasteTypeDescription: "Grey Bin/Black Sack Collection",
-          timestamp: 1591138800000,
-        },
-        {
-          binDescription: "1 x Green Bin 180L",
-          collectionDay: "Friday",
-          collectionFrequency: "Alternate Weeks",
-          collectionPoint: "Edge of Property at Front",
-          nextCollectionDate: "Friday, 5 June 2020",
-          wasteType: "GREEN",
-          wasteTypeDescription: "Green Collection",
-          timestamp: 1591311600000,
-        },
-        {
-          binDescription: "3 x Box 55L",
-          collectionDay: "Wednesday",
-          collectionFrequency: "Alternate Weeks",
-          collectionPoint: "Edge of Property at Front",
-          nextCollectionDate: "Wednesday, 10 June 2020",
-          wasteType: "KERBSIDE",
-          wasteTypeDescription: "Kerbside Collection",
-          timestamp: 1591743600000,
-        },
+    it("merges correctly with an empty current state ", () => {
+      expect(mergeCollectionInfos([], collectionInfos)).toEqual([
+        cI3June,
+        cI5June,
+        cI10June,
+      ]);
+    });
+
+    it("dedupes", () => {
+      expect(mergeCollectionInfos(collectionInfos, collectionInfos2)).toEqual([
+        cI3June,
+        cI5June,
+        cI10June,
+      ]);
+    });
+
+    it("sorts", () => {
+      expect(mergeCollectionInfos(collectionInfos, collectionInfos)).toEqual([
+        cI3June,
+        cI5June,
+        cI10June,
+      ]);
+    });
+
+    it("removes collections in the past", () => {
+      expect(mergeCollectionInfos([...collectionInfos, cI27May], [])).toEqual([
+        cI3June,
+        cI5June,
+        cI10June,
+      ]);
+    });
+
+    it("keeps collections for today", () => {
+      advanceTo(may27);
+      expect(mergeCollectionInfos([...collectionInfos, cI27May], [])).toEqual([
+        cI27May,
+        cI3June,
+        cI5June,
+        cI10June,
       ]);
     });
 
     it("copes with bad dates", () => {
-      const badDateCollection = {
-        ...collectionInfos[0],
-        NextCollection: "/Date(-1591743600000)/",
-      };
-      expect(sortedCollections([badDateCollection])).toEqual([
-        {
-          binDescription: "3 x Box 55L",
-          collectionDay: "Wednesday",
-          collectionFrequency: "Alternate Weeks",
-          collectionPoint: "Edge of Property at Front",
-          nextCollectionDate: "Invalid date format",
-          wasteType: "KERBSIDE",
-          wasteTypeDescription: "Kerbside Collection",
-          timestamp: -1,
-        },
-      ]);
-    });
-
-    it.skip("ignores dates in the past", () => {
       expect(
-        sortedCollections([
-          ...collectionInfos,
-          inThePastCollection,
-          badDateCollection,
-        ])
-      ).toEqual([
-        {
-          wasteTypeDescription: "bad date",
-          nextCollectionDate: "Invalid date format",
-          collectionDay: "Wednesday",
-          collectionFrequency: "Alternate Weeks",
-          collectionPoint: "Edge of Property at Front",
-          binDescription: "3 x Box 55L",
-          wasteType: "KERBSIDE",
-          timestamp: -1,
-        },
-        {
-          wasteTypeDescription: "Grey Bin/Black Sack Collection",
-          nextCollectionDate: "Wednesday, 3 June 2020",
-          collectionDay: "Wednesday",
-          collectionFrequency: "Alternate Weeks",
-          collectionPoint: "Edge of Property at Front",
-          binDescription: "1 x Grey Bin 180L",
-          wasteType: "GREY BIN/SACK",
-          timestamp: 1591138800000,
-        },
-        {
-          wasteTypeDescription: "Green Collection",
-          nextCollectionDate: "Friday, 5 June 2020",
-          collectionDay: "Friday",
-          collectionFrequency: "Alternate Weeks",
-          collectionPoint: "Edge of Property at Front",
-          binDescription: "1 x Green Bin 180L",
-          wasteType: "GREEN",
-          timestamp: 1591311600000,
-        },
-        {
-          wasteTypeDescription: "Kerbside Collection",
-          nextCollectionDate: "Wednesday, 10 June 2020",
-          collectionDay: "Wednesday",
-          collectionFrequency: "Alternate Weeks",
-          collectionPoint: "Edge of Property at Front",
-          binDescription: "3 x Box 55L",
-          wasteType: "KERBSIDE",
-          timestamp: 1591743600000,
-        },
-      ]);
+        mergeCollectionInfos([...collectionInfos, cIbadDate], [])
+      ).toEqual([cIbadDate, cI3June, cI5June, cI10June]);
     });
   });
-
-  // describe("collectionInfoDataOutOfDate", () => {
-  //   it("returns no if the data has not been fetched", () => {
-  //     expect(
-  //       collectionInfoDataOutOfDate({
-  //         fetched: false,
-  //         collectionInfo: []
-  //       })
-  //     ).toEqual("no");
-  //   });
-
-  //   it("returns no if the data is up to date", () => {
-  //     const tomorrow = new Date();
-  //     tomorrow.setTime(tomorrow.getTime() + oneDayInSeconds);
-  //     const NextCollection = `\/Date(${tomorrow.getTime()})\/`;
-
-  //     expect(
-  //       collectionInfoDataOutOfDate({
-  //         fetched: true,
-  //         collectionInfo: [{ NextCollection }]
-  //       })
-  //     ).toEqual("no");
-  //   });
-
-  //   it("returns yes if the data is stale", () => {
-  //     const yesterday = new Date();
-  //     yesterday.setTime(yesterday.getTime() - oneDayInSeconds);
-  //     const NextCollection = `\/Date(${yesterday.getTime()})\/`;
-
-  //     expect(
-  //       collectionInfoDataOutOfDate({
-  //         fetched: true,
-  //         collectionInfo: [{ NextCollection }]
-  //       })
-  //     ).toEqual("yes");
-  //   });
-
-  //   it("returns yes if two components & the second data is stale", () => {
-  //     const tomorrow = new Date();
-  //     tomorrow.setTime(tomorrow.getTime() + oneDayInSeconds);
-  //     const tomorrowNextCollection = `\/Date(${tomorrow.getTime()})\/`;
-  //     const yesterday = new Date();
-  //     yesterday.setTime(yesterday.getTime() - oneDayInSeconds);
-  //     const yesterdayNextCollection = `\/Date(${yesterday.getTime()})\/`;
-
-  //     expect(
-  //       collectionInfoDataOutOfDate({
-  //         fetched: true,
-  //         collectionInfo: [
-  //           { NextCollection: tomorrowNextCollection },
-  //           { NextCollection: yesterdayNextCollection }
-  //         ]
-  //       })
-  //     ).toEqual("yes");
-  //   });
-
-  //   it("returns no if the data is fetched, but doesn't have dates that match the regex", () => {
-  //     const NextCollection = "bad-string";
-
-  //     expect(
-  //       collectionInfoDataOutOfDate({
-  //         fetched: true,
-  //         collectionInfo: [{ NextCollection }]
-  //       })
-  //     ).toEqual("no");
-  //   });
-  // });
 });
