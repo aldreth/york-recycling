@@ -57,7 +57,7 @@
     "@typescript-eslint/parser": "3.7.1",
     "depcheck": "1.0.0",
     "eslint-config-prettier": "6.11.0",
-    "eslint-import-resolver-typescript": "2.0.0",
+    "eslint-import-resolver-typescript": "2.2.0",
     "eslint-plugin-import": "2.22.0",
     "eslint-plugin-jest": "23.19.0",
     "eslint-plugin-jsx-a11y": "6.3.1",
