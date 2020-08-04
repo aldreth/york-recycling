@@ -54,7 +54,7 @@
     "@testing-library/jest-dom": "5.11.2",
     "@testing-library/react": "10.4.7",
     "@typescript-eslint/eslint-plugin": "3.7.1",
-    "@typescript-eslint/parser": "3.7.1",
+    "@typescript-eslint/parser": "3.8.0",
     "depcheck": "1.0.0",
     "eslint-config-prettier": "6.11.0",
     "eslint-import-resolver-typescript": "2.0.0",
