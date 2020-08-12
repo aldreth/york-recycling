@@ -19,7 +19,7 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-redux": "7.2.1",
-    "react-scripts": "3.4.1",
+    "react-scripts": "3.4.2",
     "redux-persist": "6.0.0",
     "serve": "11.3.2",
     "typescript": "3.9.7"
