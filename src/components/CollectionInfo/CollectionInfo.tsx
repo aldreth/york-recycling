@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { RootState } from "reducers";
 import { fetchCollectionsInfo } from "slices/collectionInfoThunks";
+import { formattedDate } from "utils";
 
 import "./card.css";
 
@@ -32,7 +33,7 @@ const CollectionInfoComponent = ({
       <Card className={classes}>
         <div className="card_title">
           <h4>{collectionInfo.wasteTypeDescription}</h4>
-          <h5>Next collection: {collectionInfo.nextCollectionDate}</h5>
+          <h5>Next collection: {formattedDate(collectionInfo.timestamp)}</h5>
         </div>
         <div className="card_body">
           <ul>
