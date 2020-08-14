@@ -5,9 +5,9 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { RootState } from "reducers";
 import { fetchCollectionsInfo } from "slices/collectionInfoThunks";
+import { formattedDate } from "utils";
 
 import "./card.css";
-import { formattedDate } from "utils";
 
 const Card = ({
   children,
