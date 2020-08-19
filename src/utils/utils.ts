@@ -29,7 +29,6 @@ const parseCollectionDtos = (
     }
     return {
       wasteTypeDescription: `${e.WasteTypeDescription || ""}`,
-      nextCollectionDate: formattedDate(timestamp),
       collectionDay: `${e.CollectionDayFull || ""}`,
       collectionFrequency: `${e.CollectionFrequency || ""}`,
       collectionPoint: `${

@@ -46,7 +46,6 @@ type CollectionInfoDto = {
 type CollectionInfo = {
   wasteTypeDescription: string;
   wasteType: string;
-  nextCollectionDate: string;
   collectionDay: string;
   collectionFrequency: string;
   collectionPoint: string;

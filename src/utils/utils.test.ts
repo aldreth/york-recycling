@@ -168,7 +168,6 @@ const cI27May = {
 
 const cI3June = {
   wasteTypeDescription: "Grey Bin/Black Sack Collection",
-  nextCollectionDate: "Wednesday, 3 June 2020",
   collectionDay: "Wednesday",
   collectionFrequency: "Alternate Weeks",
   collectionPoint: "Edge of Property at Front",
@@ -179,7 +178,6 @@ const cI3June = {
 };
 const cI5June = {
   wasteTypeDescription: "Green Collection",
-  nextCollectionDate: "Friday, 5 June 2020",
   collectionDay: "Friday",
   collectionFrequency: "Alternate Weeks",
   collectionPoint: "Edge of Property at Front",
@@ -190,7 +188,6 @@ const cI5June = {
 };
 const cI10June = {
   wasteTypeDescription: "Kerbside Collection",
-  nextCollectionDate: "Wednesday, 10 June 2020",
   collectionDay: "Wednesday",
   collectionFrequency: "Alternate Weeks",
   collectionPoint: "Edge of Property at Front",
@@ -201,7 +198,6 @@ const cI10June = {
 };
 const cIbadDate = {
   wasteTypeDescription: "bad date",
-  nextCollectionDate: "Invalid date format",
   collectionDay: "Wednesday",
   collectionFrequency: "Alternate Weeks",
   collectionPoint: "Edge of Property at Front",
@@ -216,7 +212,6 @@ const collectionInfos = [cI10June, cI3June, cI5June];
 const collectionInfos2 = [
   {
     wasteTypeDescription: "Kerbside Collection",
-    nextCollectionDate: "Wednesday, 10 June 2020",
     collectionDay: "Wednesday",
     collectionFrequency: "Alternate Weeks",
     collectionPoint: "Edge of Property at Front",
@@ -227,7 +222,6 @@ const collectionInfos2 = [
   },
   {
     wasteTypeDescription: "Grey Bin/Black Sack Collection",
-    nextCollectionDate: "Wednesday, 3 June 2020",
     collectionDay: "Wednesday",
     collectionFrequency: "Alternate Weeks",
     collectionPoint: "Edge of Property at Front",
@@ -238,7 +232,6 @@ const collectionInfos2 = [
   },
   {
     wasteTypeDescription: "Green Collection",
-    nextCollectionDate: "Friday, 5 June 2020",
     collectionDay: "Friday",
     collectionFrequency: "Alternate Weeks",
     collectionPoint: "Edge of Property at Front",
@@ -346,7 +339,6 @@ describe("utils", () => {
           collectionDay: "Wednesday",
           collectionFrequency: "Alternate Weeks",
           collectionPoint: "Edge of Property at Front",
-          nextCollectionDate: "Invalid date format",
           wasteType: "KERBSIDE",
           wasteTypeDescription: "Kerbside Collection",
           timestamp: -1,
