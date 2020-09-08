@@ -24,7 +24,9 @@ const ServiceWorkerWrapper: FC = () => {
       registrationWaiting.postMessage({ type: "SKIP_WAITING" });
 
       registrationWaiting.addEventListener("statechange", (e) => {
+        // eslint-disable-next-line no-console
         console.log(typeof e);
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         if (e?.target?.state === "activated") {
           setOpen(false);
