@@ -1,28 +1,39 @@
 import { Dialog } from "@reach/dialog";
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 
-import * as serviceWorker from "../serviceWorker";
+import { useTypedSelector } from "reducers";
 
 const ServiceWorkerWrapper: FC = () => {
-  const [open, setOpen] = React.useState(false);
-  const [
-    waitingWorker,
-    setWaitingWorker,
-  ] = React.useState<ServiceWorker | null>(null);
-
-  const onSWUpdate = (registration: ServiceWorkerRegistration) => {
-    setOpen(true);
-    setWaitingWorker(registration.waiting);
-  };
+  const serviceWorkerUpdated = useTypedSelector(
+    (state) => state.serviceWorker.serviceWorkerUpdated
+  );
+  const serviceWorkerRegistration = useTypedSelector(
+    (state) => state.serviceWorker.serviceWorkerRegistration
+  );
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    serviceWorker.register({ onUpdate: onSWUpdate });
-  }, []);
+    if (serviceWorkerUpdated) {
+      setOpen(true);
+    }
+  }, [serviceWorkerUpdated]);
 
   const reloadPage = () => {
-    waitingWorker?.postMessage({ type: "SKIP_WAITING" });
-    setOpen(false);
-    window.location.reload(true);
+    const registrationWaiting = serviceWorkerRegistration?.waiting;
+    if (registrationWaiting) {
+      registrationWaiting.postMessage({ type: "SKIP_WAITING" });
+
+      registrationWaiting.addEventListener("statechange", (e) => {
+        // eslint-disable-next-line no-console
+        console.log(typeof e);
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        if (e?.target?.state === "activated") {
+          setOpen(false);
+          window.location.reload();
+        }
+      });
+    }
   };
 
   return (
