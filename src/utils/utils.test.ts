@@ -357,7 +357,7 @@ describe("utils", () => {
       clear();
     });
 
-    it("merges correctly with an empty current state ", () => {
+    it("merges correctly with an empty current state", () => {
       expect(mergeCollectionInfos([], collectionInfos)).toEqual([
         cI3June,
         cI5June,
