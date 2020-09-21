@@ -28,7 +28,6 @@ body,
 
 .collections {
   background-color: #4ba7ab;
-  background-color: red;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
