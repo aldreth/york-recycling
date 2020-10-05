@@ -16,6 +16,8 @@ import "./styles/index.css";
 
 const persistor = persistStore(store);
 
+// Test code scanning
+
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
