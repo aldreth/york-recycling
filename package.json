@@ -17,7 +17,7 @@
     "classnames": "2.2.6",
     "eslint-config-react-app": "^5.2.1",
     "eslint-plugin-flowtype": "^5.2.0",
-    "eslint-plugin-react": "^7.21.4",
+    "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.1.2",
     "insights-js": "1.2.10",
     "normalize.css": "8.0.1",
