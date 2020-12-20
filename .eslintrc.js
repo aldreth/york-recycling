@@ -1,6 +1,18 @@
 const path = require("path");
 
 module.exports = {
+  extends: [
+    "react-app",
+    "react-app/jest",
+    "plugin:testing-library/recommended",
+    "plugin:prettier/recommended",
+    "prettier/@typescript-eslint",
+    // must be last to allow it to override other configs
+    "prettier",
+  ],
+};
+
+const previous = {
   parser: "@typescript-eslint/parser",
   parserOptions: {
     tsconfigRootDir: __dirname,
@@ -37,11 +49,6 @@ module.exports = {
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:jsx-a11y/strict",
     "plugin:jest/recommended",
-    "plugin:testing-library/recommended",
-    "plugin:prettier/recommended",
-    "prettier/@typescript-eslint",
-    // must be last to allow it to override other configs
-    "prettier",
   ],
   rules: {
     "no-alert": "error",
