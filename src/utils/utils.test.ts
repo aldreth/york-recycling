@@ -333,7 +333,18 @@ describe("utils", () => {
         ...collectionInfoDtos[0],
         NextCollection: "/Date(-1591743600000)/",
       };
-      expect(parseCollectionDtos([badDateCollection])).toEqual([]);
+      expect(parseCollectionDtos([badDateCollection])).toEqual([
+        {
+          binDescription: "3 x Box 55L",
+          collectionDay: "Wednesday",
+          collectionFrequency: "Alternate Weeks",
+          collectionPoint: "Edge of Property at Front",
+          key: "-1-KERBSIDE",
+          timestamp: -1,
+          wasteType: "KERBSIDE",
+          wasteTypeDescription: "Kerbside Collection",
+        },
+      ]);
     });
   });
 
@@ -391,7 +402,7 @@ describe("utils", () => {
     it("copes with bad dates", () => {
       expect(
         mergeCollectionInfos([...collectionInfos, cIbadDate], [])
-      ).toEqual([cIbadDate, cI3June, cI5June, cI10June]);
+      ).toEqual([cI3June, cI5June, cI10June]);
     });
   });
 });
