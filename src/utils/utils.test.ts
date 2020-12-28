@@ -339,10 +339,10 @@ describe("utils", () => {
           collectionDay: "Wednesday",
           collectionFrequency: "Alternate Weeks",
           collectionPoint: "Edge of Property at Front",
+          key: "-1-KERBSIDE",
+          timestamp: -1,
           wasteType: "KERBSIDE",
           wasteTypeDescription: "Kerbside Collection",
-          timestamp: -1,
-          key: "-1-KERBSIDE",
         },
       ]);
     });
@@ -402,7 +402,7 @@ describe("utils", () => {
     it("copes with bad dates", () => {
       expect(
         mergeCollectionInfos([...collectionInfos, cIbadDate], [])
-      ).toEqual([cIbadDate, cI3June, cI5June, cI10June]);
+      ).toEqual([cI3June, cI5June, cI10June]);
     });
   });
 });
