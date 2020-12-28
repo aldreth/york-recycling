@@ -6,7 +6,7 @@ import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 
 import App from "AppWithAnalytics";
-import { successfulRegistration } from "slices/serviceWorkerSlice";
+// import { successfulRegistration } from "slices/serviceWorkerSlice";
 import store from "store";
 
 // import * as serviceWorker from "./serviceWorker";
