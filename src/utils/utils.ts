@@ -110,7 +110,7 @@ const mergeCollectionInfos = (
 ): CollectionInfo[] => {
   return [...currentCollectionInfos, ...newCollectionInfo]
     .reduce(collectionInfoReducer, [])
-    .filter((e) => e.timestamp === -1 || e.timestamp >= getToday().getTime())
+    .filter((e) => e.timestamp !== -1 && e.timestamp >= getToday().getTime())
     .sort((a, b) => a.timestamp - b.timestamp);
 };
 

@@ -333,18 +333,7 @@ describe("utils", () => {
         ...collectionInfoDtos[0],
         NextCollection: "/Date(-1591743600000)/",
       };
-      expect(parseCollectionDtos([badDateCollection])).toEqual([
-        {
-          binDescription: "3 x Box 55L",
-          collectionDay: "Wednesday",
-          collectionFrequency: "Alternate Weeks",
-          collectionPoint: "Edge of Property at Front",
-          wasteType: "KERBSIDE",
-          wasteTypeDescription: "Kerbside Collection",
-          timestamp: -1,
-          key: "-1-KERBSIDE",
-        },
-      ]);
+      expect(parseCollectionDtos([badDateCollection])).toEqual([]);
     });
   });
 
