@@ -12,6 +12,12 @@ const ServiceWorkerWrapper: FC = () => {
   );
   const [open, setOpen] = useState(false);
 
+  console.log(
+    "service worker wrapper",
+    serviceWorkerRegistration,
+    serviceWorkerUpdated
+  );
+
   useEffect(() => {
     if (serviceWorkerUpdated) {
       setOpen(true);
