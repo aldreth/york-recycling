@@ -20,11 +20,13 @@ const slice = createSlice({
       action: PayloadAction<ServiceWorkerRegistration>
     ) {
       // eslint-disable-next-line prettier/prettier
-      console.log('serviceworkerslice', action.payload)
+      console.log('serviceworkerslice', action)
       state.serviceWorkerInitialized = true;
       state.serviceWorkerRegistration = action.payload;
     },
     updateAvailable(state, action: PayloadAction<ServiceWorkerRegistration>) {
+      // eslint-disable-next-line prettier/prettier
+      console.log('serviceworkerslice', action)
       state.serviceWorkerUpdated = true;
       state.serviceWorkerRegistration = action.payload;
     },

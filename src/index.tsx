@@ -31,6 +31,12 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://cra.link/PWA
 serviceWorkerRegistration.register({
-  onSuccess: (reg) => store.dispatch(successfulRegistration(reg)),
-  // onUpdate: (reg: ServiceWorkerRegistration) => store.dispatch({ type: SW_UPDATE, payload: reg }),
+  onSuccess: (reg) => {
+    console.log("registered", reg);
+    // store.dispatch(successfulRegistration(reg))
+  },
+  onUpdate: (reg: ServiceWorkerRegistration) => {
+    console.log("update", reg);
+    // store.dispatch({ type: SW_UPDATE, payload: reg })
+  },
 });
