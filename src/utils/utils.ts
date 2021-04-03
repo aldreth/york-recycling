@@ -64,7 +64,7 @@ const isTomorrow = (date: Date): boolean => {
 };
 
 const formattedDate = (timestamp: number): string => {
-  const options = {
+  const options: Intl.DateTimeFormatOptions = {
     weekday: "long",
     year: "numeric",
     month: "long",

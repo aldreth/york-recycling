@@ -34,12 +34,11 @@
     "test": "react-scripts test",
     "ci-test": "npm run lint && react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "npm run tsc && eslint src/**/*.{ts,tsx}",
+    "lint": "tsc && eslint src/**/*.{ts,tsx}",
     "lint:fix": "npm run lint -- --fix",
     "serve": "npm run build && serve -s build",
     "update-caniuse": "browserslist --update-db",
     "browsers": "NODE_ENV=production browserslist",
-    "tsc": "tsc",
     "depcheck": "depcheck"
   },
   "browserslist": {
