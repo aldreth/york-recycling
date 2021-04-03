@@ -6,7 +6,6 @@ module.exports = {
     "react-app/jest",
     "plugin:testing-library/recommended",
     "plugin:prettier/recommended",
-    "prettier/@typescript-eslint",
     // must be last to allow it to override other configs
     "prettier",
   ],
