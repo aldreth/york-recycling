@@ -43,7 +43,7 @@ registerRoute(
 
     // If this looks like a URL for a resource, because it contains
     // a file extension, skip.
-    if (url.pathname.match(fileExtensionRegexp)) {
+    if (fileExtensionRegexp.exec(url.pathname)) {
       return false;
     }
 
@@ -72,9 +72,15 @@ registerRoute(
 
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
-self.addEventListener("message", (event) => {
-  if (event.data && event.data.type === "SKIP_WAITING") {
-    self.skipWaiting();
+
+type ServiceWorkerEventWithType = {
+  data?: {
+    type: string;
+  };
+};
+self.addEventListener("message", (event: ServiceWorkerEventWithType) => {
+  if (event.data && event.data?.type === "SKIP_WAITING") {
+    void self.skipWaiting();
   }
 });
 
