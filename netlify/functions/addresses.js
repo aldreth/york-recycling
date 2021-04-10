@@ -5,7 +5,11 @@ const API_ENDPOINT = "https://cat-fact.herokuapp.com/facts";
 exports.handler = async (event, context) => {
   try {
     const response = await fetch(API_ENDPOINT);
-    return await response.json();
+    const json = await response.json();
+    return {
+      statusCode: 200,
+      body: JSON.stringify(json),
+    };
   } catch (err) {
     console.error(err);
   }
