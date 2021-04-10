@@ -30,7 +30,7 @@ export async function handler(event, context) {
     console.log("**************** details", detailsJson);
     console.log("**************** location", locationJson);
 
-    const collections = detailsJson.map((j) => ({
+    const collections = detailsJson.services.map((j) => ({
       ...j,
       ...locationJson,
     }));
