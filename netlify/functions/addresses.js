@@ -13,7 +13,8 @@ export async function handler(event, context) {
     console.log("***************", json);
     return {
       statusCode: 200,
-      body: JSON.stringify(body),
+      body,
+      // body: JSON.stringify(body),
     };
   } catch (err) {
     console.error(err);
