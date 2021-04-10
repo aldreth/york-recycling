@@ -19,9 +19,10 @@ export async function handler(event, context) {
   try {
     const response = await fetch(`${API_ENDPOINT}${encodedPostcode}`);
     const json = await response.json();
+    const addresses = json.map((j) => j.shortAddress);
     return {
       statusCode: 200,
-      body: JSON.stringify(json),
+      body: JSON.stringify(addresses),
     };
   } catch (error) {
     const { statusCode = 500, message = "Something's gone wrong" } = error;
