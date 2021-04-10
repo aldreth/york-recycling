@@ -1,6 +1,7 @@
 const fetch = require("node-fetch");
 
-const API_ENDPOINT = "https://cat-fact.herokuapp.com/facts";
+const API_ENDPOINT =
+  "https://addresses.york.gov.uk/api/address/lookupbypostcode/YO24%201DD";
 
 exports.handler = async (event, context) => {
   try {
@@ -14,8 +15,6 @@ exports.handler = async (event, context) => {
     console.error(err);
   }
 };
-
-// const fetch = require("node-fetch");
 
 // exports.handler = async function (event, context) {
 //   try {
