@@ -19,7 +19,11 @@ export async function handler(event, context) {
   try {
     const response = await fetch(`${API_ENDPOINT}${encodedPostcode}`);
     const json = await response.json();
-    const addresses = json.map((j) => j.shortAddress);
+    const addresses = json.map((j) => ({
+      address: j.shortAddress,
+      uprn: j.uprn,
+    }));
+
     return {
       statusCode: 200,
       body: JSON.stringify(addresses),
