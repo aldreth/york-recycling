@@ -1,9 +1,9 @@
-const fetch = require("node-fetch");
+import fetch from "node-fetch";
 
 const API_ENDPOINT =
   "https://addresses.york.gov.uk/api/address/lookupbypostcode/YO24%201DD";
 
-exports.handler = async (event, context) => {
+export async function handler(event, context) {
   try {
     const response = await fetch(API_ENDPOINT);
     const json = await response.json();
@@ -14,7 +14,7 @@ exports.handler = async (event, context) => {
   } catch (err) {
     console.error(err);
   }
-};
+}
 
 // exports.handler = async function (event, context) {
 //   try {
