@@ -27,12 +27,13 @@ export async function handler(event, context) {
     );
     const locationJson = await locationResponse.json();
 
-    console.log("**************** details", detailsJson);
-    console.log("**************** location", locationJson);
-
     const collections = detailsJson.services.map((j) => ({
-      ...j,
-      ...locationJson,
+      service: j.service,
+      nextCollection: j.nextCollection,
+      frequency: j.frequency,
+      binDescription: j.binDescription,
+      wasteType: j.wasteType,
+      collectionLocation: locationJson.collectionLocation,
     }));
 
     return {
