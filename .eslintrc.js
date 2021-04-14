@@ -4,51 +4,22 @@ module.exports = {
   extends: [
     "react-app",
     "react-app/jest",
-    "plugin:testing-library/recommended",
-    "plugin:prettier/recommended",
-    // must be last to allow it to override other configs
-    "prettier",
-  ],
-};
-
-const previous = {
-  parser: "@typescript-eslint/parser",
-  parserOptions: {
-    tsconfigRootDir: __dirname,
-    project: ["./tsconfig.json"],
-  },
-  settings: {
-    react: {
-      pragma: "React",
-      version: "detect",
-    },
-    "import/resolver": {
-      node: {
-        paths: path.resolve(__dirname, "src"),
-        extensions: [".ts", ".tsx"],
-      },
-    },
-  },
-  env: {
-    node: true,
-    jest: true,
-  },
-  plugins: [
-    "@typescript-eslint",
-    "jsx-a11y",
-    "jest",
-    "import",
-    "testing-library",
-    "prettier",
-  ],
-  extends: [
-    "react-app",
+    "plugin:testing-library/react",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:jsx-a11y/strict",
     "plugin:jest/recommended",
+    "plugin:prettier/recommended",
+    // must be last to allow it to override other configs
+    "prettier",
   ],
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    tsconfigRootDir: __dirname,
+    project: ["./tsconfig.json"],
+  },
+  plugins: ["import"],
   rules: {
     "no-alert": "error",
     "no-console": "error",
@@ -95,4 +66,12 @@ const previous = {
       },
     },
   ],
+  settings: {
+    "import/resolver": {
+      node: {
+        paths: path.resolve(__dirname, "src"),
+        extensions: [".ts", ".tsx"],
+      },
+    },
+  },
 };

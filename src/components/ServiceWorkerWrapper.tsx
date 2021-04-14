@@ -12,6 +12,7 @@ const ServiceWorkerWrapper: FC = () => {
   );
   const [open, setOpen] = useState(false);
 
+  // eslint-disable-next-line no-console
   console.log(
     "service worker wrapper",
     serviceWorkerRegistration,
