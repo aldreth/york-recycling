@@ -27,11 +27,27 @@ export async function handler(event, context) {
     );
     const locationJson = await locationResponse.json();
 
+    let title;
+    switch (detailsJson.service) {
+      case "REFUSE":
+        title = "Household waste collection";
+        break;
+      case "RECYCLING":
+        title = "Recycling collection";
+        break;
+      case "GARDEN":
+        title = "Garden waste collection";
+        break;
+      default:
+        break;
+    }
+
     const collections = detailsJson.services.map((j) => ({
+      title,
       service: j.service,
       nextCollection: j.nextCollection,
-      frequency: j.frequency,
-      binDescription: j.binDescription,
+      frequency: j.frequency.toLowerCase(),
+      binDescription: j.binDescription.toLowerCase(),
       wasteType: j.wasteType,
       collectionLocation: locationJson.collectionLocation,
     }));
