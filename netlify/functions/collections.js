@@ -5,6 +5,24 @@ const COLLECTION_DETAILS_API_ENDPOINT =
 const COLLECTION_LOCATION_API_ENDPOINT =
   "https://myaccount-api.york.gov.uk/api/bins/GetCollectionLocation/";
 
+const getTitle = (service) => {
+  let title;
+  switch (service) {
+    case "REFUSE":
+      title = "Household waste collection";
+      break;
+    case "RECYCLING":
+      title = "Recycling collection";
+      break;
+    case "GARDEN":
+      title = "Garden waste collection";
+      break;
+    default:
+      break;
+  }
+  return title;
+};
+
 export async function handler(event, context) {
   const { uprn } = JSON.parse(event.body);
 
@@ -27,23 +45,8 @@ export async function handler(event, context) {
     );
     const locationJson = await locationResponse.json();
 
-    let title;
-    switch (detailsJson.service) {
-      case "REFUSE":
-        title = "Household waste collection";
-        break;
-      case "RECYCLING":
-        title = "Recycling collection";
-        break;
-      case "GARDEN":
-        title = "Garden waste collection";
-        break;
-      default:
-        break;
-    }
-
     const collections = detailsJson.services.map((j) => ({
-      title,
+      title: getTitle(j.service),
       service: j.service,
       nextCollection: j.nextCollection,
       frequency: j.frequency.toLowerCase(),
