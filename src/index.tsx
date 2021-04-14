@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
@@ -7,11 +8,10 @@ import { PersistGate } from "redux-persist/integration/react";
 
 import App from "AppWithAnalytics";
 // import { successfulRegistration } from "slices/serviceWorkerSlice";
+import * as serviceWorkerRegistration from "serviceWorkerRegistration";
 import store from "store";
 
 // import * as serviceWorker from "./serviceWorker";
-
-import * as serviceWorkerRegistration from "serviceWorkerRegistration";
 
 import "normalize.css";
 import "./styles/index.css";

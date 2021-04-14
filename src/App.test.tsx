@@ -1,6 +1,5 @@
 import { getDefaultMiddleware, configureStore } from "@reduxjs/toolkit";
-import { render } from "@testing-library/react";
-import React from "react";
+import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 
 import App from "App";
@@ -29,6 +28,6 @@ function renderWithRedux(
 }
 
 it("renders welcome message", () => {
-  const { getByText } = renderWithRedux(<App />);
-  expect(getByText("Refuse & Recycling Collection")).toBeInTheDocument();
+  renderWithRedux(<App />);
+  expect(screen.getByText("Refuse & Recycling Collection")).toBeInTheDocument();
 });
