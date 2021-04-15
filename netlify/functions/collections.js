@@ -5,6 +5,23 @@ const COLLECTION_DETAILS_API_ENDPOINT =
 const COLLECTION_LOCATION_API_ENDPOINT =
   "https://myaccount-api.york.gov.uk/api/bins/GetCollectionLocation/";
 
+const getIcon = (service) => {
+  let icon;
+  switch (service) {
+    case "REFUSE":
+      icon = "🗑";
+      break;
+    case "RECYCLING":
+      icon = "♲";
+      break;
+    case "GARDEN":
+      icon = "🌳";
+      break;
+    default:
+      break;
+  }
+  return icon;
+};
 const getTitle = (service) => {
   let title;
   switch (service) {
@@ -47,6 +64,7 @@ export async function handler(event, context) {
 
     const collections = detailsJson.services.map((j) => ({
       title: getTitle(j.service),
+      icon: getIcon(j.service),
       service: j.service,
       nextCollection: j.nextCollection,
       frequency: j.frequency,

@@ -24,6 +24,7 @@ const parseCollectionDtos = (
     return {
       wasteTypeDescription: `${e.service || ""}`,
       service: e.service,
+      icon: e.icon,
       title: e.title,
       collectionDay: `${e.frequency || ""}`,
       collectionFrequency: `${e.frequency || ""}`,

@@ -45,6 +45,7 @@ type CollectionInfoDto = {
 
 type NewCollectionInfoDto = {
   service: string;
+  icon: string;
   nextCollection: string;
   frequency: string;
   binDescription: string;
@@ -55,6 +56,7 @@ type NewCollectionInfoDto = {
 
 type CollectionInfo = {
   service: string;
+  icon: string;
   title: string;
   wasteTypeDescription: string;
   wasteType: string;
