@@ -32,7 +32,6 @@ const fetchCollectionsInfo = createAsyncThunk(
   "collectionInfo/fetchCollectionsInfo",
   async (uprn: string) => {
     const body = JSON.stringify({ uprn });
-    console.log("**************", body);
     const result = await fetch(".netlify/functions/collections", {
       method: "POST",
       headers: {

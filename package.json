@@ -30,7 +30,7 @@
     "typescript": "4.2.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "netlify dev -c 'react-scripts start'",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "ci-test": "npm run lint && react-scripts test",
