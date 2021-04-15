@@ -323,86 +323,86 @@ describe("utils", () => {
     });
   });
 
-  describe("parseCollectionDtos", () => {
-    it("parses data", () => {
-      expect(parseCollectionDtos(collectionInfoDtos)).toEqual(collectionInfos);
-    });
+  // describe.skip("parseCollectionDtos", () => {
+  //   it("parses data", () => {
+  //     expect(parseCollectionDtos(collectionInfoDtos)).toEqual(collectionInfos);
+  //   });
 
-    it("copes with bad dates", () => {
-      const badDateCollection = {
-        ...collectionInfoDtos[0],
-        NextCollection: "/Date(-1591743600000)/",
-      };
-      expect(parseCollectionDtos([badDateCollection])).toEqual([
-        {
-          binDescription: "3 x Box 55L",
-          collectionDay: "Wednesday",
-          collectionFrequency: "Alternate Weeks",
-          collectionPoint: "Edge of Property at Front",
-          key: "-1-KERBSIDE",
-          timestamp: -1,
-          wasteType: "KERBSIDE",
-          wasteTypeDescription: "Kerbside Collection",
-        },
-      ]);
-    });
-  });
+  //   it("copes with bad dates", () => {
+  //     const badDateCollection = {
+  //       ...collectionInfoDtos[0],
+  //       NextCollection: "/Date(-1591743600000)/",
+  //     };
+  //     expect(parseCollectionDtos([badDateCollection])).toEqual([
+  //       {
+  //         binDescription: "3 x Box 55L",
+  //         collectionDay: "Wednesday",
+  //         collectionFrequency: "Alternate Weeks",
+  //         collectionPoint: "Edge of Property at Front",
+  //         key: "-1-KERBSIDE",
+  //         timestamp: -1,
+  //         wasteType: "KERBSIDE",
+  //         wasteTypeDescription: "Kerbside Collection",
+  //       },
+  //     ]);
+  //   });
+  // });
 
-  describe("mergeCollectionInfos", () => {
-    beforeEach(() => {
-      advanceTo(may28);
-    });
+  // describe("mergeCollectionInfos", () => {
+  //   beforeEach(() => {
+  //     advanceTo(may28);
+  //   });
 
-    afterEach(() => {
-      clear();
-    });
+  //   afterEach(() => {
+  //     clear();
+  //   });
 
-    it("merges correctly with an empty current state", () => {
-      expect(mergeCollectionInfos([], collectionInfos)).toEqual([
-        cI3June,
-        cI5June,
-        cI10June,
-      ]);
-    });
+  //   it("merges correctly with an empty current state", () => {
+  //     expect(mergeCollectionInfos([], collectionInfos)).toEqual([
+  //       cI3June,
+  //       cI5June,
+  //       cI10June,
+  //     ]);
+  //   });
 
-    it("dedupes", () => {
-      expect(mergeCollectionInfos(collectionInfos, collectionInfos2)).toEqual([
-        cI3June,
-        cI5June,
-        cI10June,
-      ]);
-    });
+  //   it("dedupes", () => {
+  //     expect(mergeCollectionInfos(collectionInfos, collectionInfos2)).toEqual([
+  //       cI3June,
+  //       cI5June,
+  //       cI10June,
+  //     ]);
+  //   });
 
-    it("sorts", () => {
-      expect(mergeCollectionInfos(collectionInfos, collectionInfos)).toEqual([
-        cI3June,
-        cI5June,
-        cI10June,
-      ]);
-    });
+  //   it("sorts", () => {
+  //     expect(mergeCollectionInfos(collectionInfos, collectionInfos)).toEqual([
+  //       cI3June,
+  //       cI5June,
+  //       cI10June,
+  //     ]);
+  //   });
 
-    it("removes collections in the past", () => {
-      expect(mergeCollectionInfos([...collectionInfos, cI27May], [])).toEqual([
-        cI3June,
-        cI5June,
-        cI10June,
-      ]);
-    });
+  //   it("removes collections in the past", () => {
+  //     expect(mergeCollectionInfos([...collectionInfos, cI27May], [])).toEqual([
+  //       cI3June,
+  //       cI5June,
+  //       cI10June,
+  //     ]);
+  //   });
 
-    it("keeps collections for today", () => {
-      advanceTo(may27);
-      expect(mergeCollectionInfos([...collectionInfos, cI27May], [])).toEqual([
-        cI27May,
-        cI3June,
-        cI5June,
-        cI10June,
-      ]);
-    });
+  //   it("keeps collections for today", () => {
+  //     advanceTo(may27);
+  //     expect(mergeCollectionInfos([...collectionInfos, cI27May], [])).toEqual([
+  //       cI27May,
+  //       cI3June,
+  //       cI5June,
+  //       cI10June,
+  //     ]);
+  //   });
 
-    it("copes with bad dates", () => {
-      expect(
-        mergeCollectionInfos([...collectionInfos, cIbadDate], [])
-      ).toEqual([cI3June, cI5June, cI10June]);
-    });
-  });
+  //   it("copes with bad dates", () => {
+  //     expect(
+  //       mergeCollectionInfos([...collectionInfos, cIbadDate], [])
+  //     ).toEqual([cI3June, cI5June, cI10June]);
+  //   });
+  // });
 });

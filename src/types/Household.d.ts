@@ -10,3 +10,8 @@ type Household = {
   Postcode?: string;
   CollectionPoint?: string;
 };
+
+type NewHousehold = {
+  address: string;
+  uprn: string;
+};

@@ -53,12 +53,13 @@ module.exports = {
   },
   overrides: [
     {
-      files: ["*.ts"],
+      files: ["*.tsx?"],
       rules: {
         "no-unused-vars": "off",
         "no-undef": "off",
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off",
         "@typescript-eslint/no-unused-vars": [
           "error",
           { argsIgnorePattern: "^_" },

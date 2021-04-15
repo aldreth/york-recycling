@@ -49,7 +49,7 @@ export async function handler(event, context) {
       title: getTitle(j.service),
       service: j.service,
       nextCollection: j.nextCollection,
-      frequency: j.frequency.toLowerCase(),
+      frequency: j.frequency,
       binDescription: j.binDescription.toLowerCase(),
       wasteType: j.wasteType,
       collectionLocation: locationJson.collectionLocation,
