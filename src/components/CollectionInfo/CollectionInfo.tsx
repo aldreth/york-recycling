@@ -32,8 +32,11 @@ const CollectionInfoComponent = ({
     <div className="collection">
       <Card className={classes}>
         <div className="card_title">
-          <h4>{collectionInfo.title}</h4>
-          <h5>Next collection: {formattedDate(collectionInfo.timestamp)}</h5>
+          <div className="left">{collectionInfo.icon}</div>
+          <div className="right">
+            <h4>{collectionInfo.title}</h4>
+            <h5>Next collection: {formattedDate(collectionInfo.timestamp)}</h5>
+          </div>
         </div>
         <div className="card_body">
           <ul>
