@@ -15,17 +15,17 @@ interface PostcodePayload {
 }
 
 interface HouseholdPayload {
-  household: Household;
+  household: NewHousehold;
 }
 
 interface HouseholdsDataState {
   householdData: {
     fetched: boolean;
-    households: Household[];
+    households: NewHousehold[];
   };
 }
 interface HouseholdState {
-  household: Household;
+  household: NewHousehold;
 }
 interface CollectionInfoDataState {
   collectionInfoData: {
@@ -40,9 +40,9 @@ type CollectionInfoSliceState = PostcodeState &
   CollectionInfoDataState;
 
 const postcodeInitialState: PostcodeState = { postcode: "" };
-const householdInitialState: Household = {
-  Uprn: undefined,
-  ShortAddress: "",
+const householdInitialState: NewHousehold = {
+  uprn: "",
+  address: "",
 };
 const householdsDataInitialState: HouseholdsDataState = {
   householdData: {

@@ -24,7 +24,7 @@ const HouseholdSelect = (): JSX.Element => {
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const selectedHousehold = householdsData.households.find(
-      (h) => h.Uprn && h.Uprn.toString() === e.target.value
+      (h) => h.uprn && h.uprn.toString() === e.target.value
     );
     if (selectedHousehold) {
       dispatch(setHousehold({ household: selectedHousehold }));
@@ -40,7 +40,7 @@ const HouseholdSelect = (): JSX.Element => {
       {
         // eslint-disable-next-line
       }<select
-        value={selectedHousehold.Uprn}
+        value={selectedHousehold.uprn}
         onChange={handleChange}
         className="household-select"
         disabled={!householdsData.fetched}
@@ -48,8 +48,8 @@ const HouseholdSelect = (): JSX.Element => {
       >
         <option value="">Choose...</option>
         {householdsData.households.map((household, idx) => (
-          <option value={household.Uprn} key={idx}>
-            {household.ShortAddress}
+          <option value={household.uprn} key={idx}>
+            {household.address}
           </option>
         ))}
       </select>

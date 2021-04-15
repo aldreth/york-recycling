@@ -12,32 +12,26 @@ const householdsUrl = (postCode: string): string =>
 const collectionsUrl = (uprn: string): string =>
   `${baseUrl}/getWasteCollectionDatabyUprn?uprn=${uprn}`;
 
-const setTimestampToMidnight = (timestamp: number) => {
-  const date = new Date(timestamp);
-  date.setHours(0, 0, 0, 0);
-  return date.getTime();
-};
-
 const parseCollectionDtos = (
-  collectionInfo: CollectionInfoDto[]
+  collectionInfo: NewCollectionInfoDto[]
 ): CollectionInfo[] =>
   collectionInfo.map((e, idx) => {
-    const matches = /\/Date\((\d*)\)\//.exec(e.NextCollection);
-    let timestamp = Array.isArray(matches) ? parseInt(matches[1]) : -1;
-    if (timestamp !== -1) {
-      timestamp = setTimestampToMidnight(timestamp);
+    let timestamp = Date.parse(e.nextCollection);
+    if (!timestamp) {
+      timestamp = -1;
     }
+
     return {
-      wasteTypeDescription: `${e.WasteTypeDescription || ""}`,
-      collectionDay: `${e.CollectionDayFull || ""}`,
-      collectionFrequency: `${e.CollectionFrequency || ""}`,
-      collectionPoint: `${
-        e.CollectionPointLocation || e.CollectionPointDescription || ""
-      }`,
-      binDescription: `${e.NumberOfBins || ""} x ${e.BinTypeDescription || ""}`,
-      wasteType: `${e.WasteType || ""}`,
+      wasteTypeDescription: `${e.service || ""}`,
+      service: e.service,
+      title: e.title,
+      collectionDay: `${e.frequency || ""}`,
+      collectionFrequency: `${e.frequency || ""}`,
+      collectionPoint: `${e.collectionLocation || ""}`,
+      binDescription: `${e.binDescription || ""}`,
+      wasteType: `${e.wasteType || ""}`,
       timestamp,
-      key: `${timestamp}-${e.WasteType?.replace(/\s+/g, "-") || idx}`,
+      key: `${timestamp}-${e.wasteType?.replace(/\s+/g, "-") || idx}`,
     };
   });
 

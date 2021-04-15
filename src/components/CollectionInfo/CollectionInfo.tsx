@@ -23,36 +23,38 @@ const CollectionInfoComponent = ({
   collectionInfo: CollectionInfo;
 }) => {
   const classes = classnames({
-    "card--gray": collectionInfo.wasteType === "KERBSIDE",
-    "card--green": collectionInfo.wasteType === "GREEN",
-    "card--black": collectionInfo.wasteType === "GREY BIN/SACK",
+    "card--gray": collectionInfo.service === "RECYCLING",
+    "card--green": collectionInfo.service === "GARDEN",
+    "card--black": collectionInfo.service === "REFUSE",
   });
 
   return (
     <div className="collection">
       <Card className={classes}>
         <div className="card_title">
-          <h4>{collectionInfo.wasteTypeDescription}</h4>
+          <h4>{collectionInfo.title}</h4>
           <h5>Next collection: {formattedDate(collectionInfo.timestamp)}</h5>
         </div>
         <div className="card_body">
           <ul>
             <li>
-              <span className="strong">Collection day:</span>{" "}
+              <span className="strong">Waste type:</span>{" "}
+              <span>{collectionInfo.wasteType}</span>
+            </li>
+            <li>
+              <span className="strong">Collection:</span>{" "}
               <span>{collectionInfo.collectionDay}</span>
-            </li>
-            <li>
-              <span className="strong">Collection frequency:</span>{" "}
-              <span>{collectionInfo.collectionFrequency}</span>
-            </li>
-            <li>
-              <span className="strong">Where we will collect:</span>{" "}
-              <span>{collectionInfo.collectionPoint}</span>
             </li>
             <li>
               <span className="strong">Bin description:</span>{" "}
               <span>{collectionInfo.binDescription}</span>
             </li>
+            {collectionInfo.collectionPoint.length > 0 && (
+              <li>
+                <span className="strong">Waste collected from:</span>{" "}
+                <span>{collectionInfo.collectionPoint}</span>
+              </li>
+            )}
           </ul>
         </div>
       </Card>
@@ -63,20 +65,20 @@ const CollectionInfoComponent = ({
 const CollectionInfos = (): JSX.Element => {
   const {
     collectionInfoData,
-    household: { Uprn },
+    household: { uprn },
   } = useSelector((state: RootState) => state.collectionInfo);
 
   const dispatch = useDispatch();
 
   // Fetch collection information using household uprn
   useEffect(() => {
-    if (!Uprn) {
+    if (!uprn) {
       return;
     }
 
-    dispatch(fetchCollectionsInfo(Uprn));
+    dispatch(fetchCollectionsInfo(uprn));
     track({ id: "collectionInfoData-fetched" });
-  }, [dispatch, Uprn]);
+  }, [dispatch, uprn]);
 
   return (
     <div className="collections">

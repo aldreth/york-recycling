@@ -43,7 +43,19 @@ type CollectionInfoDto = {
   CollectionDayOfWeek: number | null;
 };
 
+type NewCollectionInfoDto = {
+  service: string;
+  nextCollection: string;
+  frequency: string;
+  binDescription: string;
+  wasteType: string;
+  collectionLocation: string;
+  title: string;
+};
+
 type CollectionInfo = {
+  service: string;
+  title: string;
   wasteTypeDescription: string;
   wasteType: string;
   collectionDay: string;
