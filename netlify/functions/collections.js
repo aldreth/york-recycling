@@ -1,9 +1,9 @@
 import fetch from "node-fetch";
 
 const COLLECTION_DETAILS_API_ENDPOINT =
-  "https://cyc-myaccount-live.azurewebsites.net/api/bins/GetCollectionDetails/";
+  "https://waste-api.york.gov.uk/api/GetBinCollectionDataForUprn/";
 const COLLECTION_LOCATION_API_ENDPOINT =
-  "https://myaccount-api.york.gov.uk/api/bins/GetCollectionLocation/";
+  "https://waste-api.york.gov.uk/api/GetBinCollectionLocationForUprn/";
 
 const getIcon = (service) => {
   let icon;
