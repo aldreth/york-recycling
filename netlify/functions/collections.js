@@ -62,6 +62,8 @@ export async function handler(event, context) {
     );
     const locationJson = await locationResponse.json();
 
+    console.log("************", { detailsJson, locationJson });
+
     const collections = detailsJson.services.map((j) => ({
       title: getTitle(j.service),
       icon: getIcon(j.service),
