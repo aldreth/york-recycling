@@ -11,6 +11,7 @@ export const recyclingApi = createApi({
         method: "POST",
         body: { postcode },
       }),
+      keepUnusedDataFor: 86_400, // 1 day
       // providesTags: (result, error, postcode) =>
       //   result
       //     ? [
