@@ -109,29 +109,6 @@ const mergeCollectionInfos = (
     .sort((a, b) => a.timestamp - b.timestamp);
 };
 
-const isRTKQueryReady = (
-  isLoading: boolean,
-  isUninitialized: boolean,
-  isFetching: boolean
-): boolean => !isLoading && !isUninitialized && !isFetching;
-
-const isRTKQueryNotReady = (
-  isLoading: boolean,
-  isUninitialized: boolean,
-  isFetching: boolean
-): boolean => !isRTKQueryReady(isLoading, isUninitialized, isFetching);
-
-const noneFound = (isReady: boolean, data?: NewHousehold[]): boolean => {
-  if (!isReady) {
-    return false;
-  }
-  if (data === undefined || data.length === 0) {
-    return true;
-  }
-
-  return false;
-};
-
 export {
   householdsUrl,
   collectionsUrl,
@@ -143,7 +120,4 @@ export {
   formattedDate,
   isToday,
   isTomorrow,
-  isRTKQueryReady,
-  isRTKQueryNotReady,
-  noneFound,
 };

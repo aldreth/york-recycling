@@ -2,13 +2,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { mergeCollectionInfos } from "utils";
 
-import {
-  fetchHouseholdData,
-  fetchCollectionsInfo,
-} from "./collectionInfoThunks";
+import { fetchCollectionsInfo } from "./collectionInfoThunks";
 
 interface PostcodeState {
   postcode: string;
+  normalizedPostcode: string;
 }
 interface PostcodePayload {
   postcode: string;
@@ -39,7 +37,10 @@ type CollectionInfoSliceState = PostcodeState &
   HouseholdState &
   CollectionInfoDataState;
 
-const postcodeInitialState: PostcodeState = { postcode: "" };
+const postcodeInitialState: PostcodeState = {
+  postcode: "",
+  normalizedPostcode: "",
+};
 const householdInitialState: NewHousehold = {
   uprn: "",
   address: "",
@@ -72,6 +73,9 @@ const collectionInfoSlice = createSlice({
     setPostcode(state, action: PayloadAction<PostcodePayload>) {
       const { postcode } = action.payload;
       state.postcode = postcode;
+      state.normalizedPostcode = postcode
+        .toLocaleUpperCase()
+        .replace(/\s/g, "");
       state.household = householdInitialState;
       state.householdData = householdsDataInitialState.householdData;
       state.collectionInfoData =
@@ -83,20 +87,6 @@ const collectionInfoSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchHouseholdData.pending, (state) => {
-      state.householdData.fetched = false;
-    });
-    builder.addCase(fetchHouseholdData.fulfilled, (state, { payload }) => {
-      state.householdData.fetched = true;
-      if (payload) {
-        state.householdData.households = payload;
-      }
-    });
-    builder.addCase(fetchHouseholdData.rejected, (state) => {
-      state.householdData.fetched = true;
-      // TODO: Add error handling
-    });
-
     builder.addCase(fetchCollectionsInfo.pending, (state) => {
       state.collectionInfoData.fetched = false;
     });
