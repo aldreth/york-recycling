@@ -17,7 +17,7 @@ import { RootState, rootReducer } from "reducers";
 
 const persistConfig = {
   key: "root",
-  version: 4,
+  version: 5,
   storage,
 };
 
