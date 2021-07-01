@@ -1,32 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { RootState } from "reducers";
-import { postCodeValidatorRegEx, parseCollectionDtos } from "utils";
-
-const fetchHouseholdData = createAsyncThunk(
-  "collectionInfo/fetchHouseholdData",
-  async (postcode: string, thunkApi): Promise<NewHousehold[] | undefined> => {
-    const state = thunkApi.getState() as RootState;
-    const fetched = state.collectionInfo.householdData.fetched;
-
-    if (!postcode || !postCodeValidatorRegEx.exec(postcode) || fetched) {
-      return;
-    }
-
-    const body = JSON.stringify({ postcode: postcode });
-    const result = await fetch(".netlify/functions/addresses", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body,
-    });
-
-    const households: NewHousehold[] = (await result.json()) as NewHousehold[];
-    //eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return households;
-  }
-);
+import { parseCollectionDtos } from "utils";
 
 const fetchCollectionsInfo = createAsyncThunk(
   "collectionInfo/fetchCollectionsInfo",
@@ -47,4 +21,4 @@ const fetchCollectionsInfo = createAsyncThunk(
   }
 );
 
-export { fetchHouseholdData, fetchCollectionsInfo };
+export { fetchCollectionsInfo };

@@ -8,6 +8,7 @@ import {
   formattedDate,
   parseCollectionDtos,
   mergeCollectionInfos,
+  noneFound,
 } from "./utils";
 
 const baseUrl = "https://doitonline.york.gov.uk/BinsApi/EXOR";
@@ -405,4 +406,44 @@ describe("utils", () => {
   //     ).toEqual([cI3June, cI5June, cI10June]);
   //   });
   // });
+
+  describe("notFound", () => {
+    describe("notReady", () => {
+      it("data undefined", () => {
+        expect(noneFound(false, undefined)).toEqual(false);
+      });
+
+      it("data empty", () => {
+        expect(noneFound(false, [])).toEqual(false);
+      });
+
+      it("with data", () => {
+        expect(
+          noneFound(false, [
+            { uprn: "uprn", address: "address" },
+            { uprn: "uprn1", address: "address1" },
+          ])
+        ).toEqual(false);
+      });
+    });
+
+    describe("ready", () => {
+      it("data undefined", () => {
+        expect(noneFound(true, undefined)).toEqual(true);
+      });
+
+      it("data empty", () => {
+        expect(noneFound(true, [])).toEqual(true);
+      });
+
+      it("with data", () => {
+        expect(
+          noneFound(true, [
+            { uprn: "uprn", address: "address" },
+            { uprn: "uprn1", address: "address1" },
+          ])
+        ).toEqual(false);
+      });
+    });
+  });
 });

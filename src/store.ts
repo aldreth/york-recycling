@@ -1,9 +1,5 @@
-import {
-  Action,
-  configureStore,
-  getDefaultMiddleware,
-  ThunkAction,
-} from "@reduxjs/toolkit";
+import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
+import { setupListeners } from "@reduxjs/toolkit/query";
 import {
   FLUSH,
   PAUSE,
@@ -16,6 +12,7 @@ import {
 // eslint-disable-next-line import/no-unresolved
 import storage from "redux-persist/lib/storage";
 
+import { recyclingApi } from "api/recyclingApi";
 import { RootState, rootReducer } from "reducers";
 
 const persistConfig = {
@@ -28,12 +25,15 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
   reducer: persistedReducer,
-  middleware: getDefaultMiddleware({
-    serializableCheck: {
-      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-    },
-  }),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }).concat(recyclingApi.middleware),
 });
+
+setupListeners(store.dispatch);
 
 export type AppDispatch = typeof store.dispatch;
 
