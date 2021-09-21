@@ -15,7 +15,7 @@
     "babel-eslint": "10.1.0",
     "classnames": "2.3.1",
     "eslint-config-react-app": "6.0.0",
-    "eslint-plugin-react": "7.25.3",
+    "eslint-plugin-react": "7.26.0",
     "eslint-plugin-react-hooks": "4.2.0",
     "insights-js": "1.2.10",
     "node-fetch": "3.0.0",
