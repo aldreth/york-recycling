@@ -67,7 +67,7 @@
     "eslint-plugin-prettier": "4.0.0",
     "eslint-plugin-testing-library": "5.0.0",
     "jest-date-mock": "1.0.8",
-    "netlify-cli": "^8.0.5",
+    "netlify-cli": "^8.0.10",
     "prettier": "2.5.0"
   }
 }
