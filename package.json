@@ -18,7 +18,7 @@
     "eslint-plugin-react": "7.29.3",
     "eslint-plugin-react-hooks": "4.3.0",
     "insights-js": "1.2.11",
-    "node-fetch": "3.2.1",
+    "node-fetch": "3.2.2",
     "normalize.css": "8.0.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
