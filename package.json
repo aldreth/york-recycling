@@ -16,7 +16,7 @@
     "classnames": "2.3.1",
     "eslint-config-react-app": "6.0.0",
     "eslint-plugin-react": "7.29.4",
-    "eslint-plugin-react-hooks": "4.4.0",
+    "eslint-plugin-react-hooks": "4.5.0",
     "insights-js": "1.2.11",
     "node-fetch": "3.2.3",
     "normalize.css": "8.0.1",
