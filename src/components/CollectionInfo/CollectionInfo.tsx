@@ -1,9 +1,9 @@
 import classnames from "classnames";
 import { track } from "insights-js";
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { RootState } from "reducers";
+import { RootState, useAppDispatch } from "reducers";
 import { fetchCollectionsInfo } from "slices/collectionInfoThunks";
 import { formattedDate } from "utils";
 
@@ -71,7 +71,7 @@ const CollectionInfos = (): JSX.Element => {
     household: { uprn },
   } = useSelector((state: RootState) => state.collectionInfo);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   // Fetch collection information using household uprn
   useEffect(() => {
@@ -79,7 +79,7 @@ const CollectionInfos = (): JSX.Element => {
       return;
     }
 
-    dispatch(fetchCollectionsInfo(uprn));
+    void dispatch(fetchCollectionsInfo(uprn));
     track({ id: "collectionInfoData-fetched" });
   }, [dispatch, uprn]);
 

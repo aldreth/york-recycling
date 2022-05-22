@@ -9,7 +9,6 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:jsx-a11y/strict",
-    "plugin:jest/recommended",
     "plugin:prettier/recommended",
     // must be last to allow it to override other configs
     "prettier",
