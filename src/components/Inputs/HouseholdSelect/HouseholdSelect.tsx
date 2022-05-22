@@ -36,7 +36,13 @@ const HouseholdSelect = (): JSX.Element => {
   };
 
   if (error) {
-    return <div>Something's gone wrong {error}</div>;
+    let message = "";
+    if ("status" in error) {
+      message = `status: ${error.status}`;
+    } else {
+      message = error.message ?? "";
+    }
+    return <div>Something's gone wrong: {message}</div>;
   }
 
   if (noneFound(isReady, data)) {
