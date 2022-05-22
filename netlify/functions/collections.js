@@ -1,9 +1,9 @@
 import fetch from "node-fetch";
 
 const COLLECTION_DETAILS_API_ENDPOINT =
-  "https://waste-api.york.gov.uk/api/GetBinCollectionDataForUprn/";
+  "https://waste-api.york.gov.uk/api/Collections/GetBinCollectionDataForUprn/";
 const COLLECTION_LOCATION_API_ENDPOINT =
-  "https://waste-api.york.gov.uk/api/GetBinCollectionLocationForUprn/";
+  "https://waste-api.york.gov.uk/api/Collections/GetBinCollectionLocationForUprn/";
 
 const getIcon = (service) => {
   let icon;
