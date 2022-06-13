@@ -55,7 +55,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "5.16.4",
     "@testing-library/react": "13.3.0",
-    "@typescript-eslint/eslint-plugin": "5.27.1",
+    "@typescript-eslint/eslint-plugin": "5.28.0",
     "@typescript-eslint/parser": "5.27.1",
     "depcheck": "1.4.3",
     "eslint-config-prettier": "8.5.0",
