@@ -63,7 +63,7 @@
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-jest": "26.5.3",
     "eslint-plugin-jsx-a11y": "6.6.0",
-    "eslint-plugin-prettier": "4.1.0",
+    "eslint-plugin-prettier": "4.2.1",
     "eslint-plugin-testing-library": "5.5.1",
     "jest-date-mock": "1.0.8",
     "netlify-cli": "10.3.1",
