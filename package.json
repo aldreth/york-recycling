@@ -6,7 +6,7 @@
   "private": true,
   "dependencies": {
     "@reach/dialog": "0.18.0",
-    "@reduxjs/toolkit": "1.9.0",
+    "@reduxjs/toolkit": "1.9.1",
     "@types/jest": "29.2.3",
     "@types/node": "18.11.10",
     "@types/react": "18.0.25",
