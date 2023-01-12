@@ -6,7 +6,7 @@ const Footer = (): JSX.Element => {
   return (
     <footer className="footer">
       <div>
-        <p>No cookies are set</p>
+        <p>This website doesn't use cookies</p>
         <p>
           Made by <a href="https://aldreth.com">Edward Andrews-Hodgson</a>{" "}
           <a
