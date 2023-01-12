@@ -1,20 +1,12 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-
-import { toggleOpen } from "components/CookieDialog/cookieDialogSlice";
 
 import "./Footer.css";
 
 const Footer = (): JSX.Element => {
-  const dispatch = useDispatch();
   return (
     <footer className="footer">
       <div>
-        <p>
-          <button className="link" onClick={() => dispatch(toggleOpen())}>
-            Find out about cookies
-          </button>
-        </p>
+        <p>No cookies are set</p>
         <p>
           Made by <a href="https://aldreth.com">Edward Andrews-Hodgson</a>{" "}
           <a
