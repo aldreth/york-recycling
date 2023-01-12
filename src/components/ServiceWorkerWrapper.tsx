@@ -44,7 +44,7 @@ const ServiceWorkerWrapper: FC = () => {
   // };
 
   return (
-    <div>something</div>
+    <></>
     // <Dialog
     //   isOpen={open}
     //   onDismiss={reloadPage}
