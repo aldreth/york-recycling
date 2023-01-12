@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { advanceTo, clear } from "jest-date-mock";
 
 import {
@@ -447,3 +448,5 @@ describe("utils", () => {
     });
   });
 });
+
+/* eslint-enable */
