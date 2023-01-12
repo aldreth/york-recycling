@@ -41,12 +41,7 @@ import { toggleOpen } from "./cookieDialogSlice";
 // };
 
 const CookieDialog = (): JSX.Element => {
-
-  return (
-    <div    >No cookies are used
-    </div>
-  );
+  return <div>No cookies are used</div>;
 };
-
 
 export default CookieDialog;
