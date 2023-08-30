@@ -19,7 +19,9 @@ const Footer = (): JSX.Element => {
       </div>
       <div className="thanks">
         Thanks to the City of York for leaving the apis used by their{" "}
-        <a href="https://bincollections.azurewebsites.net/">original site</a>{" "}
+        <a href="https://myaccount.york.gov.uk/bin-collections">
+          original site
+        </a>{" "}
         open for reuse.
       </div>
     </footer>
