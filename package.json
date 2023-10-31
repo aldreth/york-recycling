@@ -7,7 +7,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "1.9.7",
     "@types/jest": "29.5.7",
-    "@types/node": "20.8.9",
+    "@types/node": "20.8.10",
     "@types/react": "18.2.33",
     "@types/react-dom": "18.2.14",
     "babel-eslint": "10.1.0",
